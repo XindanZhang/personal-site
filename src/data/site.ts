@@ -2,8 +2,7 @@ export const site = {
   name: "Xindan Zhang",
   tagline: "PhD student",
   brand: "Xindan Zhang",
-  intro:
-    "I build research-driven systems and playful tools. This site is a tiny command center for my work.",
+  intro: "",
   location: "Toronto, Canada",
   status: "Online",
   focus: "Networking and distributed systems",

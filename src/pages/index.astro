@@ -74,9 +74,11 @@ const year = new Date().getFullYear();
 
       <p class="tagline">{site.tagline}</p>
 
-      <p class="description">
-        {site.intro}
-      </p>
+      {site.intro ? (
+        <p class="description">
+          {site.intro}
+        </p>
+      ) : null}
 
       <div class="cta-row">
         <a class="cta primary" href={site.links.email}>Email</a>
