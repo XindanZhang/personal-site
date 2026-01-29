@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
             </linearGradient>
           </defs>
 
-          <g id="cluster">
+          <g id="cluster-shape">
             <circle cx="60" cy="60" r="46" stroke="var(--cyan-bright)" stroke-opacity="0.35" stroke-width="2" class="ring"/>
 
             <!-- Connectors -->
@@ -64,9 +64,42 @@ const year = new Date().getFullYear();
             <polygon points="60 98 72 92 72 106 60 112" fill="url(#pixel-front)" />
           </g>
 
-          <use href="#cluster" />
-          <use href="#cluster" transform="translate(120 0)" />
-          <use href="#cluster" transform="translate(240 0)" />
+          <g>
+            <use href="#cluster-shape" />
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="0 60 60"
+              to="360 60 60"
+              dur="16s"
+              repeatCount="indefinite"
+            />
+          </g>
+          <g>
+            <use href="#cluster-shape" transform="translate(120 0)" />
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="0 180 60"
+              to="-360 180 60"
+              dur="18s"
+              repeatCount="indefinite"
+            />
+          </g>
+          <g>
+            <use href="#cluster-shape" transform="translate(240 0)" />
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="0 300 60"
+              to="360 300 60"
+              dur="20s"
+              repeatCount="indefinite"
+            />
+          </g>
         </svg>
       </div>
 
@@ -152,7 +185,7 @@ const year = new Date().getFullYear();
     </section>
 
     <footer class="footer">
-      © {year} {site.name}. Built with Astro.
+      © {year} {site.name}. Built with love.
     </footer>
   </main>
 </BaseLayout>
