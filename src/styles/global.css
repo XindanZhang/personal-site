@@ -154,8 +154,8 @@ img {
 }
 
 .bot-icon {
-  width: 96px;
-  height: 96px;
+  width: min(860px, 100%);
+  height: auto;
   margin: 0 auto 24px;
   animation: float 4s ease-in-out infinite;
   cursor: pointer;

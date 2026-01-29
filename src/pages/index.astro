@@ -20,7 +20,7 @@ const year = new Date().getFullYear();
 
     <header class="hero">
       <div class="bot-icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 360 120" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="pixel-top" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="var(--coral-bright)"/>
@@ -36,35 +36,37 @@ const year = new Date().getFullYear();
             </linearGradient>
           </defs>
 
-          <circle cx="60" cy="60" r="46" stroke="var(--cyan-bright)" stroke-opacity="0.35" stroke-width="2" class="ring"/>
+          <g id="cluster">
+            <circle cx="60" cy="60" r="46" stroke="var(--cyan-bright)" stroke-opacity="0.35" stroke-width="2" class="ring"/>
 
-          <!-- Connectors -->
-          <path d="M32 44 L60 30 L88 44" stroke="var(--cyan-bright)" stroke-opacity="0.6" stroke-width="2" />
-          <path d="M32 76 L60 90 L88 76" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
-          <path d="M32 44 L32 76" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
-          <path d="M88 44 L88 76" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
-          <path d="M60 30 L60 60" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
+            <!-- Connectors -->
+            <path d="M32 44 L60 30 L88 44" stroke="var(--cyan-bright)" stroke-opacity="0.6" stroke-width="2" />
+            <path d="M32 76 L60 90 L88 76" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
+            <path d="M32 44 L32 76" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
+            <path d="M88 44 L88 76" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
+            <path d="M60 30 L60 60" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" />
 
-          <!-- Pixel cubes (isometric-ish) -->
-          <!-- Top node -->
-          <polygon points="60 22 72 28 60 34 48 28" fill="url(#pixel-top)" />
-          <polygon points="48 28 60 34 60 48 48 42" fill="url(#pixel-side)" />
-          <polygon points="60 34 72 28 72 42 60 48" fill="url(#pixel-front)" />
+            <!-- Pixel cubes (isometric-ish) -->
+            <polygon points="60 22 72 28 60 34 48 28" fill="url(#pixel-top)" />
+            <polygon points="48 28 60 34 60 48 48 42" fill="url(#pixel-side)" />
+            <polygon points="60 34 72 28 72 42 60 48" fill="url(#pixel-front)" />
 
-          <!-- Left node -->
-          <polygon points="28 46 40 52 28 58 16 52" fill="url(#pixel-top)" />
-          <polygon points="16 52 28 58 28 72 16 66" fill="url(#pixel-side)" />
-          <polygon points="28 58 40 52 40 66 28 72" fill="url(#pixel-front)" />
+            <polygon points="28 46 40 52 28 58 16 52" fill="url(#pixel-top)" />
+            <polygon points="16 52 28 58 28 72 16 66" fill="url(#pixel-side)" />
+            <polygon points="28 58 40 52 40 66 28 72" fill="url(#pixel-front)" />
 
-          <!-- Right node -->
-          <polygon points="92 46 104 52 92 58 80 52" fill="url(#pixel-top)" />
-          <polygon points="80 52 92 58 92 72 80 66" fill="url(#pixel-side)" />
-          <polygon points="92 58 104 52 104 66 92 72" fill="url(#pixel-front)" />
+            <polygon points="92 46 104 52 92 58 80 52" fill="url(#pixel-top)" />
+            <polygon points="80 52 92 58 92 72 80 66" fill="url(#pixel-side)" />
+            <polygon points="92 58 104 52 104 66 92 72" fill="url(#pixel-front)" />
 
-          <!-- Bottom node -->
-          <polygon points="60 86 72 92 60 98 48 92" fill="url(#pixel-top)" />
-          <polygon points="48 92 60 98 60 112 48 106" fill="url(#pixel-side)" />
-          <polygon points="60 98 72 92 72 106 60 112" fill="url(#pixel-front)" />
+            <polygon points="60 86 72 92 60 98 48 92" fill="url(#pixel-top)" />
+            <polygon points="48 92 60 98 60 112 48 106" fill="url(#pixel-side)" />
+            <polygon points="60 98 72 92 72 106 60 112" fill="url(#pixel-front)" />
+          </g>
+
+          <use href="#cluster" />
+          <use href="#cluster" transform="translate(120 0)" />
+          <use href="#cluster" transform="translate(240 0)" />
         </svg>
       </div>
 
