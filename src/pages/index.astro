@@ -1,17 +1,131 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
 
+const year = new Date().getFullYear();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={`${site.name} · ${site.brand}`} description={`${site.name} — ${site.tagline}.`}>
+  <div class="stars"></div>
+  <div class="nebula"></div>
+
+  <main class="container">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand">{site.brand}</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="bot-icon" aria-hidden="true">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bot-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--coral-bright)"/>
+              <stop offset="100%" stop-color="var(--coral-dark)"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="38" fill="url(#bot-gradient)" class="bot-core"/>
+          <circle cx="60" cy="60" r="46" stroke="var(--cyan-bright)" stroke-opacity="0.4" stroke-width="2" class="ring"/>
+          <path d="M38 26 Q30 18 24 20" stroke="var(--coral-bright)" stroke-width="2" stroke-linecap="round" class="antenna"/>
+          <path d="M82 26 Q90 18 96 20" stroke="var(--coral-bright)" stroke-width="2" stroke-linecap="round" class="antenna"/>
+          <circle cx="46" cy="58" r="6" fill="var(--bg-deep)"/>
+          <circle cx="74" cy="58" r="6" fill="var(--bg-deep)"/>
+          <circle cx="47" cy="57" r="2" fill="var(--cyan-bright)" class="eye-glow"/>
+          <circle cx="75" cy="57" r="2" fill="var(--cyan-bright)" class="eye-glow"/>
+          <rect x="44" y="72" width="32" height="8" rx="4" fill="var(--bg-deep)"/>
+        </svg>
+      </div>
+
+      <h1 class="title">
+        <span class="title-main">{site.name}</span>
+      </h1>
+
+      <p class="tagline">{site.tagline}</p>
+
+      <p class="description">
+        {site.intro}
+      </p>
+
+      <div class="cta-row">
+        <a class="cta primary" href={site.links.email}>Email</a>
+        <a class="cta ghost" href={site.links.github} target="_blank" rel="noopener">GitHub</a>
+        <a class="cta ghost" href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </header>
+
+    <section id="about" class="section">
+      <div class="section-header">
+        <h2 class="section-title"><span class="claw-accent">⟩</span> About</h2>
+      </div>
+      <div class="about-grid">
+        <div class="panel">
+          <h3>Bio</h3>
+          <p>
+            Placeholder bio. Swap this with your story: what you research, what you build,
+            and what problems you want to solve next.
+          </p>
+          <div class="panel terminal-panel">
+            <div class="terminal-header">
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-title">xindanbot://status</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line">$ boot --role "{site.tagline}"</div>
+              <div class="terminal-line"><strong>ok</strong> · research mode active</div>
+              <div class="terminal-line">$ focus --topic "{site.focus}"</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel status-panel">
+          <div class="status-row"><span>status</span><span class="value">{site.status}</span></div>
+          <div class="status-row"><span>location</span><span class="value">{site.location}</span></div>
+          <div class="status-row"><span>focus</span><span class="value">{site.focus}</span></div>
+          <div class="status-row"><span>availability</span><span class="value">Open to collab</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-header">
+        <h2 class="section-title"><span class="claw-accent">⟩</span> Projects</h2>
+      </div>
+      <div class="projects-grid">
+        {site.projects.map((project) => (
+          <a
+            class={`project-card ${project.tag === "Featured" ? "featured" : ""}`}
+            href={project.url}
+            target={project.url === "#" ? "_self" : "_blank"}
+            rel={project.url === "#" ? undefined : "noopener"}
+          >
+            <div class="project-tag">{project.tag}</div>
+            <h3>{project.name}</h3>
+            <p>{project.description}</p>
+            <span class="project-link">View →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="panel contact-panel">
+        <h2 class="section-title" style="justify-content: center;">Contact</h2>
+        <p>Want to collaborate, swap ideas, or build something weird? Send a ping.</p>
+        <div class="cta-row" style="margin-top: 18px;">
+          <a class="cta primary" href={site.links.email}>Email</a>
+          <a class="cta ghost" href={site.links.github} target="_blank" rel="noopener">GitHub</a>
+          <a class="cta ghost" href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © {year} {site.name}. Built with Astro and a bot core.
+    </footer>
+  </main>
+</BaseLayout>
