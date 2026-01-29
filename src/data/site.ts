@@ -1,12 +1,12 @@
 export const site = {
   name: "Xindan Zhang",
   tagline: "PhD student",
-  brand: "XindanBot",
+  brand: "Xindan Zhang",
   intro:
     "I build research-driven systems and playful tools. This site is a tiny command center for my work.",
   location: "Toronto, Canada",
   status: "Online",
-  focus: "Systems + ML + tooling",
+  focus: "Networking and distributed systems",
   links: {
     email: "mailto:xindan.zhang@mail.utoronto.ca",
     github: "https://github.com/XindanZhang",
