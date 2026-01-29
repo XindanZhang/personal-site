@@ -20,7 +20,7 @@ const year = new Date().getFullYear();
 
     <header class="hero">
       <div class="bot-icon" aria-hidden="true">
-        <svg viewBox="0 0 360 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="pixel-top" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="var(--coral-bright)"/>
@@ -72,7 +72,7 @@ const year = new Date().getFullYear();
               type="rotate"
               from="0 60 60"
               to="360 60 60"
-              dur="16s"
+              dur="18s"
               repeatCount="indefinite"
             />
           </g>
@@ -83,7 +83,7 @@ const year = new Date().getFullYear();
               attributeType="XML"
               type="rotate"
               from="0 180 60"
-              to="-360 180 60"
+              to="360 180 60"
               dur="18s"
               repeatCount="indefinite"
             />
@@ -96,7 +96,31 @@ const year = new Date().getFullYear();
               type="rotate"
               from="0 300 60"
               to="360 300 60"
-              dur="20s"
+              dur="18s"
+              repeatCount="indefinite"
+            />
+          </g>
+          <g>
+            <use href="#cluster-shape" transform="translate(360 0)" />
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="0 420 60"
+              to="360 420 60"
+              dur="18s"
+              repeatCount="indefinite"
+            />
+          </g>
+          <g>
+            <use href="#cluster-shape" transform="translate(480 0)" />
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="0 540 60"
+              to="360 540 60"
+              dur="18s"
               repeatCount="indefinite"
             />
           </g>
