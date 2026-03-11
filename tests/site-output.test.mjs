@@ -41,9 +41,13 @@ test("build creates blog index and individual blog post pages", () => {
   assert.match(blogIndexHtml, /The day of the Jackal/);
   assert.match(blogIndexHtml, /Nextmini series/);
   assert.match(nextminiSeriesHtml, /Nextmini series/);
+  assert.match(nextminiSeriesHtml, /Official site/);
+  assert.match(nextminiSeriesHtml, /https:\/\/nextmini\.org\//);
   assert.match(nextminiSeriesHtml, /Nextmini notes/);
   assert.match(nextminiPostHtml, /Nextmini notes/);
   assert.match(nextminiPostHtml, /Part of the Nextmini series/);
+  assert.match(nextminiPostHtml, /Official site/);
+  assert.match(nextminiPostHtml, /https:\/\/nextmini\.org\//);
   assert.match(blogPostHtml, /Published September 27, 2024/);
   assert.doesNotMatch(blogIndexHtml, />XZ</);
   assert.doesNotMatch(blogPostHtml, />XZ</);

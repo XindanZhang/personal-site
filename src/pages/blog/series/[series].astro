@@ -49,6 +49,18 @@ const blogHref = `${baseUrl}blog/`;
       <p class="section-copy page-copy">
         Posts collected under one thread so it is easier to follow future updates.
       </p>
+      {series.posts[0]?.data.sourceUrl ? (
+        <div class="page-actions">
+          <a
+            class="button button-primary"
+            href={series.posts[0].data.sourceUrl}
+            target="_blank"
+            rel="noopener"
+          >
+            Official site
+          </a>
+        </div>
+      ) : null}
     </section>
 
     <div class="blog-grid">

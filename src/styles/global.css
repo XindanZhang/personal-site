@@ -378,6 +378,13 @@ a:focus-visible,
   margin-top: 26px;
 }
 
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
 .meta-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
