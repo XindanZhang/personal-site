@@ -34,6 +34,8 @@ test("build creates blog index and individual blog post pages", () => {
   assert.match(blogIndexHtml, /Create blog website using Jekyll/);
   assert.match(blogIndexHtml, /The day of the Jackal/);
   assert.match(blogPostHtml, /Published September 27, 2024/);
+  assert.doesNotMatch(blogIndexHtml, />XZ</);
+  assert.doesNotMatch(blogPostHtml, />XZ</);
 });
 
 test("home page highlights writing and no longer ships placeholder content", () => {
@@ -46,6 +48,7 @@ test("home page highlights writing and no longer ships placeholder content", () 
   assert.match(homePageHtml, /Mininet notes/);
   assert.match(homePageHtml, /Writing · Notes · Links/);
   assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
+  assert.doesNotMatch(homePageHtml, />XZ</);
   assert.doesNotMatch(homePageHtml, /Placeholder bio/);
   assert.doesNotMatch(homePageHtml, /Project Placeholder/);
   assert.doesNotMatch(homePageHtml, /Personal website/);

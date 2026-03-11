@@ -172,6 +172,7 @@ pre {
 }
 
 .brand-mark {
+  position: relative;
   display: inline-grid;
   place-items: center;
   width: 3rem;
@@ -181,11 +182,29 @@ pre {
   background:
     linear-gradient(135deg, rgba(243, 181, 98, 0.18), rgba(124, 226, 207, 0.12)),
     rgba(12, 22, 37, 0.94);
-  color: var(--accent-gold);
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+}
+
+.brand-mark::before {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, #fff7dc, var(--accent-gold) 42%, #d89036 100%);
+  box-shadow: 0 0 22px rgba(243, 181, 98, 0.35);
+}
+
+.brand-mark::after {
+  width: 1.55rem;
+  height: 0.24rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(124, 226, 207, 0.2), var(--accent-mint), rgba(124, 226, 207, 0.2));
+  transform: rotate(-38deg);
 }
 
 .brand-copy {
