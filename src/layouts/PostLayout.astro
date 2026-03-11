@@ -8,9 +8,11 @@ interface Props {
   description: string;
   publishedAt: Date;
   tags?: string[];
+  series?: string;
+  seriesHref?: string;
 }
 
-const { title, description, publishedAt, tags = [] } = Astro.props;
+const { title, description, publishedAt, tags = [], series, seriesHref } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const homeHref = baseUrl;
 const blogHref = `${baseUrl}blog/`;
@@ -42,6 +44,12 @@ const blogHref = `${baseUrl}blog/`;
       <p class="eyebrow">Published {formatBlogDate(publishedAt, "long")}</p>
       <h1 class="post-title">{title}</h1>
       <p class="post-summary">{description}</p>
+
+      {series && seriesHref ? (
+        <p class="series-link-line">
+          {`Part of the ${series} series.`} <a href={seriesHref}>Browse all posts</a>
+        </p>
+      ) : null}
 
       {tags.length > 0 ? (
         <ul class="tag-list" aria-label="Post tags">

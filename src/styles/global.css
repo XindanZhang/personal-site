@@ -556,7 +556,8 @@ a:focus-visible,
 
 .info-grid,
 .project-grid,
-.blog-grid {
+.blog-grid,
+.series-grid {
   display: grid;
   gap: 18px;
 }
@@ -566,13 +567,15 @@ a:focus-visible,
 }
 
 .project-grid,
-.blog-grid {
+.blog-grid,
+.series-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .info-card,
 .project-card,
-.blog-card {
+.blog-card,
+.series-card {
   position: relative;
   border: 1px solid var(--border-subtle);
   border-radius: 24px;
@@ -586,6 +589,7 @@ a:focus-visible,
 .info-card,
 .project-card,
 .blog-card,
+.series-card,
 .contact-band {
   transition:
     transform 0.24s ease,
@@ -596,6 +600,7 @@ a:focus-visible,
 .info-card:hover,
 .project-card:hover,
 .blog-card:hover,
+.series-card:hover,
 .contact-band:hover {
   transform: translateY(-4px);
   border-color: var(--border-strong);
@@ -606,13 +611,15 @@ a:focus-visible,
 }
 
 .project-card,
-.blog-card {
+.blog-card,
+.series-card {
   display: block;
   padding: 22px;
 }
 
 .project-card::after,
-.blog-card::after {
+.blog-card::after,
+.series-card::after {
   content: "";
   position: absolute;
   inset: 0 auto auto 0;
@@ -649,7 +656,8 @@ a:focus-visible,
 
 .project-card h3,
 .blog-card h2,
-.blog-card h3 {
+.blog-card h3,
+.series-card h2 {
   margin: 0 0 10px;
   font-family: var(--font-display);
   font-size: 1.45rem;
@@ -659,8 +667,27 @@ a:focus-visible,
 
 .project-card p,
 .blog-card p,
+.series-card p,
 .info-card p {
   margin: 0;
+}
+
+.series-link-line {
+  margin: 18px 0 0;
+  color: var(--accent-mint);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.series-link-line a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(124, 226, 207, 0.4);
+  text-underline-offset: 0.16em;
+}
+
+.section-tight {
+  margin-bottom: 28px;
 }
 
 .tag-list {
@@ -895,7 +922,8 @@ a:focus-visible,
   }
 
   .project-grid,
-  .blog-grid {
+  .blog-grid,
+  .series-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -938,6 +966,7 @@ a:focus-visible,
   .meta-strip,
   .project-grid,
   .blog-grid,
+  .series-grid,
   .info-grid {
     grid-template-columns: 1fr;
   }

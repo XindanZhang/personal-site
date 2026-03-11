@@ -18,6 +18,8 @@ test("build creates blog index and individual blog post pages", () => {
   buildSite();
 
   const blogIndexPath = resolve(rootDir, "docs", "blog", "index.html");
+  const nextminiSeriesPath = resolve(rootDir, "docs", "blog", "series", "nextmini", "index.html");
+  const nextminiPostPath = resolve(rootDir, "docs", "blog", "nextmini", "index.html");
   const blogPostPath = resolve(
     rootDir,
     "docs",
@@ -27,12 +29,21 @@ test("build creates blog index and individual blog post pages", () => {
   );
 
   assert.equal(existsSync(blogIndexPath), true);
+  assert.equal(existsSync(nextminiSeriesPath), true);
+  assert.equal(existsSync(nextminiPostPath), true);
   assert.equal(existsSync(blogPostPath), true);
 
   const blogIndexHtml = readFileSync(blogIndexPath, "utf8");
+  const nextminiSeriesHtml = readFileSync(nextminiSeriesPath, "utf8");
+  const nextminiPostHtml = readFileSync(nextminiPostPath, "utf8");
   const blogPostHtml = readFileSync(blogPostPath, "utf8");
   assert.match(blogIndexHtml, /Create blog website using Jekyll/);
   assert.match(blogIndexHtml, /The day of the Jackal/);
+  assert.match(blogIndexHtml, /Nextmini series/);
+  assert.match(nextminiSeriesHtml, /Nextmini series/);
+  assert.match(nextminiSeriesHtml, /Nextmini notes/);
+  assert.match(nextminiPostHtml, /Nextmini notes/);
+  assert.match(nextminiPostHtml, /Part of the Nextmini series/);
   assert.match(blogPostHtml, /Published September 27, 2024/);
   assert.doesNotMatch(blogIndexHtml, />XZ</);
   assert.doesNotMatch(blogPostHtml, />XZ</);
@@ -45,7 +56,7 @@ test("home page highlights writing and no longer ships placeholder content", () 
   const homePageHtml = readFileSync(homePagePath, "utf8");
 
   assert.match(homePageHtml, /Selected writing/);
-  assert.match(homePageHtml, /Mininet notes/);
+  assert.match(homePageHtml, /Nextmini notes/);
   assert.match(homePageHtml, /Writing · Notes · Links/);
   assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
   assert.match(homePageHtml, /cabinet-grotesk/);

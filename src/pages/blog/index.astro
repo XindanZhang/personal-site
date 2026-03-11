@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatBlogDate, getBlogPosts, getBlogSlug } from "../../data/blog";
+import { formatBlogDate, getBlogPosts, getBlogSeries, getBlogSlug } from "../../data/blog";
 import { site } from "../../data/site";
 
 const baseUrl = import.meta.env.BASE_URL;
 const homeHref = baseUrl;
 const blogHref = `${baseUrl}blog/`;
 const posts = await getBlogPosts();
+const seriesGroups = await getBlogSeries();
 ---
 
 <BaseLayout
@@ -41,6 +42,33 @@ const posts = await getBlogPosts();
         A small archive for technical notes, project writeups, and the occasional off-topic review.
       </p>
     </section>
+
+    {seriesGroups.length > 0 ? (
+      <section class="section section-tight">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Series</p>
+            <h2 class="section-title">Longer threads worth following</h2>
+          </div>
+          <p class="section-copy">
+            Grouped posts for topics that will keep growing over time.
+          </p>
+        </div>
+
+        <div class="series-grid">
+          {seriesGroups.map((series) => (
+            <a class="series-card" href={`${blogHref}series/${series.slug}/`}>
+              <div class="blog-card-meta">
+                <span>{series.posts.length} post{series.posts.length === 1 ? "" : "s"}</span>
+                <span>Series</span>
+              </div>
+              <h2>{series.name} series</h2>
+              <p>{series.posts[0].data.summary}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ) : null}
 
     <div class="blog-grid">
       {posts.map((post) => (

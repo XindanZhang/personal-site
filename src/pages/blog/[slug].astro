@@ -1,7 +1,7 @@
 ---
 import { render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
-import { getBlogPosts, getBlogSlug } from "../../data/blog";
+import { getBlogPosts, getBlogSlug, getSeriesSlug } from "../../data/blog";
 
 export async function getStaticPaths() {
   const posts = await getBlogPosts();
@@ -21,6 +21,10 @@ const { Content } = await render(post);
   description={post.data.summary}
   publishedAt={post.data.publishedAt}
   tags={post.data.tags}
+  series={post.data.series}
+  seriesHref={
+    post.data.series ? `${import.meta.env.BASE_URL}blog/series/${getSeriesSlug(post.data.series)}/` : undefined
+  }
 >
   <Content />
 </PostLayout>
