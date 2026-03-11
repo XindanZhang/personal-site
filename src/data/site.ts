@@ -1,33 +1,30 @@
 export const site = {
   name: "Xindan Zhang",
-  role: "PhD student in networking and distributed systems",
-  headline: "Building systems prototypes, research tools, and notes that stay useful.",
+  role: "Personal website",
+  headline: "A small home for writing, updates, and useful links.",
   intro:
-    "I work across networking, distributed systems, and agent tooling. I like turning rough research ideas into small, inspectable software that can be tested, shared, and extended.",
+    "This site collects blog posts, notes, and a few links I want to keep in one place.",
   location: "Toronto, Canada",
-  status: "Research mode active",
-  availability: "Open to collaborations on systems, tooling, and experiments",
+  status: "Online",
+  availability: "Reach out by email",
   focusAreas: [
     {
-      title: "Distributed systems",
-      description:
-        "I care about systems that remain understandable while they scale past the toy stage.",
+      title: "Writing",
+      description: "Short posts, notes, and ideas worth keeping around.",
     },
     {
-      title: "Networking research",
-      description:
-        "I like experiments that make network behavior observable instead of hand-wavy.",
+      title: "Updates",
+      description: "A simple place to publish new work without overcomplicating it.",
     },
     {
-      title: "Agent tooling",
-      description:
-        "I build tools that make AI workflows easier to inspect, compare, and trust.",
+      title: "Links",
+      description: "A lightweight index of pages that matter to me.",
     },
   ],
   now: [
-    "Exploring observability and memory behavior in coding agents.",
-    "Writing compact notes so project context does not disappear between sessions.",
-    "Building infrastructure for fast iteration on systems and networking ideas.",
+    "Polishing the site design.",
+    "Publishing blog posts in one place.",
+    "Keeping useful links organized.",
   ],
   links: {
     email: "mailto:xindan.zhang@mail.utoronto.ca",
@@ -35,32 +32,28 @@ export const site = {
   },
   projects: [
     {
-      name: "Agent Memory Observatory",
-      tag: "Rust + UI",
-      url: "https://github.com/XindanZhang/agent-memory-observatory",
-      description:
-        "A Rust CLI and web UI for normalizing agent session artifacts, reconstructing state, and auditing what survives in summaries and handoffs.",
+      name: "Blog archive",
+      tag: "Writing",
+      url: "https://xindanzhang.github.io/personal-site/blog/",
+      description: "All posts and notes published on this site.",
     },
     {
-      name: "Oracle",
-      tag: "Developer tooling",
-      url: "https://github.com/XindanZhang/oracle",
-      description:
-        "A context-bundling CLI that packages prompts and files so stronger models can review code with the right evidence.",
+      name: "GitHub profile",
+      tag: "Profile",
+      url: "https://github.com/XindanZhang",
+      description: "Public repositories and activity.",
     },
     {
-      name: "Nextmini",
-      tag: "Systems research",
-      url: "https://nextmini.org/",
-      description:
-        "A high-performance network emulation and experimentation testbed built for rapid iteration on research workflows.",
+      name: "Email",
+      tag: "Contact",
+      url: "mailto:xindan.zhang@mail.utoronto.ca",
+      description: "The quickest way to reach me directly.",
     },
     {
-      name: "kvcache",
-      tag: "Workspace protocol",
-      url: "https://github.com/XindanZhang/kvcache",
-      description:
-        "A long-running workspace for paper threads, experiments, and the protocols needed to keep complex research work coherent over time.",
+      name: "Site source",
+      tag: "Code",
+      url: "https://github.com/XindanZhang/personal-site",
+      description: "The Astro repository powering this website.",
     },
   ],
 };

@@ -47,4 +47,8 @@ test("home page highlights writing and no longer ships placeholder content", () 
   assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
   assert.doesNotMatch(homePageHtml, /Placeholder bio/);
   assert.doesNotMatch(homePageHtml, /Project Placeholder/);
+  assert.doesNotMatch(homePageHtml, /PhD student in networking and distributed systems/);
+  assert.doesNotMatch(homePageHtml, /Agent Memory Observatory/);
+  assert.doesNotMatch(homePageHtml, /Oracle/);
+  assert.doesNotMatch(homePageHtml, /kvcache/);
 });
