@@ -17,6 +17,8 @@ function buildSite() {
 test("build creates blog index and individual blog post pages", () => {
   buildSite();
 
+  const nextminiSourcePath = resolve(rootDir, "src", "content", "blog", "nextmini", "index.md");
+  const oldNextminiSourcePath = resolve(rootDir, "src", "content", "blog", "nextmini.md");
   const blogIndexPath = resolve(rootDir, "docs", "blog", "index.html");
   const nextminiSeriesPath = resolve(rootDir, "docs", "blog", "series", "nextmini", "index.html");
   const nextminiPostPath = resolve(rootDir, "docs", "blog", "nextmini", "index.html");
@@ -28,6 +30,8 @@ test("build creates blog index and individual blog post pages", () => {
     "index.html",
   );
 
+  assert.equal(existsSync(nextminiSourcePath), true);
+  assert.equal(existsSync(oldNextminiSourcePath), false);
   assert.equal(existsSync(blogIndexPath), true);
   assert.equal(existsSync(nextminiSeriesPath), true);
   assert.equal(existsSync(nextminiPostPath), true);

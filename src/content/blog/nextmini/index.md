@@ -1,6 +1,7 @@
 ---
 title: "Nextmini notes"
 summary: "The first note in a Nextmini series about network emulation and experimentation."
+slug: "nextmini"
 sourceUrl: "https://nextmini.org/"
 publishedAt: 2025-07-23
 series: "Nextmini"

@@ -9,7 +9,7 @@ export async function getBlogPosts() {
 }
 
 export function getBlogSlug(id: string) {
-  return id.replace(/\.md$/, "");
+  return id.replace(/\.md$/, "").replace(/\/index$/, "");
 }
 
 export function formatBlogDate(
