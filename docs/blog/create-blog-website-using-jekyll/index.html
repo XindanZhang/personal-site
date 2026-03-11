@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A short setup log for publishing a simple Jekyll blog to GitHub Pages."><meta name="color-scheme" content="dark"><meta name="theme-color" content="#08111f"><link rel="icon" type="image/svg+xml" href="/personal-site/favicon.svg"><link rel="icon" href="/personal-site/favicon.ico"><link rel="canonical" href="https://xindanzhang.github.io/personal-site/blog/create-blog-website-using-jekyll/"><link rel="preconnect" href="https://api.fontshare.com"><link rel="preconnect" href="https://cdn.fontshare.com" crossorigin><link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@400,500,700&display=swap" rel="stylesheet"><title>Create blog website using Jekyll · Xindan Zhang</title><link rel="stylesheet" href="/personal-site/_astro/_slug_.D5JP6neH.css"></head> <body> <a class="skip-link" href="#main-content">Skip to content</a>  <div class="page-glow page-glow-left"></div> <div class="page-glow page-glow-right"></div> <div class="grid-haze"></div> <main class="site-shell" id="main-content"> <nav class="topbar" aria-label="Primary"> <a class="brand-lockup" href="/personal-site/"> <span class="brand-mark">XZ</span> <span class="brand-copy"> <strong>Xindan Zhang</strong> <span>Post view</span> </span> </a> <div class="topbar-links"> <a href="/personal-site/">Home</a> <a href="/personal-site/blog/">Blog</a> <a href="/personal-site/#contact">Contact</a> </div> </nav> <article class="post-shell"> <p class="eyebrow">Published September 27, 2024</p> <h1 class="post-title">Create blog website using Jekyll</h1> <p class="post-summary">A short setup log for publishing a simple Jekyll blog to GitHub Pages.</p> <ul class="tag-list" aria-label="Post tags"> <li>web</li><li>jekyll</li><li>github-pages</li> </ul> <div class="post-content">  <p>Simply creating a blog website can be straightforward if you start from a theme built by someone else and customize it to fit your own writing.</p>
+<h2 id="step-1-software-setup">Step 1: Software setup</h2>
+<p>Install Ruby with Homebrew:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> ruby</span></span></code></pre>
+<p>The prerequisite tools are <code>gcc</code> and <code>make</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> gcc</span><span style="color:#9ECBFF"> make</span></span></code></pre>
+<p>Then add Ruby to your shell path:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> PATH</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"/opt/homebrew/opt/ruby/bin:</span><span style="color:#E1E4E8">$PATH</span><span style="color:#9ECBFF">"</span></span></code></pre>
+<p>Reload your shell configuration:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#79B8FF">source</span><span style="color:#9ECBFF"> ~/.zshrc</span></span></code></pre>
+<p>Install Bundler:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">gem</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> bundler</span></span></code></pre>
+<p>And make sure the Jekyll executable directory is available on your <code>PATH</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> PATH</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$PATH</span><span style="color:#9ECBFF">:/Users/winifred/.gem/ruby/3.3.0/bin"</span></span></code></pre>
+<p>After any change to <code>Gemfile</code>, run:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">bundle</span><span style="color:#9ECBFF"> install</span></span></code></pre>
+<h2 id="step-2-edit-the-theme-details">Step 2: Edit the theme details</h2>
+<p>After cloning the repository from GitHub, start editing the Markdown files. Add a <code>_posts</code> folder at the root of the site, place blog posts inside it, and create a page like <code>blog.md</code> to collect them.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="md"><code><span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"><span style="color:#E1E4E8">layout: page</span></span>
+<span class="line"><span style="color:#E1E4E8">permalink: /blog</span></span>
+<span class="line"><span style="color:#E1E4E8">permalink_name: /blog</span></span>
+<span class="line"><span style="color:#E1E4E8">title: "Your title"</span></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold"># Your title</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Add all the content here.</span></span></code></pre>
+<h2 id="step-3-upload-to-github-pages">Step 3: Upload to GitHub Pages</h2>
+<p>Commit and push your changes:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> .</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> commit</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> "Describe your changes here"</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> push</span><span style="color:#9ECBFF"> origin</span><span style="color:#9ECBFF"> main</span></span></code></pre>
+<p>Then point GitHub Pages at the correct branch and folder.</p>  </div> </article> </main>  </body></html>

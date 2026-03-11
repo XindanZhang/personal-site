@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatBlogDate, getBlogPosts, getBlogSlug } from "../../data/blog";
+import { site } from "../../data/site";
+
+const baseUrl = import.meta.env.BASE_URL;
+const homeHref = baseUrl;
+const blogHref = `${baseUrl}blog/`;
+const posts = await getBlogPosts();
+---
+
+<BaseLayout
+  title={`Writing · ${site.name}`}
+  description="Notes on research, systems work, and things worth writing down."
+>
+  <div class="page-glow page-glow-left"></div>
+  <div class="page-glow page-glow-right"></div>
+  <div class="grid-haze"></div>
+
+  <main class="site-shell" id="main-content">
+    <nav class="topbar" aria-label="Primary">
+      <a class="brand-lockup" href={homeHref}>
+        <span class="brand-mark">XZ</span>
+        <span class="brand-copy">
+          <strong>{site.name}</strong>
+          <span>Writing archive</span>
+        </span>
+      </a>
+
+      <div class="topbar-links">
+        <a href={homeHref}>Home</a>
+        <a href={blogHref}>Blog</a>
+        <a href={site.links.github} target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
+    <section class="page-hero">
+      <p class="eyebrow">Writing archive</p>
+      <h1 class="page-title">Posts, notes, and useful fragments</h1>
+      <p class="section-copy page-copy">
+        A small archive for technical notes, project writeups, and the occasional off-topic review.
+      </p>
+    </section>
+
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <a class="blog-card" href={`${blogHref}${getBlogSlug(post.id)}/`}>
+          <div class="blog-card-meta">
+            <span>{formatBlogDate(post.data.publishedAt, "medium")}</span>
+            {post.data.featured ? <span>Featured</span> : null}
+          </div>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.summary}</p>
+          <ul class="tag-list" aria-label={`${post.data.title} tags`}>
+            {post.data.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        </a>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

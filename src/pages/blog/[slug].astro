@@ -1,0 +1,26 @@
+---
+import { render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getBlogPosts, getBlogSlug } from "../../data/blog";
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+
+  return posts.map((post) => ({
+    params: { slug: getBlogSlug(post.id) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout
+  title={post.data.title}
+  description={post.data.summary}
+  publishedAt={post.data.publishedAt}
+  tags={post.data.tags}
+>
+  <Content />
+</PostLayout>
