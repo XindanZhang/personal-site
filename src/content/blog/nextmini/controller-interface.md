@@ -1,6 +1,6 @@
 ---
 title: "Controller interface"
-summary: ""
+summary: "Overview of the controller interface in Nextmini."
 sourceUrl: "https://nextmini.org/"
 publishedAt: 2026-03-11
 series: "Nextmini"

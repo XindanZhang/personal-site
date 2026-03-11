@@ -17,6 +17,15 @@ const { title, description, sourceUrl, publishedAt, tags = [], series, seriesHre
 const baseUrl = import.meta.env.BASE_URL;
 const homeHref = baseUrl;
 const blogHref = `${baseUrl}blog/`;
+let sourceLabel = "";
+
+if (sourceUrl) {
+  try {
+    sourceLabel = new URL(sourceUrl).hostname.replace(/^www\./, "");
+  } catch {
+    sourceLabel = sourceUrl;
+  }
+}
 ---
 
 <BaseLayout title={`${title} · ${site.name}`} description={description}>
@@ -48,7 +57,11 @@ const blogHref = `${baseUrl}blog/`;
 
       {sourceUrl ? (
         <p class="series-link-line">
-          Official site. <a href={sourceUrl} target="_blank" rel="noopener">Open nextmini.org</a>
+          Official site.{" "}
+          <a class="source-link" href={sourceUrl} target="_blank" rel="noopener">
+            <span class="source-link-prefix">Open</span>{" "}
+            <span class="source-link-target">{sourceLabel}</span>
+          </a>
         </p>
       ) : null}
 

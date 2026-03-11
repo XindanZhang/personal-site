@@ -691,6 +691,12 @@ a:focus-visible,
   text-decoration: none;
 }
 
+.source-link-target {
+  text-decoration: underline;
+  text-decoration-color: rgba(124, 226, 207, 0.4);
+  text-underline-offset: 0.16em;
+}
+
 .section-tight {
   margin-bottom: 28px;
 }
