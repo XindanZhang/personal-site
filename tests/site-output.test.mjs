@@ -48,7 +48,11 @@ test("home page highlights writing and no longer ships placeholder content", () 
   assert.match(homePageHtml, /Mininet notes/);
   assert.match(homePageHtml, /Writing · Notes · Links/);
   assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
+  assert.match(homePageHtml, /cabinet-grotesk/);
+  assert.match(homePageHtml, /switzer/);
   assert.doesNotMatch(homePageHtml, />XZ</);
+  assert.doesNotMatch(homePageHtml, /clash-display/);
+  assert.doesNotMatch(homePageHtml, /satoshi/);
   assert.doesNotMatch(homePageHtml, /Placeholder bio/);
   assert.doesNotMatch(homePageHtml, /Project Placeholder/);
   assert.doesNotMatch(homePageHtml, /Personal website/);
