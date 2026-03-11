@@ -1,5 +1,5 @@
 ---
-title: "Nextmini notes"
+title: "Nextmini Website"
 summary: "The first note in a Nextmini series about network emulation and experimentation."
 slug: "nextmini"
 sourceUrl: "https://nextmini.org/"

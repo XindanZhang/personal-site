@@ -47,8 +47,8 @@ test("build creates blog index and individual blog post pages", () => {
   assert.match(nextminiSeriesHtml, /Nextmini series/);
   assert.match(nextminiSeriesHtml, /Official site/);
   assert.match(nextminiSeriesHtml, /https:\/\/nextmini\.org\//);
-  assert.match(nextminiSeriesHtml, /Nextmini notes/);
-  assert.match(nextminiPostHtml, /Nextmini notes/);
+  assert.match(nextminiSeriesHtml, /Nextmini Website/);
+  assert.match(nextminiPostHtml, /Nextmini Website/);
   assert.match(nextminiPostHtml, /Part of the Nextmini series/);
   assert.match(nextminiPostHtml, /Official site/);
   assert.match(nextminiPostHtml, /https:\/\/nextmini\.org\//);
@@ -64,7 +64,7 @@ test("home page highlights writing and no longer ships placeholder content", () 
   const homePageHtml = readFileSync(homePagePath, "utf8");
 
   assert.match(homePageHtml, /Selected writing/);
-  assert.match(homePageHtml, /Nextmini notes/);
+  assert.match(homePageHtml, /Nextmini Website/);
   assert.match(homePageHtml, /Writing · Notes · Links/);
   assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
   assert.match(homePageHtml, /cabinet-grotesk/);

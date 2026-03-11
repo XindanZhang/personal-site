@@ -688,9 +688,7 @@ a:focus-visible,
 
 .series-link-line a {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-color: rgba(124, 226, 207, 0.4);
-  text-underline-offset: 0.16em;
+  text-decoration: none;
 }
 
 .section-tight {
