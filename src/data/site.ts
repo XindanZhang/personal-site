@@ -1,6 +1,8 @@
 export const site = {
   name: "Xindan Zhang",
-  role: "Personal website",
+  navLabel: "Writing · Notes · Links",
+  heroLabel: "Home on the web",
+  titleSuffix: "Writing, notes, and links",
   headline: "A small home for writing, updates, and useful links.",
   intro:
     "This site collects blog posts, notes, and a few links I want to keep in one place.",

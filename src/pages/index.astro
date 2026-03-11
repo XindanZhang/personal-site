@@ -10,7 +10,7 @@ const posts = await getBlogPosts();
 const featuredPosts = posts.slice(0, 3);
 ---
 
-<BaseLayout title={`${site.name} · ${site.role}`} description={site.intro}>
+<BaseLayout title={`${site.name} · ${site.titleSuffix}`} description={site.intro}>
   <div class="page-glow page-glow-left"></div>
   <div class="page-glow page-glow-right"></div>
   <div class="grid-haze"></div>
@@ -21,7 +21,7 @@ const featuredPosts = posts.slice(0, 3);
         <span class="brand-mark">XZ</span>
         <span class="brand-copy">
           <strong>{site.name}</strong>
-          <span>{site.role}</span>
+          <span>{site.navLabel}</span>
         </span>
       </a>
 
@@ -37,7 +37,7 @@ const featuredPosts = posts.slice(0, 3);
 
     <section class="hero-panel" id="about">
       <div class="hero-copy">
-        <p class="eyebrow">{site.role}</p>
+        <p class="eyebrow">{site.heroLabel}</p>
         <h1 class="hero-title">{site.headline}</h1>
         <p class="hero-summary">{site.intro}</p>
 

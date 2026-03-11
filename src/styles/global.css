@@ -168,14 +168,14 @@ pre {
 .brand-lockup {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .brand-mark {
   display: inline-grid;
   place-items: center;
-  width: 2.7rem;
-  height: 2.7rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 16px;
   border: 1px solid rgba(243, 181, 98, 0.28);
   background:
@@ -183,26 +183,31 @@ pre {
     rgba(12, 22, 37, 0.94);
   color: var(--accent-gold);
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .brand-copy {
   display: grid;
-  gap: 2px;
+  gap: 5px;
 }
 
 .brand-copy strong {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.12rem;
   font-weight: 600;
   letter-spacing: 0.01em;
+  line-height: 0.95;
 }
 
 .brand-copy span:last-child {
-  color: var(--text-muted);
-  font-size: 0.88rem;
+  color: var(--accent-mint);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .topbar-links {
