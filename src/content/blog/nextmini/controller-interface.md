@@ -16,9 +16,13 @@ featured: false
 
 The controller interface is a very important control-plane adapter for dataplane nodes. It bootstraps the nodes. The `controller_interface` is initialized in `Conductor::new()`. Then we build the `ControllerInterfaceHandle`.
 
+## `connect()`
+
 Once controller interface calls `connect()` to connect to the `controller` with `controller addr` via `WebSocket`, and if succeeds, dataplan node sends the `DataplaneToController::StartUp` message to `controller`, including the private/public addresses, network name, and requested `node_id` of each node. Then the dataplane node will wait for the controller's `startup` response containing the node’s assigned runtime configuration. The dataplane applies that config locally first, and only then starts the rest of the node runtime.
 
 Thus in `connect()`, we have this kind of one-time `startup handshake` between a dataplane node and the controller. So it's literally the bootstrap exchange. It runs once per controller connection and is used to register the dataplane node and fetch `controller-assigned` config.
+
+### psuedocode of `connect()`
 
 ```rust
 fn connect(config) -> (updated_config, processors, ws_stream):
