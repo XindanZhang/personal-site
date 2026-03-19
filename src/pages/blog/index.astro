@@ -1,89 +1,72 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatBlogDate, getBlogPosts, getBlogSeries, getBlogSlug } from "../../data/blog";
+import PostTable from "../../components/PostTable.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import { getBlogPosts, getBlogSeries } from "../../data/blog";
 import { site } from "../../data/site";
 
 const baseUrl = import.meta.env.BASE_URL;
-const homeHref = baseUrl;
-const blogHref = `${baseUrl}blog/`;
 const posts = await getBlogPosts();
 const seriesGroups = await getBlogSeries();
+const highlightedTags = [...new Set(posts.flatMap((post) => post.data.tags))].slice(0, 12);
 ---
 
 <BaseLayout
-  title={`Writing · ${site.name}`}
-  description="Notes on research, systems work, and things worth writing down."
+  title={`Blog · ${site.name}`}
+  description="Notes on systems, networking, terminals, and things worth writing down."
 >
-  <div class="page-glow page-glow-left"></div>
-  <div class="page-glow page-glow-right"></div>
-  <div class="grid-haze"></div>
+  <main class="site-frame" id="main-content">
+    <SiteHeader active="blog" />
 
-  <main class="site-shell" id="main-content">
-    <nav class="topbar" aria-label="Primary">
-      <a class="brand-lockup" href={homeHref}>
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-copy">
-          <strong>{site.name}</strong>
-          <span>Writing archive</span>
-        </span>
-      </a>
+    <section class="window-panel">
+      <section class="panel-section">
+        <div class="section-heading">
+          <h1 class="panel-title">Blog</h1>
+          <hr />
+        </div>
 
-      <div class="topbar-links">
-        <a href={homeHref}>Home</a>
-        <a href={blogHref}>Blog</a>
-        <a href={site.links.github} target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </nav>
+        <p class="section-copy">
+          Notes on systems, networking, terminals, and whatever feels worth writing down.
+        </p>
+      </section>
 
-    <section class="page-hero">
-      <p class="eyebrow">Writing archive</p>
-      <h1 class="page-title">Posts, notes, and useful fragments</h1>
-      <p class="section-copy page-copy">
-        A small archive for technical notes, project writeups, and the occasional off-topic review.
-      </p>
+      <hr class="panel-divider" />
+
+      <section class="panel-section">
+        <div class="section-heading">
+          <h2 class="panel-title panel-title-secondary">Archive overview</h2>
+          <hr />
+        </div>
+
+        <p class="section-copy">Browse the series first, then drop into the full post list below.</p>
+
+        {seriesGroups.length > 0 ? (
+          <div class="chip-cloud">
+            {seriesGroups.map((series) => (
+              <a class="chip-link" href={`${baseUrl}blog/series/${series.slug}/`}>
+                {series.name} series
+              </a>
+            ))}
+          </div>
+        ) : null}
+
+        {highlightedTags.length > 0 ? (
+          <div class="chip-cloud is-muted">
+            {highlightedTags.map((tag) => (
+              <span class="chip-link chip-static">#{tag}</span>
+            ))}
+          </div>
+        ) : null}
+      </section>
+
+      <hr class="panel-divider" />
+
+      <section class="panel-section" id="posts">
+        <PostTable posts={posts} />
+      </section>
     </section>
 
-    {seriesGroups.length > 0 ? (
-      <section class="section section-tight">
-        <div class="section-header">
-          <div>
-            <p class="eyebrow">Series</p>
-            <h2 class="section-title">Longer threads worth following</h2>
-          </div>
-          <p class="section-copy">
-            Grouped posts for topics that will keep growing over time.
-          </p>
-        </div>
-
-        <div class="series-grid">
-          {seriesGroups.map((series) => (
-            <a class="series-card" href={`${blogHref}series/${series.slug}/`}>
-              <div class="blog-card-meta">
-                <span>{series.posts.length} post{series.posts.length === 1 ? "" : "s"}</span>
-                <span>Series</span>
-              </div>
-              <h2>{series.name} series</h2>
-              <p>{series.posts[0].data.summary}</p>
-            </a>
-          ))}
-        </div>
-      </section>
-    ) : null}
-
-    <div class="blog-grid">
-      {posts.map((post) => (
-        <a class="blog-card" href={`${blogHref}${getBlogSlug(post.id)}/`}>
-          <div class="blog-card-meta">
-            <span>{formatBlogDate(post.data.publishedAt, "medium")}</span>
-            {post.data.featured ? <span>Featured</span> : null}
-          </div>
-          <h2>{post.data.title}</h2>
-          <p>{post.data.summary}</p>
-          <ul class="tag-list" aria-label={`${post.data.title} tags`}>
-            {post.data.tags.map((tag) => <li>{tag}</li>)}
-          </ul>
-        </a>
-      ))}
-    </div>
+    <SiteFooter />
   </main>
 </BaseLayout>

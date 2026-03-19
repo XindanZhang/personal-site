@@ -19,7 +19,7 @@ function buildSite() {
   return outDir;
 }
 
-test("build creates blog index and individual blog post pages", () => {
+test("build creates blog index and individual blog post pages with mono archive chrome", () => {
   const outDir = buildSite();
 
   const nextminiSourcePath = resolve(rootDir, "src", "content", "blog", "nextmini", "index.md");
@@ -27,7 +27,13 @@ test("build creates blog index and individual blog post pages", () => {
   try {
     const blogIndexPath = resolve(outDir, "blog", "index.html");
     const nextminiSeriesPath = resolve(outDir, "blog", "series", "nextmini", "index.html");
-    const nextminiPostPath = resolve(outDir, "blog", "nextmini", "index.html");
+    const nextminiPostPath = resolve(
+      outDir,
+      "blog",
+      "nextmini",
+      "controller-interface",
+      "index.html",
+    );
     const blogPostPath = resolve(outDir, "blog", "create-blog-website-using-jekyll", "index.html");
 
     assert.equal(existsSync(nextminiSourcePath), true);
@@ -41,20 +47,25 @@ test("build creates blog index and individual blog post pages", () => {
     const nextminiSeriesHtml = readFileSync(nextminiSeriesPath, "utf8");
     const nextminiPostHtml = readFileSync(nextminiPostPath, "utf8");
     const blogPostHtml = readFileSync(blogPostPath, "utf8");
-    assert.match(blogIndexHtml, /Create blog website using Jekyll/);
-    assert.match(blogIndexHtml, /The day of the Jackal/);
+    assert.match(blogIndexHtml, /IBM\+Plex\+Mono/);
+    assert.match(blogIndexHtml, /class="site-header"/);
+    assert.match(blogIndexHtml, /class="color-strip"/);
+    assert.match(blogIndexHtml, /Archive overview/);
+    assert.match(blogIndexHtml, /class="post-table"/);
+    assert.match(blogIndexHtml, /La Terminal/);
     assert.match(blogIndexHtml, /Nextmini series/);
-    assert.match(nextminiSeriesHtml, /Nextmini series/);
+    assert.match(nextminiSeriesHtml, /Series overview/);
     assert.match(nextminiSeriesHtml, /Official site/);
     assert.match(nextminiSeriesHtml, /https:\/\/nextmini\.org\//);
-    assert.match(nextminiSeriesHtml, /Nextmini Website/);
-    assert.match(nextminiPostHtml, /Nextmini Website/);
-    assert.match(nextminiPostHtml, /Part of the Nextmini series/);
+    assert.match(nextminiSeriesHtml, /Part 4/);
+    assert.match(nextminiPostHtml, /Back to Blog/);
+    assert.match(nextminiPostHtml, /Copy Link/);
+    assert.match(nextminiPostHtml, /TABLE OF CONTENTS/);
+    assert.match(nextminiPostHtml, /Controller interface/);
     assert.match(nextminiPostHtml, /Official site/);
     assert.match(nextminiPostHtml, /https:\/\/nextmini\.org\//);
-    assert.match(nextminiPostHtml, /class="source-link-prefix">Open<\/span>/);
-    assert.match(nextminiPostHtml, /class="source-link-target">nextmini\.org<\/span>/);
-    assert.match(blogPostHtml, /Published September 27, 2024/);
+    assert.match(blogPostHtml, /Back to Blog/);
+    assert.match(blogPostHtml, /TABLE OF CONTENTS/);
     assert.doesNotMatch(blogIndexHtml, />XZ</);
     assert.doesNotMatch(blogPostHtml, />XZ</);
   } finally {
@@ -62,23 +73,26 @@ test("build creates blog index and individual blog post pages", () => {
   }
 });
 
-test("home page highlights writing and no longer ships placeholder content", () => {
+test("home page uses the AprilNEA-inspired framed shell", () => {
   const outDir = buildSite();
 
   try {
     const homePagePath = resolve(outDir, "index.html");
     const homePageHtml = readFileSync(homePagePath, "utf8");
 
-    assert.match(homePageHtml, /Selected writing/);
-    assert.match(homePageHtml, /Writing · Notes · Links/);
+    assert.match(homePageHtml, /IBM\+Plex\+Mono/);
+    assert.match(homePageHtml, /class="site-header"/);
+    assert.match(homePageHtml, /class="nav-tab is-active"/);
+    assert.match(homePageHtml, /Recent writing/);
+    assert.match(homePageHtml, /class="home-grid"/);
+    assert.match(homePageHtml, /class="note-panel"/);
+    assert.match(homePageHtml, /class="post-table"/);
     assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
-    assert.match(homePageHtml, /Browse the full archive/);
-    assert.match(homePageHtml, /cabinet-grotesk/);
-    assert.match(homePageHtml, /switzer/);
-    assert.ok((homePageHtml.match(/class="blog-card"/g) ?? []).length >= 3);
+    assert.match(homePageHtml, /Browse archive/);
+    assert.match(homePageHtml, /mailto:xindan\.zhang@mail\.utoronto\.ca/);
     assert.doesNotMatch(homePageHtml, />XZ</);
-    assert.doesNotMatch(homePageHtml, /clash-display/);
-    assert.doesNotMatch(homePageHtml, /satoshi/);
+    assert.doesNotMatch(homePageHtml, /cabinet-grotesk/);
+    assert.doesNotMatch(homePageHtml, /switzer/);
     assert.doesNotMatch(homePageHtml, /Placeholder bio/);
     assert.doesNotMatch(homePageHtml, /Project Placeholder/);
     assert.doesNotMatch(homePageHtml, /Personal website/);
