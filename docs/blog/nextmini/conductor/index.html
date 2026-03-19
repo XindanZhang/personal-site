@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Understanding of conductor in Nextmini."><meta name="color-scheme" content="dark"><meta name="theme-color" content="#08111f"><link rel="icon" type="image/svg+xml" href="/personal-site/favicon.svg"><link rel="icon" href="/personal-site/favicon.ico"><link rel="canonical" href="https://xindanzhang.github.io/personal-site/blog/nextmini/conductor/"><link rel="preconnect" href="https://api.fontshare.com"><link rel="preconnect" href="https://cdn.fontshare.com" crossorigin><link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,500&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet"><title>Conductor · Xindan Zhang</title><link rel="stylesheet" href="/personal-site/_astro/_slug_.B8xn8C1a.css"></head> <body> <a class="skip-link" href="#main-content">Skip to content</a>  <div class="page-glow page-glow-left"></div> <div class="page-glow page-glow-right"></div> <div class="grid-haze"></div> <main class="site-shell" id="main-content"> <nav class="topbar" aria-label="Primary"> <a class="brand-lockup" href="/personal-site/"> <span class="brand-mark" aria-hidden="true"></span> <span class="brand-copy"> <strong>Xindan Zhang</strong> <span>Post view</span> </span> </a> <div class="topbar-links"> <a href="/personal-site/">Home</a> <a href="/personal-site/blog/">Blog</a> <a href="/personal-site/#contact">Contact</a> </div> </nav> <article class="post-shell"> <p class="eyebrow">Published March 12, 2026</p> <h1 class="post-title">Conductor</h1> <p class="post-summary">Understanding of conductor in Nextmini.</p> <p class="series-link-line">
+Official site.  <a class="source-link" href="https://nextmini.org/" target="_blank" rel="noopener"> <span class="source-link-prefix">Open</span>  <span class="source-link-target">nextmini.org</span> </a> </p> <p class="series-link-line"> Part of the Nextmini series. <a href="/personal-site/blog/series/nextmini/">Browse all posts</a> </p> <ul class="tag-list" aria-label="Post tags"> <li>nextmini</li><li>conductor</li> </ul> <div class="post-content">  <h1 id="conductor">Conductor</h1>
+<p>As the main entry of the dataplane, conductor is more like an orchestrator of each dataplane node.</p>
+<h1 id="components-initialization">Components initialization</h1>
+<p>Conductor initializes other dataplane components like <code>controller_interface</code>, <code>lossless_runtime</code>, <code>controller_reporter</code> and <code>flowstatsreporter</code>.</p>
+<ul>
+<li><code>controller_interface</code></li>
+<li><code>lossless_runtime</code></li>
+<li><code>controller_reporter</code></li>
+<li><code>flowstatsreporter</code></li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>  - ControllerReporterHandle in reporter.rs:25 is the low-level byte-metrics reporter.</span></span>
+<span class="line"><span>    It is used by network interfaces in interface.rs:102: after packets are sent on a link, it aggregates bytes per flow_id and periodically sends</span></span>
+<span class="line"><span>    DataplaneToController::Metrics in reporter.rs:112.</span></span>
+<span class="line"><span>    Think: “how many bytes did this node send for each flow over each neighbor link?”</span></span>
+<span class="line"><span>  - FlowStatsReporterHandle in flowstats.rs:77 is the higher-level flow lifecycle reporter.</span></span>
+<span class="line"><span>    It is used by the local reader, routing table, user-space client, and lossless-unicast flow manager to report events like:</span></span>
+<span class="line"><span>      - app flow start</span></span>
+<span class="line"><span>      - user flow start</span></span>
+<span class="line"><span>      - route assignment</span></span>
+<span class="line"><span>      - flow finished</span></span></code></pre>
+<p><code>controller_interface</code> and <code>lossless_runtime</code> will be introduced later as these are two important components in DP.</p>
+<h1 id="starts-ingress-servers">Starts ingress server(s)</h1>
+<p><code>conductor::run</code> will be called right after <code>Conductor::new()</code>, which will start listening for incoming network traffic from other nodes.</p>  </div> </article> </main>  </body></html>
