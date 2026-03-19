@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "../lib/site";
+import { ThemeToggle } from "./theme-toggle";
 
 type NavKey = "home" | "blog" | "projects" | "friends" | "about";
 
@@ -20,15 +21,18 @@ export function SiteHeader({ active }: SiteHeaderProps) {
     <header className="masthead">
       <div className="masthead-top">
         <div>
-          <p className="masthead-note">Toronto · systems notebook · 2026</p>
+          <p className="masthead-note">Toronto · systems orbit · 2026</p>
           <Link className="brand-mark" href="/">
             {site.name}
           </Link>
         </div>
 
-        <a className="masthead-link" href={site.email}>
-          Say hello
-        </a>
+        <div className="masthead-actions">
+          <ThemeToggle />
+          <a className="masthead-link" href={site.email}>
+            Email
+          </a>
+        </div>
       </div>
 
       <nav className="masthead-nav" aria-label="Primary">

@@ -14,9 +14,14 @@ export default function HomePage() {
   return (
     <SiteLayout active="home">
       <div className="page-stack">
-        <section className="editorial-hero">
-          <div>
-            <p className="hero-kicker">Notebook</p>
+        <section className="orbital-hero">
+          <div className="terminal-panel">
+            <div className="terminal-prompt">
+              <span className="prompt-host">xz@orbit</span>
+              <span className="prompt-command">launch notebook --mode universe</span>
+              <span aria-hidden="true" className="terminal-caret" />
+            </div>
+            <p className="hero-kicker">Signal log</p>
             <h1 className="hero-title">{site.home.heroTitle}</h1>
             <p className="hero-summary">{site.home.heroBody}</p>
             <p className="hero-quote">
@@ -26,11 +31,11 @@ export default function HomePage() {
 
             <div className="hero-actions">
               <Link className="button-link is-primary" href="/blog/">
-                Open the archive
+                Open journal
                 <span aria-hidden="true">↗</span>
               </Link>
               <Link className="button-link is-secondary" href="/projects/">
-                See projects
+                Browse projects
                 <span aria-hidden="true">↗</span>
               </Link>
               <a className="button-link is-tertiary" href={site.email}>
@@ -42,7 +47,7 @@ export default function HomePage() {
             <p className="availability-note">{site.availability}</p>
           </div>
 
-          <aside className="field-notes-card">
+          <aside className="signal-panel field-notes-card">
             <p className="notes-title">{site.home.sideTitle}</p>
             <ul className="note-list">
               {site.home.sideNotes.map((note) => (
@@ -53,23 +58,23 @@ export default function HomePage() {
         </section>
 
         <section className="stack-section">
-          <SectionHeading eyebrow="Journal" title="Selected writing" />
+          <SectionHeading eyebrow="Journal" title="Signal map" />
           <p className="section-copy">{site.home.blogSummary}</p>
           <PostTable posts={highlightedPosts} />
         </section>
 
         <section className="stack-section">
-          <SectionHeading eyebrow="Overview" title="Desk" />
+          <SectionHeading eyebrow="Overview" title="Dock" />
           <div className="desk-grid">
             <div className="desk-card">
               <p className="desk-card-kicker">Journal</p>
-              <h2 className="desk-card-title">A readable archive first, a feed second.</h2>
+              <h2 className="desk-card-title">A clear signal first, a feed second.</h2>
               <p className="desk-card-copy">
                 Browse the full archive by thread, revisit series notes, or jump straight into the posts that still
                 matter after the week ends.
               </p>
               <Link className="button-link is-secondary" href="/blog/">
-                Open the archive
+                Open journal
                 <span aria-hidden="true">↗</span>
               </Link>
             </div>
@@ -79,7 +84,7 @@ export default function HomePage() {
               <h2 className="desk-card-title">The infrastructure around the notebook.</h2>
               <p className="desk-card-copy">{site.home.projectsSummary}</p>
               <Link className="button-link is-secondary" href="/projects/">
-                See projects
+                Browse projects
                 <span aria-hidden="true">↗</span>
               </Link>
             </div>

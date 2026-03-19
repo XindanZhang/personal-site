@@ -7,7 +7,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <p className="footer-copy">
-        Built as a calm archive for notes that should stay readable beyond the week they were written.
+        Built as a long-range notebook for notes that should survive the session they came from.
       </p>
 
       <div className="footer-links">

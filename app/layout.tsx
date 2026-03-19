@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Newsreader } from "next/font/google";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import { site } from "../lib/site";
 import "./globals.css";
@@ -10,10 +10,23 @@ const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-plex-mono",
 });
 
-const newsreader = Newsreader({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-newsreader",
+  variable: "--font-space-grotesk",
 });
+
+const themeScript = `
+(() => {
+  try {
+    const stored = window.localStorage.getItem("theme");
+    const system = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    const theme = stored === "light" || stored === "dark" ? stored : system;
+    document.documentElement.dataset.theme = theme;
+  } catch {
+    document.documentElement.dataset.theme = "dark";
+  }
+})();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://xindanzhang.github.io/personal-site"),
@@ -31,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4efe6",
+  themeColor: "#050816",
 };
 
 export default function RootLayout({
@@ -40,10 +53,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${ibmPlexMono.variable} ${newsreader.variable} site-body antialiased`}
+        className={`${ibmPlexMono.variable} ${spaceGrotesk.variable} site-body mode-cosmos antialiased`}
       >
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
       </body>
     </html>

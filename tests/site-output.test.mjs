@@ -68,12 +68,16 @@ test("build exports a Next.js app with the full primary site structure", () => {
     const aboutHtml = readFileSync(aboutPath, "utf8");
     assert.match(blogIndexHtml, /\/personal-site\/_next\/static\//);
     assert.doesNotMatch(blogIndexHtml, /\/personal-site\/_astro\//);
+    assert.match(blogIndexHtml, /mode-cosmos/);
     assert.match(blogIndexHtml, /class="site-shell/);
     assert.match(blogIndexHtml, /class="archive-ledger/);
     assert.match(blogIndexHtml, /class="archive-filter/);
-    assert.match(blogIndexHtml, /Browse by thread/);
-    assert.match(blogIndexHtml, /Keywords/);
-    assert.match(blogIndexHtml, /Archive ledger/);
+    assert.match(blogIndexHtml, /Theme/);
+    assert.match(blogIndexHtml, /Dark/);
+    assert.match(blogIndexHtml, /Light/);
+    assert.match(blogIndexHtml, /Filter threads/);
+    assert.match(blogIndexHtml, /Signal tags/);
+    assert.match(blogIndexHtml, /Archive stream/);
     assert.match(blogIndexHtml, /La Terminal/);
     assert.match(blogIndexHtml, /Nextmini Website/);
     assert.match(blogIndexHtml, /href="\/personal-site\/blog\/category\/nextmini-series\/"/);
@@ -103,8 +107,8 @@ test("build exports a Next.js app with the full primary site structure", () => {
     assert.match(aboutHtml, /Practice/);
     assert.match(aboutHtml, /Timeline/);
     assert.match(aboutHtml, /Elsewhere/);
-    assert.doesNotMatch(blogIndexHtml, /View by category/);
-    assert.doesNotMatch(blogIndexHtml, /color-strip/);
+    assert.doesNotMatch(blogIndexHtml, /Browse by thread/);
+    assert.doesNotMatch(blogIndexHtml, /Archive ledger/);
     assert.doesNotMatch(blogIndexHtml, />XZ</);
     assert.doesNotMatch(blogPostHtml, />XZ</);
   } finally {
@@ -112,7 +116,7 @@ test("build exports a Next.js app with the full primary site structure", () => {
   }
 });
 
-test("home page uses the new editorial notebook shell", () => {
+test("home page uses the cosmic cyber shell", () => {
   const outDir = buildSite();
 
   try {
@@ -120,24 +124,31 @@ test("home page uses the new editorial notebook shell", () => {
     const homePageHtml = readFileSync(homePagePath, "utf8");
 
     assert.match(homePageHtml, /\/personal-site\/_next\/static\//);
+    assert.match(homePageHtml, /mode-cosmos/);
     assert.match(homePageHtml, /class="site-shell/);
-    assert.match(homePageHtml, /class="editorial-hero/);
-    assert.match(homePageHtml, /class="field-notes-card/);
+    assert.match(homePageHtml, /class="orbital-hero/);
+    assert.match(homePageHtml, /class="terminal-panel/);
+    assert.match(homePageHtml, /class="signal-panel/);
+    assert.match(homePageHtml, /class="terminal-prompt/);
+    assert.match(homePageHtml, /class="terminal-caret/);
     assert.match(homePageHtml, /A working notebook for systems, experiments, and careful notes/);
-    assert.match(homePageHtml, /Selected writing/);
+    assert.match(homePageHtml, /Signal map/);
     assert.match(homePageHtml, /Current threads/);
-    assert.match(homePageHtml, /Desk/);
-    assert.match(homePageHtml, /Open the archive/);
-    assert.match(homePageHtml, /See projects/);
+    assert.match(homePageHtml, /Dock/);
+    assert.match(homePageHtml, /Open journal/);
+    assert.match(homePageHtml, /Browse projects/);
+    assert.match(homePageHtml, /Theme/);
+    assert.match(homePageHtml, /Dark/);
+    assert.match(homePageHtml, /Light/);
     assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/friends\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/about\/"/);
     assert.match(homePageHtml, /Available for thoughtful collaboration/);
     assert.match(homePageHtml, /mailto:xindan\.zhang@mail\.utoronto\.ca/);
-    assert.doesNotMatch(homePageHtml, /View All Posts/);
-    assert.doesNotMatch(homePageHtml, /View All Projects/);
-    assert.doesNotMatch(homePageHtml, /color-strip/);
+    assert.doesNotMatch(homePageHtml, /Selected writing/);
+    assert.doesNotMatch(homePageHtml, /Open the archive/);
+    assert.doesNotMatch(homePageHtml, /See projects/);
     assert.doesNotMatch(homePageHtml, />XZ</);
     assert.doesNotMatch(homePageHtml, /\/personal-site\/_astro\//);
     assert.doesNotMatch(homePageHtml, /cabinet-grotesk/);

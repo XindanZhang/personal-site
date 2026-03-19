@@ -28,7 +28,7 @@ export function BlogArchive({
   activeTagSlug,
 }: BlogArchiveProps) {
   return (
-    <div className="space-y-6">
+    <div className="page-stack">
       <section>
         <SectionHeading as="h1" eyebrow="Journal" title={title} />
         <p className="section-copy">{description}</p>
@@ -36,7 +36,7 @@ export function BlogArchive({
 
       <section className="archive-filter">
         <div className="filter-group">
-          <p className="filter-label">Browse by thread</p>
+          <p className="filter-label">Filter threads</p>
           <div className="filter-wrap">
             <Link
               className={`${filterLinkClass} ${!activeCategorySlug && !activeTagSlug ? "is-active" : ""}`}
@@ -58,7 +58,7 @@ export function BlogArchive({
         </div>
 
         <div className="filter-group">
-          <p className="filter-label">Keywords</p>
+          <p className="filter-label">Signal tags</p>
           <div className="filter-wrap">
             {tags.map((tag) => (
               <Link
@@ -74,7 +74,7 @@ export function BlogArchive({
       </section>
 
       <section>
-        <SectionHeading eyebrow="Archive" title="Archive ledger" />
+        <SectionHeading eyebrow="Archive" title="Archive stream" />
       </section>
       {posts.length > 0 ? (
         <PostTable posts={posts} />

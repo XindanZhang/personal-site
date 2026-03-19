@@ -14,13 +14,13 @@ import { visit } from "unist-util-visit";
 
 const blogContentDir = resolve(process.cwd(), "src/content/blog");
 const badgePalette = [
-  { background: "#d4a72c", text: "#111111" },
-  { background: "#177a45", text: "#ffffff" },
-  { background: "#1e4d8c", text: "#ffffff" },
-  { background: "#c41e3a", text: "#ffffff" },
-  { background: "#e85d04", text: "#111111" },
-  { background: "#7c3aed", text: "#ffffff" },
-  { background: "#4b5563", text: "#ffffff" },
+  { background: "#c8f6ff", text: "#062036" },
+  { background: "#d8d0ff", text: "#19103b" },
+  { background: "#ffd1ec", text: "#3a1026" },
+  { background: "#cfffdc", text: "#0b2d20" },
+  { background: "#ffe6c7", text: "#352004" },
+  { background: "#d4ecff", text: "#102744" },
+  { background: "#ece8ff", text: "#1d1a4d" },
 ] as const;
 
 export interface Heading {
