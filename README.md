@@ -1,6 +1,6 @@
 # Xindan Zhang — Personal Site
 
-Single-page personal website styled after the molt.bot aesthetic.
+Personal website built with Next.js and Tailwind CSS, exported statically for GitHub Pages.
 
 ## Local development
 

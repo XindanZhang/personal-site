@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: var(--font-ibm-plex-mono), "IBM Plex Mono", "SFMono-Regular", monospace;
+  --breakpoint-tablet: 48rem;
+  --breakpoint-desktop: 80rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #e8e8e8;
+  color: #111111;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #d4a72c;
+  color: #111111;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.article-prose p {
+  @apply my-4 font-mono text-sm leading-[180%] text-gray-700;
+}
+
+.article-prose h2 {
+  @apply mb-8 scroll-m-8 font-mono text-[28px] font-semibold leading-[140%] tracking-tight text-black;
+}
+
+.article-prose h3 {
+  @apply mt-8 mb-4 font-mono text-xl font-bold text-black;
+}
+
+.article-prose a {
+  @apply text-[#177a45] no-underline hover:underline;
+}
+
+.article-prose code {
+  @apply border border-black bg-gray-100 px-1 py-0.5 text-[0.875em];
+}
+
+.article-prose pre {
+  @apply my-4 overflow-x-auto border border-black bg-gray-50 p-4 font-mono text-sm;
+}
+
+.article-prose pre code {
+  @apply border-0 bg-transparent p-0 text-inherit;
+}
+
+.article-prose ul,
+.article-prose ol {
+  @apply my-4 pl-6;
+}
+
+.article-prose li {
+  @apply my-2 font-mono text-sm leading-[180%] text-gray-700;
+}
+
+.article-prose blockquote {
+  @apply my-4 border-l-4 border-black bg-gray-50 px-4 py-2 font-mono text-sm italic text-gray-700;
+}
+
+.article-prose hr {
+  @apply my-6 border-0 border-t border-black;
+}
+
+.article-prose table {
+  @apply my-6 w-full border-collapse border border-black font-mono text-sm;
+}
+
+.article-prose th {
+  @apply border border-black bg-gray-100 px-3 py-2 text-left font-bold;
+}
+
+.article-prose td {
+  @apply border border-black bg-white px-3 py-2 align-top;
+}
+
+.article-prose img {
+  @apply my-4 border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)];
+}
