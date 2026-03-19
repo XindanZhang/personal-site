@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Berkeley Mono";
+  src:
+    local("Berkeley Mono"),
+    local("Berkeley Mono Regular"),
+    local("Berkeley Mono Variable");
+  font-display: swap;
+}
+
 @theme {
-  --font-display: var(--font-space-grotesk), "Space Grotesk", "Helvetica Neue", sans-serif;
-  --font-mono: var(--font-ibm-plex-mono), "IBM Plex Mono", "SFMono-Regular", monospace;
+  --font-display:
+    "Berkeley Mono",
+    var(--font-ibm-plex-mono),
+    "IBM Plex Mono",
+    "SFMono-Regular",
+    monospace;
+  --font-mono:
+    "Berkeley Mono",
+    var(--font-ibm-plex-mono),
+    "IBM Plex Mono",
+    "SFMono-Regular",
+    monospace;
   --breakpoint-tablet: 48rem;
   --breakpoint-desktop: 80rem;
 }
@@ -62,7 +81,9 @@ body.mode-cosmos {
     radial-gradient(circle at top right, rgba(155, 135, 255, 0.16), transparent 24%),
     linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-alt) 100%);
   color: var(--page-ink);
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+  letter-spacing: 0.01em;
 }
 
 body.mode-cosmos::before,
@@ -136,7 +157,7 @@ img {
   margin-top: 1rem;
   padding: 1.2rem;
   border: 1px solid var(--line-strong);
-  border-radius: 1.4rem;
+  border-radius: 0.9rem;
   background: linear-gradient(180deg, var(--panel), var(--panel-strong));
   box-shadow: var(--shadow), var(--glow);
   overflow: hidden;
@@ -171,10 +192,13 @@ img {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent), var(--panel-soft);
+  border-radius: 0.7rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%),
+    linear-gradient(180deg, rgba(5, 8, 22, 0.18), rgba(5, 8, 22, 0)),
+    var(--panel-soft);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), var(--glow);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(10px);
 }
 
 .terminal-panel::after {
@@ -220,11 +244,13 @@ img {
 
 .brand-mark {
   display: inline-block;
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 0.94;
-  letter-spacing: -0.06em;
+  font-family: var(--font-mono);
+  font-size: clamp(1.45rem, 2.7vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(115, 226, 255, 0.12);
 }
 
 .masthead-actions {
@@ -272,7 +298,7 @@ img {
   padding: 0.65rem 0.9rem;
   border: 1px solid var(--line-strong);
   border-bottom-width: 3px;
-  border-radius: 0.8rem;
+  border-radius: 0.45rem;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent), var(--panel-soft);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
@@ -379,11 +405,12 @@ img {
 
 .section-title {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.05em;
+  font-family: var(--font-mono);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .section-rule {
@@ -469,15 +496,16 @@ img {
 .hero-title,
 .article-title {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 0.94;
-  letter-spacing: -0.06em;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .hero-title {
   max-width: 13ch;
-  font-size: clamp(2.8rem, 6vw, 5.7rem);
+  font-size: clamp(2.2rem, 5.4vw, 4.2rem);
 }
 
 .hero-quote {
@@ -537,10 +565,11 @@ img {
 .project-title,
 .friend-name {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .desk-card-title {
@@ -638,7 +667,7 @@ img {
   display: inline-flex;
   align-items: center;
   padding: 0.3rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 0.4rem;
   font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -656,11 +685,12 @@ img {
 }
 
 .archive-link {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.2vw, 1.95rem);
-  font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.05em;
+  font-family: var(--font-mono);
+  font-size: clamp(1.12rem, 2vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .archive-keyword {
@@ -752,7 +782,7 @@ img {
   justify-content: center;
   width: 3.2rem;
   height: 3.2rem;
-  border-radius: 0.9rem;
+  border-radius: 0.55rem;
   border: 1px solid var(--line-strong);
   background: linear-gradient(180deg, rgba(115, 226, 255, 0.22), rgba(155, 135, 255, 0.08));
   font-family: var(--font-mono);
@@ -775,7 +805,7 @@ img {
 .practice-chip {
   padding: 0.42rem 0.7rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 0.4rem;
   background: rgba(255, 255, 255, 0.04);
   font-family: var(--font-mono);
   font-size: 0.74rem;
@@ -880,21 +910,23 @@ img {
 .article-prose h2 {
   margin: 2rem 0 0.9rem;
   scroll-margin-top: 2rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
+  font-family: var(--font-mono);
+  font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--page-ink);
 }
 
 .article-prose h3 {
   margin: 1.5rem 0 0.8rem;
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 700;
-  line-height: 1.06;
-  letter-spacing: -0.04em;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--page-ink);
 }
 
@@ -908,7 +940,7 @@ img {
 .article-prose code {
   padding: 0.12rem 0.35rem;
   border: 1px solid var(--line);
-  border-radius: 0.4rem;
+  border-radius: 0.2rem;
   background: rgba(255, 255, 255, 0.05);
   font-family: var(--font-mono);
   font-size: 0.88em;
@@ -919,7 +951,7 @@ img {
   overflow-x: auto;
   padding: 1rem;
   border: 1px solid var(--line);
-  border-radius: 0.9rem;
+  border-radius: 0.5rem;
   background: rgba(2, 7, 18, 0.68);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   font-family: var(--font-mono);

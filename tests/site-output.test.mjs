@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -27,6 +27,13 @@ test("build exports a Next.js app with the full primary site structure", () => {
   try {
     const noJekyllPath = resolve(outDir, ".nojekyll");
     const nextStaticDir = resolve(outDir, "_next", "static");
+    const cssBundlePath = resolve(
+      outDir,
+      "_next",
+      "static",
+      "chunks",
+      readdirSync(resolve(outDir, "_next", "static", "chunks")).find((file) => file.endsWith(".css")) ?? "",
+    );
     const blogIndexPath = resolve(outDir, "blog", "index.html");
     const categoryPath = resolve(outDir, "blog", "category", "nextmini-series", "index.html");
     const tagPath = resolve(outDir, "blog", "tag", "nextmini", "index.html");
@@ -47,6 +54,7 @@ test("build exports a Next.js app with the full primary site structure", () => {
     assert.equal(existsSync(oldNextminiSourcePath), false);
     assert.equal(existsSync(noJekyllPath), true);
     assert.equal(existsSync(nextStaticDir), true);
+    assert.equal(existsSync(cssBundlePath), true);
     assert.equal(existsSync(blogIndexPath), true);
     assert.equal(existsSync(categoryPath), true);
     assert.equal(existsSync(tagPath), true);
@@ -66,6 +74,10 @@ test("build exports a Next.js app with the full primary site structure", () => {
     const projectsHtml = readFileSync(projectsPath, "utf8");
     const friendsHtml = readFileSync(friendsPath, "utf8");
     const aboutHtml = readFileSync(aboutPath, "utf8");
+    const cssBundle = readFileSync(cssBundlePath, "utf8");
+    assert.match(cssBundle, /Berkeley Mono/);
+    assert.doesNotMatch(cssBundle, /Space Grotesk/);
+    assert.doesNotMatch(cssBundle, /Newsreader/);
     assert.match(blogIndexHtml, /\/personal-site\/_next\/static\//);
     assert.doesNotMatch(blogIndexHtml, /\/personal-site\/_astro\//);
     assert.match(blogIndexHtml, /mode-cosmos/);

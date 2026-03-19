@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { site } from "../lib/site";
 import "./globals.css";
@@ -8,11 +8,6 @@ const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-ibm-plex-mono",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
 });
 
 const themeScript = `
@@ -54,9 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${ibmPlexMono.variable} ${spaceGrotesk.variable} site-body mode-cosmos antialiased`}
-      >
+      <body className={`${ibmPlexMono.variable} site-body mode-cosmos antialiased`}>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
       </body>
