@@ -68,13 +68,12 @@ test("build exports a Next.js app with the full primary site structure", () => {
     const aboutHtml = readFileSync(aboutPath, "utf8");
     assert.match(blogIndexHtml, /\/personal-site\/_next\/static\//);
     assert.doesNotMatch(blogIndexHtml, /\/personal-site\/_astro\//);
-    assert.match(blogIndexHtml, /max-w-4xl/);
-    assert.match(blogIndexHtml, /font-mono/);
-    assert.match(blogIndexHtml, /View by category/);
-    assert.match(blogIndexHtml, /Tags/);
-    assert.match(blogIndexHtml, /Date/);
-    assert.match(blogIndexHtml, /Title/);
-    assert.match(blogIndexHtml, /Category/);
+    assert.match(blogIndexHtml, /class="site-shell/);
+    assert.match(blogIndexHtml, /class="archive-ledger/);
+    assert.match(blogIndexHtml, /class="archive-filter/);
+    assert.match(blogIndexHtml, /Browse by thread/);
+    assert.match(blogIndexHtml, /Keywords/);
+    assert.match(blogIndexHtml, /Archive ledger/);
     assert.match(blogIndexHtml, /La Terminal/);
     assert.match(blogIndexHtml, /Nextmini Website/);
     assert.match(blogIndexHtml, /href="\/personal-site\/blog\/category\/nextmini-series\/"/);
@@ -82,27 +81,30 @@ test("build exports a Next.js app with the full primary site structure", () => {
     assert.match(blogIndexHtml, /href="\/personal-site\/projects\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/friends\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/about\/"/);
-    assert.match(categoryHtml, /Category: Nextmini series/);
+    assert.match(categoryHtml, /Thread: Nextmini series/);
     assert.match(categoryHtml, /Part 4/);
-    assert.match(tagHtml, /Tagged with #nextmini/);
+    assert.match(tagHtml, /Keyword: #nextmini/);
     assert.match(nextminiSeriesHtml, /Series overview/);
     assert.match(nextminiSeriesHtml, /Official site/);
     assert.match(nextminiSeriesHtml, /https:\/\/nextmini\.org\//);
     assert.match(nextminiSeriesHtml, /Part 4/);
-    assert.match(nextminiPostHtml, /All/);
+    assert.match(nextminiPostHtml, /Journal/);
     assert.match(nextminiPostHtml, /Copy Link/);
+    assert.match(nextminiPostHtml, /On this page/);
     assert.match(nextminiPostHtml, /Controller interface/);
     assert.match(nextminiPostHtml, /Official site/);
     assert.match(nextminiPostHtml, /https:\/\/nextmini\.org\//);
-    assert.match(blogPostHtml, /All/);
-    assert.match(projectsHtml, /Featured/);
-    assert.match(projectsHtml, /Active/);
-    assert.match(projectsHtml, /Archived/);
-    assert.match(friendsHtml, /Friends/);
-    assert.match(friendsHtml, /Sites and people I keep returning to/);
-    assert.match(aboutHtml, /Skills/);
+    assert.match(blogPostHtml, /Journal/);
+    assert.match(projectsHtml, /Selected work/);
+    assert.match(projectsHtml, /In progress/);
+    assert.match(projectsHtml, /Past shelves/);
+    assert.match(friendsHtml, /Reading list/);
+    assert.match(friendsHtml, /A small ring of sites and tools I revisit/);
+    assert.match(aboutHtml, /Practice/);
     assert.match(aboutHtml, /Timeline/);
-    assert.match(aboutHtml, /Links/);
+    assert.match(aboutHtml, /Elsewhere/);
+    assert.doesNotMatch(blogIndexHtml, /View by category/);
+    assert.doesNotMatch(blogIndexHtml, /color-strip/);
     assert.doesNotMatch(blogIndexHtml, />XZ</);
     assert.doesNotMatch(blogPostHtml, />XZ</);
   } finally {
@@ -110,7 +112,7 @@ test("build exports a Next.js app with the full primary site structure", () => {
   }
 });
 
-test("home page uses the April-style shell and section structure", () => {
+test("home page uses the new editorial notebook shell", () => {
   const outDir = buildSite();
 
   try {
@@ -118,20 +120,24 @@ test("home page uses the April-style shell and section structure", () => {
     const homePageHtml = readFileSync(homePagePath, "utf8");
 
     assert.match(homePageHtml, /\/personal-site\/_next\/static\//);
-    assert.match(homePageHtml, /max-w-4xl/);
-    assert.match(homePageHtml, /font-mono/);
-    assert.match(homePageHtml, /Hello/);
-    assert.match(homePageHtml, /Blog/);
-    assert.match(homePageHtml, /Projects/);
-    assert.match(homePageHtml, /Contact/);
-    assert.match(homePageHtml, /View All Posts/);
-    assert.match(homePageHtml, /View All Projects/);
+    assert.match(homePageHtml, /class="site-shell/);
+    assert.match(homePageHtml, /class="editorial-hero/);
+    assert.match(homePageHtml, /class="field-notes-card/);
+    assert.match(homePageHtml, /A working notebook for systems, experiments, and careful notes/);
+    assert.match(homePageHtml, /Selected writing/);
+    assert.match(homePageHtml, /Current threads/);
+    assert.match(homePageHtml, /Desk/);
+    assert.match(homePageHtml, /Open the archive/);
+    assert.match(homePageHtml, /See projects/);
     assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/friends\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/about\/"/);
-    assert.match(homePageHtml, /Open for correspondence/);
+    assert.match(homePageHtml, /Available for thoughtful collaboration/);
     assert.match(homePageHtml, /mailto:xindan\.zhang@mail\.utoronto\.ca/);
+    assert.doesNotMatch(homePageHtml, /View All Posts/);
+    assert.doesNotMatch(homePageHtml, /View All Projects/);
+    assert.doesNotMatch(homePageHtml, /color-strip/);
     assert.doesNotMatch(homePageHtml, />XZ</);
     assert.doesNotMatch(homePageHtml, /\/personal-site\/_astro\//);
     assert.doesNotMatch(homePageHtml, /cabinet-grotesk/);

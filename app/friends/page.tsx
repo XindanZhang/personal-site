@@ -10,38 +10,41 @@ function FriendBadge({ name }: { name: string }) {
     .map((part) => part[0]?.toUpperCase() ?? "")
     .join("");
 
-  return (
-    <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-black bg-gray-100 font-mono text-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
-      {initials}
-    </div>
-  );
+  return <div className="friend-badge">{initials}</div>;
 }
 
 export default function FriendsPage() {
   return (
     <SiteLayout active="friends">
-      <section>
-        <SectionHeading as="h1" title="Friends" />
-        <p className="mb-6 font-mono text-sm">{site.friendsIntro}</p>
+      <div className="page-stack">
+        <section>
+          <SectionHeading as="h1" eyebrow="Library" title="Reading list" />
+          <p className="section-copy">{site.friendsIntro}</p>
+        </section>
 
-        <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2">
+        <div className="friends-grid">
           {site.friends.map((friend) => (
             <a
               key={friend.name}
-              className="flex items-center gap-4 border border-black bg-white p-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] transition-all duration-100 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)]"
+              className="friend-entry transition-transform duration-150 hover:-translate-y-0.5"
               href={friend.href}
               rel="noopener noreferrer"
               target="_blank"
             >
               <FriendBadge name={friend.name} />
               <div className="min-w-0 flex-1">
-                <h3 className="truncate font-mono text-base font-bold">{friend.name}</h3>
-                <p className="truncate font-mono text-sm text-gray-600">{friend.note}</p>
+                <h2 className="friend-name">{friend.name}</h2>
+                <p className="friend-note">{friend.note}</p>
               </div>
             </a>
           ))}
         </div>
-      </section>
+
+        <section className="surface-note">
+          The list stays deliberately short. I only keep references here when they actively shape the way I write,
+          build, or test things on this site.
+        </section>
+      </div>
     </SiteLayout>
   );
 }

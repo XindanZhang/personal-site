@@ -26,10 +26,10 @@ export default async function BlogCategoryPage({
       <BlogArchive
         activeCategorySlug={categorySlug}
         categories={getAllCategories()}
-        description={`Category: ${category.label}`}
+        description={`Thread: ${category.label}`}
         posts={getPostsByCategory(categorySlug)}
         tags={getAllTags()}
-        title="Blog"
+        title="Journal"
       />
     </SiteLayout>
   );

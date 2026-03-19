@@ -23,32 +23,35 @@ export interface TimelineEntry {
 
 export const site = {
   name: "Xindan Zhang",
-  titleSuffix: "Writing, networking notes, and useful links.",
+  titleSuffix: "Systems notes, network experiments, and software fieldwork.",
   description: "A small archive for systems notes, experiments, and things worth keeping around.",
-  availability: "Open for correspondence",
+  availability: "Available for thoughtful collaboration",
   email: "mailto:xindan.zhang@mail.utoronto.ca",
   github: "https://github.com/XindanZhang",
   source: "https://github.com/XindanZhang/personal-site",
   home: {
+    heroTitle: "A working notebook for systems, experiments, and careful notes.",
+    heroBody:
+      "I use this site to turn setup details, technical fragments, and ongoing threads into something readable enough to revisit later.",
     quote:
-      "I use this site as a public notebook for networking, systems work, and small software observations.",
-    body: "Most of what lives here starts as a short note: a setup detail, a useful link, or an idea that should not stay buried in a private scratch file.",
-    sideTitle: "Focus",
+      "The goal is not volume. The goal is to keep only the notes that still feel useful after the moment passes.",
+    body: "Most pieces start as a narrow observation, then stay because they continue to explain something clearly.",
+    sideTitle: "Current threads",
     sideNotes: [
-      "Keep the setup simple.",
-      "Write down what you learn.",
-      "Prefer durable notes over forgotten drafts.",
+      "Tracing dataplane internals in Nextmini.",
+      "Collecting terminal and tooling notes that age well.",
+      "Designing the site as an archive instead of a profile page.",
     ],
-    blogSummary: "Posts, notes, and references collected in one archive.",
-    projectsSummary: "A few living pages inside this site and the repositories behind them.",
+    blogSummary: "Recent entries from the notebook, chosen for clarity and staying power.",
+    projectsSummary: "The quieter infrastructure around the archive: repositories, series pages, and the site itself.",
   },
   blog: {
     description: "Writing about systems, networking, terminals, and whatever is worth keeping around.",
   },
-  friendsIntro: "Sites and people I keep returning to.",
+  friendsIntro: "A small ring of sites and tools I revisit.",
   about: {
-    intro: "Hi, I'm Xindan Zhang, and I use this site to keep notes, posts, and small experiments in one place.",
-    body: "The writing here is practical on purpose: terminals, networking, deployment details, and software tools that are easier to understand once they are written down clearly.",
+    intro: "Hi, I'm Xindan Zhang. I keep this site as a public notebook for systems work, software tooling, and the stray details that become useful only after they are written down.",
+    body: "Most of the material here sits somewhere between documentation and field notes: concrete enough to reuse, personal enough to reflect how I actually work.",
   },
   projects: [
     {

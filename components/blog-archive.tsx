@@ -15,9 +15,7 @@ interface BlogArchiveProps {
 }
 
 const filterLinkClass = `
-  border border-black bg-white px-3 py-1 font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]
-  transition-all duration-100 hover:translate-x-[1px] hover:translate-y-[1px]
-  hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)]
+  filter-chip
 `;
 
 export function BlogArchive({
@@ -32,62 +30,67 @@ export function BlogArchive({
   return (
     <div className="space-y-6">
       <section>
-        <SectionHeading as="h1" title={title} />
-        <p className="font-mono text-sm">{description}</p>
+        <SectionHeading as="h1" eyebrow="Journal" title={title} />
+        <p className="section-copy">{description}</p>
       </section>
 
-      <hr className="my-4 w-full border-0 border-t border-dotted border-gray-400" />
-
-      <section className="space-y-3">
-        <h2 className="font-mono text-sm font-bold uppercase tracking-wider">View by category</h2>
-        <div className="flex flex-wrap items-center gap-2">
-          <Link
-            className={`${filterLinkClass} ${!activeCategorySlug && !activeTagSlug ? "bg-[#d4a72c]" : ""}`}
-            href="/blog/"
-          >
-            All
-          </Link>
-
-          {categories.map((category) => (
+      <section className="archive-filter">
+        <div className="filter-group">
+          <p className="filter-label">Browse by thread</p>
+          <div className="filter-wrap">
             <Link
-              key={category.slug}
-              className={`${filterLinkClass} ${activeCategorySlug === category.slug ? "bg-[#d4a72c]" : ""}`}
-              href={`/blog/category/${category.slug}/`}
+              className={`${filterLinkClass} ${!activeCategorySlug && !activeTagSlug ? "is-active" : ""}`}
+              href="/blog/"
             >
-              {category.label}
+              All notes
             </Link>
-          ))}
+
+            {categories.map((category) => (
+              <Link
+                key={category.slug}
+                className={`${filterLinkClass} ${activeCategorySlug === category.slug ? "is-active" : ""}`}
+                href={`/blog/category/${category.slug}/`}
+              >
+                {category.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="filter-group">
+          <p className="filter-label">Keywords</p>
+          <div className="filter-wrap">
+            {tags.map((tag) => (
+              <Link
+                key={tag.slug}
+                className={`${filterLinkClass} ${activeTagSlug === tag.slug ? "is-active" : ""}`}
+                href={`/blog/tag/${tag.slug}/`}
+              >
+                #{tag.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="space-y-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-xs text-gray-500">Tags:</span>
-          {tags.map((tag) => (
-            <Link
-              key={tag.slug}
-              className={`${filterLinkClass} px-2 py-0.5 text-xs ${activeTagSlug === tag.slug ? "bg-gray-200" : "bg-gray-100"}`}
-              href={`/blog/tag/${tag.slug}/`}
-            >
-              #{tag.label}
-            </Link>
-          ))}
-        </div>
+      <section>
+        <SectionHeading eyebrow="Archive" title="Archive ledger" />
       </section>
-
-      <hr className="my-4 w-full border-0 border-t border-black" />
-
       {posts.length > 0 ? (
         <PostTable posts={posts} />
       ) : (
-        <div className="border border-black bg-gray-50 p-4 font-mono text-sm text-gray-600 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]">
+        <div className="surface-note">
           No posts found in this view yet. Return to the full archive and browse another category.
         </div>
       )}
 
-      <div className="border border-black bg-gray-50 p-4 font-mono text-sm text-gray-600 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]">
-        Check the <Link className="font-medium text-black underline hover:no-underline" href="/projects/">Projects</Link> page for related site links, or use{" "}
-        <a className="font-medium text-black underline hover:no-underline" href={site.email}>
+      <div className="surface-note">
+        Check the{" "}
+        <Link className="inline-link" href="/projects/">
+          projects
+        </Link>{" "}
+        page for related site links, or use{" "}
+        <a className="inline-link" href={site.email}>
           email
         </a>{" "}
         if you want to reach out directly.

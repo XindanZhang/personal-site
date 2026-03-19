@@ -4,7 +4,7 @@ import { getAllCategories, getAllPosts, getAllTags } from "../../lib/blog";
 import { site } from "../../lib/site";
 
 export const metadata = {
-  title: "Blog",
+  title: "Journal",
   description: site.blog.description,
 };
 
@@ -16,7 +16,7 @@ export default function BlogPage() {
         description={site.blog.description}
         posts={getAllPosts()}
         tags={getAllTags()}
-        title="Blog"
+        title="Journal"
       />
     </SiteLayout>
   );

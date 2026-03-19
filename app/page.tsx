@@ -1,124 +1,153 @@
 import Link from "next/link";
+import { PostTable } from "../components/post-table";
 import { ProjectCard } from "../components/project-card";
 import { SectionHeading } from "../components/section-heading";
 import { SiteLayout } from "../components/site-layout";
+import { getAllSeries, getFeaturedPosts } from "../lib/blog";
 import { getProjectsByStatus, site } from "../lib/site";
-
-const buttonClassName =
-  "inline-flex items-center justify-center gap-1.5 border border-black px-3 py-1 font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] transition-all duration-100 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none";
 
 export default function HomePage() {
   const featuredProject = getProjectsByStatus("featured")[0];
+  const highlightedPosts = getFeaturedPosts();
+  const nextminiSeries = getAllSeries().find((series) => series.slug === "nextmini");
 
   return (
     <SiteLayout active="home">
-      <div className="space-y-6">
-        <section>
-          <SectionHeading as="h1" title="Hello" />
+      <div className="page-stack">
+        <section className="editorial-hero">
+          <div>
+            <p className="hero-kicker">Notebook</p>
+            <h1 className="hero-title">{site.home.heroTitle}</h1>
+            <p className="hero-summary">{site.home.heroBody}</p>
+            <p className="hero-quote">
+              <em>{site.home.quote}</em>
+            </p>
+            <p className="eyebrow-copy">{site.home.body}</p>
 
-          <div className="grid grid-cols-1 gap-6 tablet:grid-cols-[2fr_1fr]">
-            <div>
-              <div className="space-y-4">
-                <p className="font-mono text-sm">{site.titleSuffix}</p>
-                <blockquote className="border-l-4 border-black bg-gray-50 py-2 pl-4 font-mono text-sm">
-                  <em>{site.home.quote}</em>
-                </blockquote>
-                <p className="font-mono text-sm">{site.home.body}</p>
-
-                <div className="flex items-center gap-4">
-                  <a
-                    className={`${buttonClassName} bg-[#d4a72c] text-black`}
-                    href={site.email}
-                  >
-                    Contact
-                    <span aria-hidden="true">→</span>
-                  </a>
-                  <span className="font-mono text-xs text-gray-500">{site.availability}</span>
-                </div>
-              </div>
+            <div className="hero-actions">
+              <Link className="button-link is-primary" href="/blog/">
+                Open the archive
+                <span aria-hidden="true">↗</span>
+              </Link>
+              <Link className="button-link is-secondary" href="/projects/">
+                See projects
+                <span aria-hidden="true">↗</span>
+              </Link>
+              <a className="button-link is-tertiary" href={site.email}>
+                Email
+                <span aria-hidden="true">↗</span>
+              </a>
             </div>
 
-            <div>
-              <div className="border border-black bg-white shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)]">
-                <div className="border-b border-black px-4 py-2 font-mono text-sm font-bold">
-                  {site.home.sideTitle}
-                </div>
-                <ul className="divide-y divide-black">
-                  {site.home.sideNotes.map((note) => (
-                    <li key={note} className="border-l-4 border-l-gray-500 px-4 py-2 font-mono text-sm">
-                      {note}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <p className="availability-note">{site.availability}</p>
           </div>
+
+          <aside className="field-notes-card">
+            <p className="notes-title">{site.home.sideTitle}</p>
+            <ul className="note-list">
+              {site.home.sideNotes.map((note) => (
+                <li key={note}>{note}</li>
+              ))}
+            </ul>
+          </aside>
         </section>
 
-        <hr className="my-4 w-full border-0 border-t border-dotted border-gray-400" />
-
-        <section>
-          <SectionHeading title="Blog" />
-          <p className="mb-4 font-mono text-sm">{site.home.blogSummary}</p>
-          <Link className={`${buttonClassName} bg-[#177a45] text-white`} href="/blog/">
-            View All Posts
-            <span aria-hidden="true">→</span>
-          </Link>
+        <section className="stack-section">
+          <SectionHeading eyebrow="Journal" title="Selected writing" />
+          <p className="section-copy">{site.home.blogSummary}</p>
+          <PostTable posts={highlightedPosts} />
         </section>
 
-        <hr className="my-4 w-full border-0 border-t border-dotted border-gray-400" />
-
-        <section>
-          <SectionHeading title="Projects" />
-          <div className="grid grid-cols-1 gap-6 tablet:grid-cols-[2fr_1fr]">
-            <div className="space-y-4">
-              <p className="font-mono text-sm">{site.home.projectsSummary}</p>
-              <Link className={`${buttonClassName} bg-[#f2572b] text-white`} href="/projects/">
-                View All Projects
-                <span aria-hidden="true">→</span>
+        <section className="stack-section">
+          <SectionHeading eyebrow="Overview" title="Desk" />
+          <div className="desk-grid">
+            <div className="desk-card">
+              <p className="desk-card-kicker">Journal</p>
+              <h2 className="desk-card-title">A readable archive first, a feed second.</h2>
+              <p className="desk-card-copy">
+                Browse the full archive by thread, revisit series notes, or jump straight into the posts that still
+                matter after the week ends.
+              </p>
+              <Link className="button-link is-secondary" href="/blog/">
+                Open the archive
+                <span aria-hidden="true">↗</span>
               </Link>
             </div>
 
-            {featuredProject ? (
-              <div>
-                <ProjectCard project={featuredProject} />
-              </div>
-            ) : null}
+            <div className="desk-card">
+              <p className="desk-card-kicker">Projects</p>
+              <h2 className="desk-card-title">The infrastructure around the notebook.</h2>
+              <p className="desk-card-copy">{site.home.projectsSummary}</p>
+              <Link className="button-link is-secondary" href="/projects/">
+                See projects
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+
+            <div className="desk-card">
+              <p className="desk-card-kicker">Reading</p>
+              <h2 className="desk-card-title">A small ring of sites and tools worth returning to.</h2>
+              <p className="desk-card-copy">
+                The reading page keeps the references, products, and neighboring sites that shape how this archive is
+                built.
+              </p>
+              <Link className="button-link is-secondary" href="/friends/">
+                Browse reading list
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+
+            <div className="desk-card">
+              <p className="desk-card-kicker">About</p>
+              <h2 className="desk-card-title">Context for the work and the pace behind it.</h2>
+              <p className="desk-card-copy">
+                The about page collects the practice areas, timeline, and outside links that explain the site without
+                turning it into a resume dump.
+              </p>
+              <Link className="button-link is-secondary" href="/about/">
+                Read about
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
           </div>
         </section>
 
-        <hr className="my-4 w-full border-0 border-t border-dotted border-gray-400" />
+        {featuredProject || nextminiSeries ? (
+          <section className="stack-section">
+            <SectionHeading eyebrow="Thread" title="Current workbench" />
+            <div className="desk-grid">
+              {featuredProject ? <ProjectCard project={featuredProject} /> : null}
 
-        <section>
-          <SectionHeading title="Contact" />
-          <table className="w-full border-collapse font-mono text-sm shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)]">
-            <tbody>
-              <tr className="border border-black border-l-4 border-l-[#3498db]">
-                <td className="w-24 border-r border-black bg-white px-3 py-2 font-bold">Email</td>
-                <td className="bg-white px-3 py-2">
-                  <a className="hover:underline" href={site.email}>
-                    xindan.zhang@mail.utoronto.ca
-                  </a>
-                </td>
-              </tr>
-              <tr className="border border-t-0 border-black border-l-4 border-l-[#3498db]">
-                <td className="w-24 border-r border-black bg-white px-3 py-2 font-bold">GitHub</td>
-                <td className="bg-white px-3 py-2">
-                  <a className="hover:underline" href={site.github} rel="noopener noreferrer" target="_blank">
-                    XindanZhang
-                  </a>
-                </td>
-              </tr>
-              <tr className="border border-t-0 border-black border-l-4 border-l-[#3498db]">
-                <td className="w-24 border-r border-black bg-white px-3 py-2 font-bold">Archive</td>
-                <td className="bg-white px-3 py-2">
-                  <Link className="hover:underline" href="/blog/">
-                    /blog/
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+              <div className="surface-note">
+                <p className="notes-title">Series</p>
+                <p className="m-0 text-[1rem] leading-7 text-[var(--page-ink)]">
+                  {nextminiSeries
+                    ? `${nextminiSeries.name} currently spans ${nextminiSeries.posts.length} connected notes, from the overview through controller internals and runtime behavior.`
+                    : "Longer threads live here when a single post is too small to hold the whole idea."}
+                </p>
+                {nextminiSeries ? (
+                  <div className="mt-4">
+                    <Link className="button-link is-secondary" href={`/blog/series/${nextminiSeries.slug}/`}>
+                      Open {nextminiSeries.name}
+                      <span aria-hidden="true">↗</span>
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="surface-note">
+          You can reach me at{" "}
+          <a className="inline-link" href={site.email}>
+            xindan.zhang@mail.utoronto.ca
+          </a>
+          , browse the code on{" "}
+          <a className="inline-link" href={site.github} rel="noopener noreferrer" target="_blank">
+            GitHub
+          </a>
+          , or start with the <Link className="inline-link" href="/blog/">journal</Link>.
         </section>
       </div>
     </SiteLayout>
