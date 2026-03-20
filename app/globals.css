@@ -1137,19 +1137,19 @@ img {
 }
 
 :root[data-theme="light"] {
-  --page-bg: #f3efe5;
-  --page-bg-alt: #ece5d8;
-  --page-ink: #241f1a;
-  --muted: #6c655d;
-  --muted-strong: #403831;
-  --panel: #f0eadf;
-  --panel-strong: #f7f2e8;
-  --panel-soft: #ebe4d6;
-  --line: #c8beb0;
-  --line-strong: #a99d8f;
-  --accent: #5f7550;
-  --accent-strong: #9a764b;
-  --accent-hot: #56788d;
+  --page-bg: #f4f2ea;
+  --page-bg-alt: #e8e4d8;
+  --page-ink: #1f201d;
+  --muted: #686b64;
+  --muted-strong: #3d413a;
+  --panel: #f1eee5;
+  --panel-strong: #f8f5ed;
+  --panel-soft: #ebe8dd;
+  --line: #c4c0b2;
+  --line-strong: #8e9587;
+  --accent: #5e7457;
+  --accent-strong: #856947;
+  --accent-hot: #4d6b78;
   --danger: #9b4d4d;
 }
 
@@ -1603,7 +1603,7 @@ body.mode-terminal ::selection {
 }
 
 .shell-section.is-identity .terminal-output {
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .shell-section.is-status .terminal-output,
@@ -1658,6 +1658,70 @@ body.mode-terminal ::selection {
   line-height: 1.55;
 }
 
+.identity-grid,
+.signal-list,
+.workspace-tree,
+.journal-headlines,
+.contact-strip {
+  display: grid;
+}
+
+.identity-grid {
+  gap: 0.38rem;
+}
+
+.identity-row,
+.signal-row {
+  display: grid;
+  grid-template-columns: 8ch minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: baseline;
+}
+
+.identity-key,
+.signal-key,
+.contact-key {
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.identity-value,
+.signal-value {
+  color: var(--page-ink);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.shell-motd {
+  margin: 0;
+  max-width: 32ch;
+  color: var(--accent-strong);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.signal-list {
+  gap: 0.38rem;
+}
+
+.contact-strip {
+  gap: 0.32rem;
+  padding-top: 0.25rem;
+}
+
+.contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: baseline;
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
 .shell-heading {
   margin: 0;
   color: var(--page-ink);
@@ -1708,6 +1772,48 @@ body.mode-terminal ::selection {
 .terminal-listing {
   display: grid;
   gap: 0;
+}
+
+.workspace-tree {
+  gap: 0;
+}
+
+.workspace-tree-row {
+  display: grid;
+  grid-template-columns: 4ch minmax(0, 1fr) auto;
+  gap: 0.9rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.workspace-tree-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.workspace-tree-row:hover .workspace-tree-name {
+  color: var(--accent);
+}
+
+.workspace-tree-branch {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.workspace-tree-name {
+  color: var(--page-ink);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.workspace-tree-note {
+  color: var(--accent-hot);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
 }
 
 .workspace-table {
@@ -1768,6 +1874,49 @@ body.mode-terminal ::selection {
   color: var(--muted-strong);
   font-size: 0.88rem;
   line-height: 1.65;
+}
+
+.journal-headlines {
+  gap: 0;
+}
+
+.journal-headline-row {
+  display: grid;
+  grid-template-columns: 8ch minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.journal-headline-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.journal-headline-row:hover .journal-headline-title {
+  color: var(--accent);
+}
+
+.journal-headline-date {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.journal-headline-title {
+  color: var(--page-ink);
+  font-size: 0.91rem;
+  line-height: 1.55;
+}
+
+.journal-headline-label {
+  color: var(--accent-hot);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 
 .terminal-listing-row {
@@ -2413,8 +2562,21 @@ body.mode-terminal ::selection {
     grid-template-columns: 1fr;
   }
 
+  .workspace-tree-row,
+  .journal-headline-row,
+  .identity-row,
+  .signal-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
   .workspace-meta {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .workspace-tree-note,
+  .journal-headline-label {
+    justify-self: start;
   }
 
   .shell-statusbar {

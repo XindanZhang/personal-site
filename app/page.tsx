@@ -1,67 +1,32 @@
 import Link from "next/link";
-import { PostTable } from "../components/post-table";
 import { PromptSection } from "../components/prompt-section";
 import { SiteLayout } from "../components/site-layout";
-import { getAllSeries, getFeaturedPosts } from "../lib/blog";
-import { getProjectsByStatus, site } from "../lib/site";
+import { formatShortDate, getFeaturedPosts } from "../lib/blog";
+import { site } from "../lib/site";
+
+const identityRows = [
+  { key: "name", value: "Cindy" },
+  { key: "focus", value: "networking / systems / tooling" },
+  { key: "shell", value: "zsh + tmux + ssh" },
+  { key: "mode", value: "write it down after it works" },
+] as const;
+
+const currentThreads = [
+  { key: "now", value: "nextmini dataplane" },
+  { key: "keep", value: "remote shell notes" },
+  { key: "ship", value: "repeatable setup logs" },
+] as const;
 
 const workspaceEntries = [
-  {
-    permissions: "drwxr-xr-x",
-    owner: "xindan",
-    group: "staff",
-    size: "224",
-    modifiedAt: "Mar 19 11:20",
-    href: "/blog/",
-    label: "journal/",
-    note: site.home.blogSummary,
-  },
-  {
-    permissions: "drwxr-xr-x",
-    owner: "xindan",
-    group: "staff",
-    size: "160",
-    modifiedAt: "Mar 19 11:24",
-    href: "/projects/",
-    label: "projects/",
-    note: site.home.projectsSummary,
-  },
-  {
-    permissions: "drwxr-xr-x",
-    owner: "xindan",
-    group: "staff",
-    size: "128",
-    modifiedAt: "Mar 19 11:28",
-    href: "/friends/",
-    label: "friends/",
-    note: site.friendsIntro,
-  },
-  {
-    permissions: "drwxr-xr-x",
-    owner: "xindan",
-    group: "staff",
-    size: "128",
-    modifiedAt: "Mar 19 11:31",
-    href: "/about/",
-    label: "about/",
-    note: site.about.body,
-  },
-  {
-    permissions: "-rw-r--r--",
-    owner: "xindan",
-    group: "staff",
-    size: "1.1K",
-    modifiedAt: "Mar 19 11:34",
-    href: "/about/",
-    label: "README.md",
-    note: "Identity, working style, current threads, and where to reach me.",
-  },
+  { branch: "├──", href: "/blog/", label: "journal/", note: "logs" },
+  { branch: "├──", href: "/projects/", label: "projects/", note: "builds" },
+  { branch: "├──", href: "/friends/", label: "friends/", note: "ring" },
+  { branch: "├──", href: "/about/", label: "about/", note: "profile" },
+  { branch: "└──", href: "/about/", label: "README.md", note: "index" },
 ] as const;
 
 export default function HomePage() {
-  const featuredProject = getProjectsByStatus("featured")[0];
-  const highlightedPosts = getFeaturedPosts();
-  const nextminiSeries = getAllSeries().find((series) => series.slug === "nextmini");
+  const highlightedPosts = getFeaturedPosts().slice(0, 4);
 
   return (
     <SiteLayout active="home">
@@ -78,97 +43,66 @@ export default function HomePage() {
               typed
             >
               <p className="terminal-readout">uid=1000(xindan) gid=1000(research) shell=/bin/zsh location=toronto</p>
-              <h1 className="shell-heading">{site.home.heroTitle}</h1>
-              <p className="shell-copy">{site.home.heroBody}</p>
-              <p className="shell-copy">{site.home.body}</p>
-              <p className="shell-copy shell-quote">{site.home.quote}</p>
+              <div className="identity-grid">
+                {identityRows.map((row) => (
+                  <div key={row.key} className="identity-row">
+                    <span className="identity-key">{row.key}</span>
+                    <span className="identity-value">{row.value}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="shell-motd">terminal-first notes on systems work that survives past the session.</p>
             </PromptSection>
 
             <PromptSection
               className="shell-section is-status"
-              command="cat /status/now.txt"
-              cwd="~/workspace"
+              command="cat ~/.plan"
+              cwd="~"
               typeDelayMs={1120}
-              typeDurationMs={620}
+              typeDurationMs={420}
               typed
             >
-              <ul className="terminal-note-list">
-                {site.home.sideNotes.map((note) => (
-                  <li key={note}>{note}</li>
+              <div className="signal-list">
+                {currentThreads.map((thread) => (
+                  <div key={thread.key} className="signal-row">
+                    <span className="signal-key">{thread.key}</span>
+                    <span className="signal-value">{thread.value}</span>
+                  </div>
                 ))}
-              </ul>
-              <p className="availability-note">{site.availability}</p>
-              <p className="shell-copy">
-                email=
-                <a className="terminal-inline-link" href={site.email}>
-                  xindan.zhang@mail.utoronto.ca
-                </a>{" "}
-                github=
-                <a className="terminal-inline-link" href={site.github} rel="noopener noreferrer" target="_blank">
-                  XindanZhang
-                </a>
-              </p>
+              </div>
+              <div className="contact-strip">
+                <p className="availability-note">{site.availability}</p>
+                <p className="contact-line">
+                  <span className="contact-key">email</span>
+                  <a className="terminal-inline-link" href={site.email}>
+                    xindan.zhang@mail.utoronto.ca
+                  </a>
+                </p>
+                <p className="contact-line">
+                  <span className="contact-key">github</span>
+                  <a className="terminal-inline-link" href={site.github} rel="noopener noreferrer" target="_blank">
+                    XindanZhang
+                  </a>
+                </p>
+              </div>
             </PromptSection>
-
-            {featuredProject || nextminiSeries ? (
-              <PromptSection
-                className="shell-section is-manifest"
-                command="sed -n '1,4p' /workspace/projects/manifest.txt"
-                cwd="~/workspace/projects"
-                typeDelayMs={1480}
-                typeDurationMs={720}
-                typed
-              >
-                <div className="terminal-manifest">
-                  {featuredProject ? (
-                    <div className="terminal-manifest-row">
-                      <p className="terminal-manifest-key">featured_project</p>
-                      <p className="shell-copy">
-                        <Link className="terminal-inline-link" href={featuredProject.href}>
-                          {featuredProject.name}
-                        </Link>{" "}
-                        {featuredProject.description}
-                      </p>
-                    </div>
-                  ) : null}
-                  {nextminiSeries ? (
-                    <div className="terminal-manifest-row">
-                      <p className="terminal-manifest-key">active_series</p>
-                      <p className="shell-copy">
-                        {nextminiSeries.name} spans {nextminiSeries.posts.length} connected notes from the overview to
-                        controller internals and runtime behavior.
-                      </p>
-                      <Link className="terminal-inline-link" href={`/blog/series/${nextminiSeries.slug}/`}>
-                        open /blog/series/{nextminiSeries.slug}
-                      </Link>
-                    </div>
-                  ) : null}
-                </div>
-              </PromptSection>
-            ) : null}
           </div>
 
           <div className="shell-column is-log">
             <PromptSection
               className="shell-section is-workspace"
-              command="ls /workspace"
+              command="tree -L 1 /workspace"
               cwd="~/workspace"
               typeDelayMs={420}
               typeDurationMs={520}
               typed
             >
-              <div className="workspace-table">
+              <div className="workspace-tree">
                 {workspaceEntries.map((entry) => (
-                  <Link key={`${entry.permissions}-${entry.label}`} className="workspace-row" href={entry.href}>
-                    <div className="workspace-meta">
-                      <span className="workspace-permissions">{entry.permissions}</span>
-                      <span className="workspace-size">{entry.size}</span>
-                      <span className="workspace-date">{entry.modifiedAt}</span>
-                    </div>
-                    <div className="workspace-file">
-                      <span className="workspace-name">{entry.label}</span>
-                      <span className="workspace-note">{entry.note}</span>
-                    </div>
+                  <Link key={entry.label} className="workspace-tree-row" href={entry.href}>
+                    <span className="workspace-tree-branch">{entry.branch}</span>
+                    <span className="workspace-tree-name">{entry.label}</span>
+                    <span className="workspace-tree-note">{entry.note}</span>
                   </Link>
                 ))}
               </div>
@@ -176,13 +110,21 @@ export default function HomePage() {
 
             <PromptSection
               className="shell-section is-feed"
-              command="tail -n 5 /journal/index.log"
+              command="tail -n 4 /journal/head.log"
               cwd="~/journal"
               typeDelayMs={760}
               typeDurationMs={760}
               typed
             >
-              <PostTable posts={highlightedPosts} />
+              <div className="journal-headlines">
+                {highlightedPosts.map((post) => (
+                  <Link key={post.slug} className="journal-headline-row" href={`/blog/${post.slug}/`}>
+                    <span className="journal-headline-date">{formatShortDate(post.publishedAt)}</span>
+                    <span className="journal-headline-title">{post.title}</span>
+                    <span className="journal-headline-label">{post.categoryLabel}</span>
+                  </Link>
+                ))}
+              </div>
             </PromptSection>
           </div>
         </div>
