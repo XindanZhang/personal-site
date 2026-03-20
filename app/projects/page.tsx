@@ -1,4 +1,4 @@
-import { ProjectCard } from "../../components/project-card";
+import { ProjectLedger } from "../../components/project-ledger";
 import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { getProjectsByStatus } from "../../lib/site";
@@ -14,12 +14,8 @@ function ProjectGroup({
 }) {
   return (
     <PromptSection command={command}>
-      <p className="shell-copy">{copy}</p>
-      <div className="project-grid desktop:grid-cols-3">
-        {projects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
-        ))}
-      </div>
+      <p className="section-lead">{copy}</p>
+      <ProjectLedger projects={projects} />
     </PromptSection>
   );
 }

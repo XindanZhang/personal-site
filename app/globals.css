@@ -734,18 +734,18 @@ img {
 }
 
 .project-status.status-featured {
-  background: #c8f6ff;
-  color: #062036;
+  background: transparent;
+  color: var(--accent);
 }
 
 .project-status.status-active {
-  background: #d8d0ff;
-  color: #19103b;
+  background: transparent;
+  color: var(--accent-hot);
 }
 
 .project-status.status-archived {
-  background: #ffd1ec;
-  color: #3a1026;
+  background: transparent;
+  color: var(--accent-strong);
 }
 
 .project-title {
@@ -1138,15 +1138,15 @@ img {
 
 :root[data-theme="light"] {
   --page-bg: #fbf1c7;
-  --page-bg-alt: #f2e5bc;
-  --page-ink: #3c3836;
-  --muted: #7c6f64;
-  --muted-strong: #504945;
-  --panel: #f9f5d7;
-  --panel-strong: #fbf1c7;
-  --panel-soft: #f2e5bc;
-  --line: #d5c4a1;
-  --line-strong: #bdae93;
+  --page-bg-alt: #efe2b8;
+  --page-ink: #2d2418;
+  --muted: #74634d;
+  --muted-strong: #4f4332;
+  --panel: #f3e6bf;
+  --panel-strong: #f8eecf;
+  --panel-soft: #ebddb1;
+  --line: #b6a27d;
+  --line-strong: #8b7654;
   --accent: #79740e;
   --accent-strong: #b57614;
   --accent-hot: #076678;
@@ -1158,6 +1158,7 @@ body.mode-terminal {
   color: var(--page-ink);
   font-family: var(--font-mono);
   font-variant-ligatures: none;
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0;
 }
 
@@ -1180,6 +1181,9 @@ body.mode-terminal ::selection {
 .shell-window {
   border: 1px solid var(--line-strong);
   background: var(--panel);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--line) 65%, transparent),
+    0 1.75rem 4rem rgba(0, 0, 0, 0.22);
 }
 
 .shell-header,
@@ -1192,6 +1196,7 @@ body.mode-terminal ::selection {
   display: grid;
   gap: 0.7rem;
   border-bottom: 1px solid var(--line);
+  background: var(--panel-strong);
 }
 
 .shell-titlebar,
@@ -1337,6 +1342,24 @@ body.mode-terminal ::selection {
   background: var(--page-bg-alt);
 }
 
+.key-switch:focus-visible,
+.masthead-link:focus-visible,
+.button-link:focus-visible,
+.filter-chip:focus-visible,
+.nav-link:focus-visible,
+.shell-nav-link:focus-visible,
+.project-ledger-action:focus-visible,
+.terminal-inline-link:focus-visible,
+.inline-link:focus-visible,
+.footer-links a:focus-visible,
+.project-action:focus-visible,
+.journal-link:focus-visible,
+.outline-link:focus-visible,
+.friend-entry:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 2px;
+}
+
 .key-switch.is-active,
 .button-link.is-primary,
 .button-link.is-secondary,
@@ -1370,7 +1393,7 @@ body.mode-terminal ::selection {
 .terminal-home,
 .article-main {
   display: grid;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .prompt-section {
@@ -1447,6 +1470,13 @@ body.mode-terminal ::selection {
   color: var(--muted-strong);
   font-size: 0.92rem;
   line-height: 1.75;
+}
+
+.section-lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
 }
 
 .shell-quote,
@@ -1648,6 +1678,10 @@ body.mode-terminal ::selection {
   color: var(--muted-strong);
 }
 
+.project-status {
+  background: transparent;
+}
+
 .archive-link,
 .project-title,
 .friend-name {
@@ -1668,6 +1702,62 @@ body.mode-terminal ::selection {
 .practice-card,
 .support-card {
   padding: 0.75rem 0.85rem;
+}
+
+.project-ledger {
+  display: grid;
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+}
+
+.project-ledger-row {
+  display: grid;
+  grid-template-columns: 10ch minmax(0, 1.2fr) minmax(0, 0.8fr) auto;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.7rem 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.project-ledger-row:first-child {
+  border-top: 0;
+}
+
+.project-ledger-column {
+  min-width: 0;
+}
+
+.project-ledger-column-status,
+.project-ledger-column-action {
+  display: flex;
+  align-items: center;
+}
+
+.project-ledger-name {
+  margin: 0;
+  color: var(--page-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.project-ledger-summary {
+  margin: 0.18rem 0 0;
+  color: var(--muted-strong);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.project-ledger-action {
+  color: var(--accent);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.project-ledger-row:hover {
+  background: var(--page-bg-alt);
 }
 
 .project-card-head,
@@ -1809,7 +1899,6 @@ body.mode-terminal ::selection {
 
 @media (min-width: 48rem) {
   .shell-grid,
-  .project-grid,
   .friends-grid,
   .practice-grid,
   .article-support {
@@ -1856,6 +1945,15 @@ body.mode-terminal ::selection {
 
   .terminal-listing-link {
     grid-column: 1 / -1;
+  }
+
+  .project-ledger-row {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  .project-ledger-column-action {
+    justify-content: flex-start;
   }
 
   .shell-nav {

@@ -84,11 +84,16 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /#d79921/i);
     assert.match(cssBundle, /#458588/i);
     assert.match(cssBundle, /#fbf1c7/i);
+    assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
+    assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /@keyframes terminal-type/i);
     assert.match(cssBundle, /@keyframes terminal-reveal/i);
     assert.doesNotMatch(cssBundle, /#8fb996/i);
     assert.doesNotMatch(cssBundle, /#c5a46d/i);
     assert.doesNotMatch(cssBundle, /#f5f2e9/i);
+    assert.doesNotMatch(cssBundle, /#c8f6ff/i);
+    assert.doesNotMatch(cssBundle, /#d8d0ff/i);
+    assert.doesNotMatch(cssBundle, /#ffd1ec/i);
     assert.match(blogIndexHtml, /\/personal-site\/_next\/static\//);
     assert.doesNotMatch(blogIndexHtml, /\/personal-site\/_astro\//);
     assert.match(blogIndexHtml, /mode-terminal/);
@@ -125,6 +130,11 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(projectsHtml, /ls \/workspace\/projects\/featured/);
     assert.match(projectsHtml, /ls \/workspace\/projects\/active/);
     assert.match(projectsHtml, /ls \/workspace\/projects\/archive/);
+    assert.match(projectsHtml, /class="project-ledger"/);
+    assert.match(projectsHtml, /class="project-ledger-row"/);
+    assert.match(projectsHtml, /class="project-ledger-name"/);
+    assert.match(projectsHtml, /class="project-ledger-action"/);
+    assert.doesNotMatch(projectsHtml, /class="project-card"/);
     assert.match(friendsHtml, /cat \/etc\/bookmarks\.txt/);
     assert.match(friendsHtml, /A small ring of sites and tools I revisit/);
     assert.match(aboutHtml, /cat \/home\/xindan\/README/);
