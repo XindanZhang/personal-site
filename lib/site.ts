@@ -22,7 +22,7 @@ export interface TimelineEntry {
 }
 
 export const site = {
-  name: "Xindan Zhang",
+  name: "Cindy",
   titleSuffix: "Networking notes, protocol experiments, and terminal-first build logs.",
   description: "Terminal-first notes on networking, distributed systems, debugging, and the tools worth reopening.",
   availability: "Available for thoughtful collaboration",
@@ -51,7 +51,7 @@ export const site = {
   friendsIntro: "A small ring of sites and tools I revisit.",
   about: {
     intro:
-      "I am Xindan Zhang. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
+      "I am Cindy. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
     body:
       "The goal is simple: keep technical notes concrete enough to rerun, concise enough to scan, and personal enough to reflect how I actually debug and build things.",
   },

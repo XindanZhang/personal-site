@@ -104,6 +104,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /Theme/);
     assert.match(blogIndexHtml, /Dark/);
     assert.match(blogIndexHtml, /Light/);
+    assert.match(blogIndexHtml, /Cindy/);
+    assert.doesNotMatch(blogIndexHtml, /Cindy Zhang/);
     assert.match(blogIndexHtml, /ls \/journal\/categories/);
     assert.match(blogIndexHtml, /ls \/journal\/tags/);
     assert.match(blogIndexHtml, /ls -ltr \/journal/);
@@ -140,6 +142,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, /cat \/home\/xindan\/README/);
     assert.match(aboutHtml, /ls \/home\/xindan\/skills/);
     assert.match(aboutHtml, /history \| tail -n 3/);
+    assert.match(aboutHtml, /I am Cindy\./);
     assert.doesNotMatch(blogIndexHtml, /Archive stream/);
     assert.doesNotMatch(blogIndexHtml, />XZ</);
     assert.doesNotMatch(blogPostHtml, />XZ</);
@@ -187,6 +190,8 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /Theme/);
     assert.match(homePageHtml, /Dark/);
     assert.match(homePageHtml, /Light/);
+    assert.match(homePageHtml, /Cindy/);
+    assert.doesNotMatch(homePageHtml, /Cindy Zhang/);
     assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/friends\/"/);
