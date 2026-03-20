@@ -1,26 +1,44 @@
 import Link from "next/link";
-import { site } from "../lib/site";
+type FooterKey = "home" | "blog" | "projects" | "friends" | "about";
 
-export function SiteFooter() {
+const footerContext: Record<FooterKey, string> = {
+  home: "home",
+  blog: "journal",
+  projects: "projects",
+  friends: "links",
+  about: "readme",
+};
+
+interface SiteFooterProps {
+  active: FooterKey;
+}
+
+export function SiteFooter({ active }: SiteFooterProps) {
   const year = new Date().getUTCFullYear();
 
   return (
     <footer className="shell-footer">
-      <p className="footer-copy">xindan@toronto-node:~/personal-site$ printf '%s\n' source contact location</p>
+      <div className="shell-statusbar">
+        <span className="shell-statusbar-segment is-strong">main</span>
+        <span className="shell-statusbar-segment">{`ctx=${footerContext[active]}`}</span>
+        <span className="shell-statusbar-segment">prefix=^b</span>
 
-      <div className="footer-links">
-        <Link href="/blog/">Journal</Link>
-        <Link href="/projects/">Projects</Link>
-        <Link href="/friends/">Reading</Link>
-        <a href={site.github} rel="noopener noreferrer" target="_blank">
-          GitHub
-        </a>
-        <a href={site.email}>Email</a>
-      </div>
+        <div className="shell-statusbar-links">
+          <Link className="shell-statusbar-link" href="/blog/">
+            F1 journal
+          </Link>
+          <Link className="shell-statusbar-link" href="/projects/">
+            F2 projects
+          </Link>
+          <Link className="shell-statusbar-link" href="/friends/">
+            F3 links
+          </Link>
+          <Link className="shell-statusbar-link" href="/about/">
+            F4 README
+          </Link>
+        </div>
 
-      <div className="footer-meta">
-        <span>cwd=/home/xindan/personal-site</span>
-        <span>year={year}</span>
+        <span className="shell-statusbar-clock">{year} Toronto</span>
       </div>
     </footer>
   );

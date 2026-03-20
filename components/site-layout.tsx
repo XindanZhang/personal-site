@@ -13,7 +13,7 @@ export function SiteLayout({ active, children }: SiteLayoutProps) {
       <div className="shell-window">
         <SiteHeader active={active} />
         <main className="shell-main">{children}</main>
-        <SiteFooter />
+        <SiteFooter active={active} />
       </div>
     </div>
   );

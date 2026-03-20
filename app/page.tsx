@@ -53,8 +53,8 @@ const workspaceEntries = [
     size: "1.1K",
     modifiedAt: "Mar 19 11:34",
     href: "/about/",
-    label: "README",
-    note: "Quick identity, current threads, and contact shortcuts.",
+    label: "README.md",
+    note: "Identity, working style, current threads, and where to reach me.",
   },
 ] as const;
 

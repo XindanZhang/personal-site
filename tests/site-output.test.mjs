@@ -89,6 +89,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /#fbf1c7/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
+    assert.match(cssBundle, /counter-reset:prompt-line/i);
+    assert.match(cssBundle, /counter\(prompt-line/i);
     assert.match(cssBundle, /@keyframes terminal-type/i);
     assert.match(cssBundle, /@keyframes terminal-reveal/i);
     assert.doesNotMatch(cssBundle, /#8fb996/i);
@@ -104,6 +106,10 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /class="shell-window/);
     assert.match(blogIndexHtml, /class="terminal-nav"/);
     assert.match(blogIndexHtml, /class="terminal-nav-list"/);
+    assert.match(blogIndexHtml, /class="shell-statusbar"/);
+    assert.match(blogIndexHtml, /ctx=journal/);
+    assert.match(blogIndexHtml, /F1 journal/);
+    assert.match(blogIndexHtml, /F2 projects/);
     assert.match(blogIndexHtml, /pwd: ~\/personal-site/);
     assert.match(blogIndexHtml, /class="prompt-section/);
     assert.match(blogIndexHtml, /class="archive-ledger/);
@@ -191,6 +197,8 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /class="shell-window/);
     assert.match(homePageHtml, /class="terminal-nav"/);
     assert.match(homePageHtml, /class="terminal-nav-list"/);
+    assert.match(homePageHtml, /class="shell-statusbar"/);
+    assert.match(homePageHtml, /ctx=home/);
     assert.match(homePageHtml, /class="prompt-section/);
     assert.match(homePageHtml, /class="prompt-line/);
     assert.match(homePageHtml, /class="terminal-output/);

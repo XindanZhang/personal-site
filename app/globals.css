@@ -1455,12 +1455,55 @@ body.mode-terminal ::selection {
   gap: 0.4rem;
 }
 
+.key-switch,
+.masthead-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.key-switch::before,
+.key-switch::after,
+.masthead-link::before,
+.masthead-link::after {
+  color: var(--line-strong);
+}
+
+.key-switch::before,
+.masthead-link::before {
+  content: "[";
+}
+
+.key-switch::after,
+.masthead-link::after {
+  content: "]";
+}
+
+.key-switch:hover,
+.masthead-link:hover {
+  border-color: transparent;
+  background: transparent;
+}
+
+.key-switch.is-active {
+  border: 0;
+  background: transparent;
+  color: var(--page-ink);
+}
+
 .shell-main,
 .page-stack,
 .terminal-home,
 .article-main {
   display: grid;
   gap: 1.1rem;
+}
+
+.page-stack,
+.terminal-home,
+.article-main {
+  counter-reset: prompt-line;
 }
 
 .prompt-section {
@@ -1478,6 +1521,13 @@ body.mode-terminal ::selection {
   font-size: 0.8rem;
   letter-spacing: 0;
   text-transform: none;
+}
+
+.prompt-line::before {
+  counter-increment: prompt-line;
+  content: "[" counter(prompt-line, decimal-leading-zero) "]";
+  color: var(--muted);
+  margin-right: 0.55rem;
 }
 
 .prompt-userhost {
@@ -2061,14 +2111,61 @@ body.mode-terminal ::selection {
 }
 
 .shell-footer {
-  display: grid;
-  gap: 0.65rem;
+  display: block;
   border-top: 1px solid var(--line);
+  padding: 0;
 }
 
-.footer-links a {
-  color: var(--accent);
+.shell-statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.55rem 0.7rem;
+  background: var(--panel-strong);
+}
+
+.shell-statusbar-segment,
+.shell-statusbar-link,
+.shell-statusbar-clock {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.7rem;
+  padding: 0.14rem 0.45rem;
+  border: 1px solid var(--line);
+  color: var(--muted-strong);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.shell-statusbar-segment.is-strong {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--panel);
+}
+
+.shell-statusbar-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.shell-statusbar-link {
+  color: var(--page-ink);
   text-decoration: none;
+}
+
+.shell-statusbar-link:hover,
+.shell-statusbar-link:focus-visible {
+  border-color: var(--accent);
+  color: var(--page-ink);
+  background: var(--page-bg-alt);
+}
+
+.shell-statusbar-clock {
+  color: var(--muted);
 }
 
 @media (min-width: 48rem) {
@@ -2134,6 +2231,15 @@ body.mode-terminal ::selection {
   .readme-outline-row,
   .readme-link-row {
     grid-template-columns: 1fr;
+  }
+
+  .shell-statusbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shell-statusbar-links {
+    margin-left: 0;
   }
 }
 
