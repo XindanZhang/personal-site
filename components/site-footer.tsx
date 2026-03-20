@@ -6,7 +6,7 @@ export function SiteFooter() {
 
   return (
     <footer className="shell-footer">
-      <p className="footer-copy">$ printf '%s\n' source contact location</p>
+      <p className="footer-copy">xindan@toronto-node:~/personal-site$ printf '%s\n' source contact location</p>
 
       <div className="footer-links">
         <Link href="/blog/">Journal</Link>
