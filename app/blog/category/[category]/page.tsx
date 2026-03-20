@@ -26,10 +26,10 @@ export default async function BlogCategoryPage({
       <BlogArchive
         activeCategorySlug={categorySlug}
         categories={getAllCategories()}
-        description={`Thread: ${category.label}`}
+        description={`filter=category:${category.label}`}
+        pathCommand={`pwd: /journal/category/${categorySlug}`}
         posts={getPostsByCategory(categorySlug)}
         tags={getAllTags()}
-        title="Journal"
       />
     </SiteLayout>
   );

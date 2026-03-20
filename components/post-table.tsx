@@ -36,7 +36,7 @@ export function PostTable({ posts }: PostTableProps) {
                 <div className="archive-meta">
                   <span
                     className="archive-category"
-                    style={{ backgroundColor: badgeTheme.background, color: badgeTheme.text }}
+                    style={{ backgroundColor: "transparent", borderColor: badgeTheme.text, color: badgeTheme.text }}
                   >
                     {post.categoryLabel}
                   </span>

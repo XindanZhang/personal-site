@@ -1,4 +1,4 @@
-import { SectionHeading } from "../../components/section-heading";
+import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
@@ -17,33 +17,31 @@ export default function FriendsPage() {
   return (
     <SiteLayout active="friends">
       <div className="page-stack">
-        <section>
-          <SectionHeading as="h1" eyebrow="Library" title="Reading list" />
-          <p className="section-copy">{site.friendsIntro}</p>
-        </section>
-
-        <div className="friends-grid">
-          {site.friends.map((friend) => (
-            <a
-              key={friend.name}
-              className="friend-entry transition-transform duration-150 hover:-translate-y-0.5"
-              href={friend.href}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <FriendBadge name={friend.name} />
-              <div className="min-w-0 flex-1">
-                <h2 className="friend-name">{friend.name}</h2>
-                <p className="friend-note">{friend.note}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <section className="surface-note">
-          The list stays deliberately short. I only keep references here when they actively shape the way I write,
-          build, or test things on this site.
-        </section>
+        <PromptSection command="cat /etc/bookmarks.txt">
+          <h1 className="shell-heading">Bookmarks</h1>
+          <p className="shell-copy">{site.friendsIntro}</p>
+          <div className="friends-grid">
+            {site.friends.map((friend) => (
+              <a
+                key={friend.name}
+                className="friend-entry"
+                href={friend.href}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <FriendBadge name={friend.name} />
+                <div className="min-w-0 flex-1">
+                  <h2 className="friend-name">{friend.name}</h2>
+                  <p className="friend-note">{friend.note}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+          <p className="shell-copy">
+            The list stays short on purpose. I keep references here only when they still shape how I write, build, or
+            test things on this site.
+          </p>
+        </PromptSection>
       </div>
     </SiteLayout>
   );

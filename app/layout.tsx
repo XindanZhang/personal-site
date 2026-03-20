@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ibmPlexMono.variable} site-body mode-cosmos antialiased`}>
+      <body className={`${ibmPlexMono.variable} site-body mode-terminal antialiased`}>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
       </body>

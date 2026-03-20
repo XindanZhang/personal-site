@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CopyLinkButton } from "../../../components/copy-link-button";
+import { PromptSection } from "../../../components/prompt-section";
 import { SiteLayout } from "../../../components/site-layout";
 import {
   formatIsoDate,
@@ -28,24 +29,18 @@ export default async function BlogPostPage({
   }
 
   const badgeTheme = getBadgeTheme(post.categoryLabel);
+  const fileName = `${post.segments.at(-1) ?? post.slug}.md`;
 
   return (
     <SiteLayout active="blog">
       <div className="article-layout">
         <div className="article-main">
-          <div className="article-toolbar">
-            <Link className="journal-link" href="/blog/">
-              Journal
-            </Link>
-            <CopyLinkButton />
-          </div>
-
-          <header className="stack-section">
+          <PromptSection caret command={`cat /journal/${post.slug}.md`}>
             <div className="article-kicker">
               <Link
                 className="article-pill"
                 href={`/blog/category/${post.categorySlug}/`}
-                style={{ backgroundColor: badgeTheme.background, color: badgeTheme.text }}
+                style={{ backgroundColor: "transparent", borderColor: badgeTheme.text, color: badgeTheme.text }}
               >
                 {post.categoryLabel}
               </Link>
@@ -56,66 +51,65 @@ export default async function BlogPostPage({
               ) : null}
             </div>
 
-            <h1 className="article-title">{post.title}</h1>
+            <h1 className="shell-heading">{post.title}</h1>
             <div className="article-meta">
               <span>{formatIsoDate(post.publishedAt)}</span>
               {post.updatedAt ? <span>Updated {formatIsoDate(post.updatedAt)}</span> : null}
               {post.tags.length > 0 ? <span>{post.tags.map((tag) => `#${tag}`).join(" · ")}</span> : null}
             </div>
-            <p className="article-summary">{post.summary}</p>
-          </header>
+            <p className="shell-copy">{post.summary}</p>
+            <div className="article-toolbar">
+              <Link className="journal-link" href="/blog/">
+                cd /journal
+              </Link>
+              <CopyLinkButton />
+            </div>
+            {post.sourceUrl ? (
+              <p className="shell-copy">
+                source_url=
+                <a
+                  className="terminal-inline-link"
+                  href={post.sourceUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {post.sourceUrl}
+                </a>
+              </p>
+            ) : null}
+            {post.series && post.seriesSlug ? (
+              <p className="shell-copy">
+                series=
+                <Link className="terminal-inline-link" href={`/blog/series/${post.seriesSlug}/`}>
+                  {post.series}
+                </Link>
+              </p>
+            ) : null}
+          </PromptSection>
 
-          {post.sourceUrl || (post.series && post.seriesSlug) ? (
-            <section className="article-support">
-              {post.sourceUrl ? (
-                <div className="support-card">
-                  <p className="support-label">Official site</p>
+          {post.headings.length > 0 ? (
+            <PromptSection command={`grep '^##' ./${fileName}`}>
+              <nav className="outline-list" aria-label="Table of contents">
+                {post.headings.map((heading) => (
                   <a
-                    className="inline-link"
-                    href={post.sourceUrl}
-                    rel="noopener noreferrer"
-                    target="_blank"
+                    key={heading.slug}
+                    className={`outline-link ${heading.depth > 2 ? "is-sub" : ""}`}
+                    href={`#${heading.slug}`}
                   >
-                    {post.sourceUrl}
+                    {heading.text}
                   </a>
-                </div>
-              ) : null}
-
-              {post.series && post.seriesSlug ? (
-                <div className="support-card">
-                  <p className="support-label">Thread</p>
-                  <Link className="inline-link" href={`/blog/series/${post.seriesSlug}/`}>
-                    {post.series} series
-                  </Link>
-                </div>
-              ) : null}
-            </section>
+                ))}
+              </nav>
+            </PromptSection>
           ) : null}
 
-          <div className="support-card">
+          <PromptSection command={`sed -n '1,$p' ./${fileName}`}>
             <article
               className="article-prose max-w-none overflow-x-hidden"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
-          </div>
+          </PromptSection>
         </div>
-
-        {post.headings.length > 0 ? (
-          <aside className="article-outline">
-            <h2 className="outline-title">On this page</h2>
-            <nav className="outline-list" aria-label="Table of contents">
-              {post.headings.map((heading) => (
-                <a
-                  key={heading.slug}
-                  className={`outline-link ${heading.depth > 2 ? "is-sub" : ""}`}
-                  href={`#${heading.slug}`}
-                >
-                  {heading.text}
-                </a>
-              ))}
-            </nav>
-          </aside>
-        ) : null}
       </div>
     </SiteLayout>
   );

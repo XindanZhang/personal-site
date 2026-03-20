@@ -10,18 +10,18 @@ interface SiteHeaderProps {
 
 export function SiteHeader({ active }: SiteHeaderProps) {
   const links = [
-    { key: "home", label: "Home", href: "/" },
-    { key: "blog", label: "Journal", href: "/blog/" },
-    { key: "projects", label: "Projects", href: "/projects/" },
-    { key: "friends", label: "Reading", href: "/friends/" },
-    { key: "about", label: "About", href: "/about/" },
+    { key: "home", label: "~/", href: "/" },
+    { key: "blog", label: "/journal", href: "/blog/" },
+    { key: "projects", label: "/projects", href: "/projects/" },
+    { key: "friends", label: "/bookmarks", href: "/friends/" },
+    { key: "about", label: "/README", href: "/about/" },
   ] as const;
 
   return (
-    <header className="masthead">
-      <div className="masthead-top">
+    <header className="shell-header">
+      <div className="shell-titlebar">
         <div>
-          <p className="masthead-note">Toronto · systems orbit · 2026</p>
+          <p className="masthead-note">toronto-node :: /home/xindan/personal-site</p>
           <Link className="brand-mark" href="/">
             {site.name}
           </Link>
@@ -35,17 +35,24 @@ export function SiteHeader({ active }: SiteHeaderProps) {
         </div>
       </div>
 
-      <nav className="masthead-nav" aria-label="Primary">
+      <div className="shell-statusline">
+        <span>user=xz</span>
+        <span>host=toronto-node</span>
+        <span>shell=zsh</span>
+      </div>
+
+      <nav className="shell-nav" aria-label="Primary">
         {links.map((link) => {
           const isActive = active === link.key;
 
           return (
             <Link
               key={link.key}
-              className={`nav-link ${isActive ? "is-active" : ""}`}
+              className={`shell-nav-link ${isActive ? "is-active" : ""}`}
               href={link.href}
             >
-              {link.label}
+              <span className="shell-nav-command">cd</span>
+              <span>{link.label}</span>
             </Link>
           );
         })}

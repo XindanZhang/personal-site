@@ -26,10 +26,10 @@ export default async function BlogTagPage({
       <BlogArchive
         activeTagSlug={tagSlug}
         categories={getAllCategories()}
-        description={`Keyword: #${tag.label}`}
+        description={`filter=tag:#${tag.label}`}
+        pathCommand={`pwd: /journal/tag/${tagSlug}`}
         posts={getPostsByTag(tagSlug)}
         tags={getAllTags()}
-        title="Journal"
       />
     </SiteLayout>
   );

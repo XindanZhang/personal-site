@@ -2,10 +2,10 @@ import Link from "next/link";
 import type { BlogPost, BlogTaxonomyEntry } from "../lib/blog";
 import { site } from "../lib/site";
 import { PostTable } from "./post-table";
-import { SectionHeading } from "./section-heading";
+import { PromptSection } from "./prompt-section";
 
 interface BlogArchiveProps {
-  title: string;
+  pathCommand: string;
   description: string;
   posts: BlogPost[];
   categories: BlogTaxonomyEntry[];
@@ -19,7 +19,7 @@ const filterLinkClass = `
 `;
 
 export function BlogArchive({
-  title,
+  pathCommand,
   description,
   posts,
   categories,
@@ -29,14 +29,12 @@ export function BlogArchive({
 }: BlogArchiveProps) {
   return (
     <div className="page-stack">
-      <section>
-        <SectionHeading as="h1" eyebrow="Journal" title={title} />
-        <p className="section-copy">{description}</p>
-      </section>
+      <PromptSection as="section" command={pathCommand}>
+        <p className="shell-copy">{description}</p>
+      </PromptSection>
 
-      <section className="archive-filter">
+      <PromptSection as="section" command="ls /journal/categories">
         <div className="filter-group">
-          <p className="filter-label">Filter threads</p>
           <div className="filter-wrap">
             <Link
               className={`${filterLinkClass} ${!activeCategorySlug && !activeTagSlug ? "is-active" : ""}`}
@@ -56,9 +54,10 @@ export function BlogArchive({
             ))}
           </div>
         </div>
+      </PromptSection>
 
+      <PromptSection as="section" command="ls /journal/tags">
         <div className="filter-group">
-          <p className="filter-label">Signal tags</p>
           <div className="filter-wrap">
             {tags.map((tag) => (
               <Link
@@ -71,30 +70,28 @@ export function BlogArchive({
             ))}
           </div>
         </div>
-      </section>
+      </PromptSection>
 
-      <section>
-        <SectionHeading eyebrow="Archive" title="Archive stream" />
-      </section>
-      {posts.length > 0 ? (
-        <PostTable posts={posts} />
-      ) : (
-        <div className="surface-note">
-          No posts found in this view yet. Return to the full archive and browse another category.
-        </div>
-      )}
+      <PromptSection as="section" command="ls -ltr /journal">
+        {posts.length > 0 ? (
+          <PostTable posts={posts} />
+        ) : (
+          <div className="terminal-empty">No entries in this view yet.</div>
+        )}
+      </PromptSection>
 
-      <div className="surface-note">
-        Check the{" "}
-        <Link className="inline-link" href="/projects/">
-          projects
-        </Link>{" "}
-        page for related site links, or use{" "}
-        <a className="inline-link" href={site.email}>
-          email
-        </a>{" "}
-        if you want to reach out directly.
-      </div>
+      <PromptSection as="section" command="printf '%s\n' /projects /contact">
+        <p className="shell-copy">
+          related=
+          <Link className="terminal-inline-link" href="/projects/">
+            /projects
+          </Link>{" "}
+          contact=
+          <a className="terminal-inline-link" href={site.email}>
+            {site.email.replace("mailto:", "")}
+          </a>
+        </p>
+      </PromptSection>
     </div>
   );
 }

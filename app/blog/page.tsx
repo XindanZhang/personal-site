@@ -12,11 +12,11 @@ export default function BlogPage() {
   return (
     <SiteLayout active="blog">
       <BlogArchive
+        pathCommand="pwd: /journal"
         categories={getAllCategories()}
         description={site.blog.description}
         posts={getAllPosts()}
         tags={getAllTags()}
-        title="Journal"
       />
     </SiteLayout>
   );
