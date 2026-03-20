@@ -78,6 +78,12 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /Berkeley Mono/);
     assert.doesNotMatch(cssBundle, /Space Grotesk/);
     assert.doesNotMatch(cssBundle, /Newsreader/);
+    assert.match(cssBundle, /#8fb996/i);
+    assert.match(cssBundle, /#c5a46d/i);
+    assert.match(cssBundle, /#f5f2e9/i);
+    assert.doesNotMatch(cssBundle, /#74ffa1/i);
+    assert.doesNotMatch(cssBundle, /#1d8d43/i);
+    assert.doesNotMatch(cssBundle, /#ffd479/i);
     assert.match(blogIndexHtml, /\/personal-site\/_next\/static\//);
     assert.doesNotMatch(blogIndexHtml, /\/personal-site\/_astro\//);
     assert.match(blogIndexHtml, /mode-terminal/);
