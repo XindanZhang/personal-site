@@ -36,6 +36,9 @@ export function SiteHeader({ active }: SiteHeaderProps) {
         </div>
 
         <div className="masthead-actions">
+          <Link className="masthead-link is-home" href="/">
+            Home
+          </Link>
           <ThemeToggle />
           <a className="masthead-link" href={site.email}>
             Email

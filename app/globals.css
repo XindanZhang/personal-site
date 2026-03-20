@@ -1,23 +1,12 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Berkeley Mono";
-  src:
-    local("Berkeley Mono"),
-    local("Berkeley Mono Regular"),
-    local("Berkeley Mono Variable");
-  font-display: swap;
-}
-
 @theme {
   --font-display:
-    "Berkeley Mono",
     var(--font-ibm-plex-mono),
     "IBM Plex Mono",
     "SFMono-Regular",
     monospace;
   --font-mono:
-    "Berkeley Mono",
     var(--font-ibm-plex-mono),
     "IBM Plex Mono",
     "SFMono-Regular",
@@ -1118,62 +1107,62 @@ img {
 }
 
 :root {
-  --page-bg: #0d0f10;
-  --page-bg-alt: #14181a;
-  --page-ink: #d8d2c4;
-  --muted: #8a8478;
-  --muted-strong: #b9b2a3;
-  --panel: #101314;
-  --panel-strong: #121516;
-  --panel-soft: #171b1d;
-  --line: #272d30;
-  --line-strong: #353d41;
-  --accent: #7c8f62;
-  --accent-strong: #b19363;
-  --accent-hot: #6c8ea1;
-  --block-identity: #8fb96f;
-  --block-status: #dfb86d;
-  --block-workspace: #7db6ff;
-  --block-feed: #c28cff;
-  --block-journal: #7db6ff;
-  --block-projects: #d97bb0;
-  --block-readme: #8f86d8;
-  --block-links: #d3a55f;
-  --dock-f1: #7fd98f;
-  --dock-f2: #7db6ff;
-  --dock-f3: #dfb86d;
-  --dock-f4: #d97bb0;
+  --page-bg: #0b0f10;
+  --page-bg-alt: #121718;
+  --page-ink: #e7e1cf;
+  --muted: #8c8677;
+  --muted-strong: #c3bba6;
+  --panel: #111516;
+  --panel-strong: #161b1c;
+  --panel-soft: #1b2022;
+  --line: #2a3133;
+  --line-strong: #3c4548;
+  --accent: #89b482;
+  --accent-strong: #d8a657;
+  --accent-hot: #7daea3;
+  --block-identity: #8ec07c;
+  --block-status: #d8a657;
+  --block-workspace: #7daea3;
+  --block-feed: #b48ead;
+  --block-journal: #7aa2c1;
+  --block-projects: #d3869b;
+  --block-readme: #a899d1;
+  --block-links: #c08a4a;
+  --dock-f1: #89b482;
+  --dock-f2: #7aa2c1;
+  --dock-f3: #d8a657;
+  --dock-f4: #d3869b;
   --danger: #a35252;
   --shadow: none;
   --glow: none;
 }
 
 :root[data-theme="light"] {
-  --page-bg: #f4f2ea;
-  --page-bg-alt: #e8e4d8;
-  --page-ink: #1f201d;
-  --muted: #686b64;
-  --muted-strong: #3d413a;
-  --panel: #f1eee5;
-  --panel-strong: #f8f5ed;
-  --panel-soft: #ebe8dd;
-  --line: #c4c0b2;
-  --line-strong: #8e9587;
-  --accent: #5e7457;
-  --accent-strong: #856947;
-  --accent-hot: #4d6b78;
-  --block-identity: #6f8d5f;
-  --block-status: #b98739;
-  --block-workspace: #456fa8;
-  --block-feed: #8f68bb;
-  --block-journal: #456fa8;
-  --block-projects: #9e547a;
-  --block-readme: #6d62b3;
-  --block-links: #a67631;
-  --dock-f1: #4d8e5a;
-  --dock-f2: #456fa8;
-  --dock-f3: #9d6d2d;
-  --dock-f4: #9e547a;
+  --page-bg: #f3efe2;
+  --page-bg-alt: #e8e1cf;
+  --page-ink: #26221b;
+  --muted: #70685a;
+  --muted-strong: #433b2f;
+  --panel: #f7f1e3;
+  --panel-strong: #fbf6eb;
+  --panel-soft: #eee6d5;
+  --line: #c7bda8;
+  --line-strong: #a3957c;
+  --accent: #65855f;
+  --accent-strong: #aa7638;
+  --accent-hot: #4f7c7a;
+  --block-identity: #65855f;
+  --block-status: #b8813b;
+  --block-workspace: #4f7c7a;
+  --block-feed: #87639e;
+  --block-journal: #54789d;
+  --block-projects: #a55f7a;
+  --block-readme: #7366af;
+  --block-links: #ab7632;
+  --dock-f1: #65855f;
+  --dock-f2: #54789d;
+  --dock-f3: #ab7632;
+  --dock-f4: #a55f7a;
   --danger: #9b4d4d;
 }
 
@@ -1204,10 +1193,10 @@ body.mode-terminal ::selection {
 
 .shell-window {
   border: 1px solid var(--line-strong);
-  background: var(--panel);
+  background: linear-gradient(180deg, var(--panel-strong), var(--panel));
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--line) 55%, transparent),
-    0 1.2rem 2.4rem rgba(0, 0, 0, 0.26);
+    0 1.4rem 3rem rgba(0, 0, 0, 0.3);
 }
 
 .shell-header,
@@ -1220,7 +1209,8 @@ body.mode-terminal ::selection {
   display: grid;
   gap: 0.7rem;
   border-bottom: 1px solid var(--line);
-  background: var(--panel-strong);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, var(--panel-strong) 92%), var(--panel-strong));
 }
 
 .shell-titlebar,
@@ -1493,6 +1483,11 @@ body.mode-terminal ::selection {
   border: 0;
   background: transparent;
   color: var(--muted);
+}
+
+.masthead-link.is-home {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .key-switch::before,
@@ -2573,10 +2568,10 @@ body.mode-terminal ::selection {
   align-items: center;
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--line-strong);
-  background: color-mix(in srgb, var(--panel-strong) 92%, var(--page-bg) 8%);
+  background: color-mix(in srgb, var(--panel-strong) 96%, var(--page-bg) 4%);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--line) 45%, transparent),
-    0 0.75rem 1.8rem rgba(0, 0, 0, 0.18);
+    0 0.8rem 2rem rgba(0, 0, 0, 0.22);
   pointer-events: auto;
 }
 
