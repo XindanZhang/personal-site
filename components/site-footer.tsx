@@ -5,10 +5,8 @@ export function SiteFooter() {
   const year = new Date().getUTCFullYear();
 
   return (
-    <footer className="site-footer">
-      <p className="footer-copy">
-        Built as a long-range notebook for notes that should survive the session they came from.
-      </p>
+    <footer className="shell-footer">
+      <p className="footer-copy">$ printf '%s\n' source contact location</p>
 
       <div className="footer-links">
         <Link href="/blog/">Journal</Link>
@@ -21,8 +19,8 @@ export function SiteFooter() {
       </div>
 
       <div className="footer-meta">
-        <span>Toronto</span>
-        <span>{year}</span>
+        <span>cwd=/home/xindan/personal-site</span>
+        <span>year={year}</span>
       </div>
     </footer>
   );

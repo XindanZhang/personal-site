@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { ProjectLink, ProjectStatus } from "../lib/site";
 
 const statusLabels: Record<ProjectStatus, string> = {
-  featured: "Selected",
-  active: "In progress",
-  archived: "Past",
+  featured: "featured",
+  active: "active",
+  archived: "archive",
 };
 
 function ProjectAction({ project }: { project: ProjectLink }) {

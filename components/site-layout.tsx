@@ -10,9 +10,11 @@ interface SiteLayoutProps {
 export function SiteLayout({ active, children }: SiteLayoutProps) {
   return (
     <div className="site-shell">
-      <SiteHeader active={active} />
-      <main className="page-frame">{children}</main>
-      <SiteFooter />
+      <div className="shell-window">
+        <SiteHeader active={active} />
+        <main className="shell-main">{children}</main>
+        <SiteFooter />
+      </div>
     </div>
   );
 }
