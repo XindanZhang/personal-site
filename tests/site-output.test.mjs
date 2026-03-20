@@ -86,7 +86,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /#7c8f62/i);
     assert.match(cssBundle, /#b19363/i);
     assert.match(cssBundle, /#6c8ea1/i);
-    assert.match(cssBundle, /#f3efe5/i);
+    assert.match(cssBundle, /#f4f2ea/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -214,8 +214,11 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /class="shell-columns"/);
     assert.match(homePageHtml, /class="shell-column is-identity"/);
     assert.match(homePageHtml, /class="shell-column is-log"/);
-    assert.match(homePageHtml, /class="workspace-table"/);
-    assert.match(homePageHtml, /class="workspace-row"/);
+    assert.match(homePageHtml, /class="identity-grid"/);
+    assert.match(homePageHtml, /class="workspace-tree"/);
+    assert.match(homePageHtml, /class="workspace-tree-row"/);
+    assert.match(homePageHtml, /class="journal-headlines"/);
+    assert.match(homePageHtml, /class="journal-headline-row"/);
     assert.match(homePageHtml, /ctx=home/);
     assert.match(homePageHtml, /class="prompt-section/);
     assert.match(homePageHtml, /class="prompt-line/);
@@ -230,22 +233,22 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /--type-delay:420ms/);
     assert.match(homePageHtml, /--type-delay:760ms/);
     assert.match(homePageHtml, /whoami/);
-    assert.match(homePageHtml, /ls \/workspace/);
-    assert.match(homePageHtml, /tail -n 5 \/journal\/index\.log/);
-    assert.match(homePageHtml, /cat \/status\/now\.txt/);
+    assert.match(homePageHtml, /tree -L 1 \/workspace/);
+    assert.match(homePageHtml, /tail -n 4 \/journal\/head\.log/);
+    assert.match(homePageHtml, /cat ~\/\.plan/);
     assert.match(homePageHtml, /xindan@toronto-node/);
     assert.match(homePageHtml, /:~\$/);
     assert.match(homePageHtml, /:~\/workspace\$/);
-    assert.match(homePageHtml, /drwxr-xr-x/);
-    assert.match(homePageHtml, /-rw-r--r--/);
     assert.match(homePageHtml, /journal\//);
     assert.match(homePageHtml, /projects\//);
     assert.match(homePageHtml, /friends\//);
     assert.match(homePageHtml, /about\//);
+    assert.match(homePageHtml, /Cindy/);
+    assert.match(homePageHtml, /networking \/ systems \/ tooling/);
+    assert.match(homePageHtml, /write it down after it works/);
     assert.match(homePageHtml, /Theme/);
     assert.match(homePageHtml, /Dark/);
     assert.match(homePageHtml, /Light/);
-    assert.match(homePageHtml, /Cindy/);
     assert.doesNotMatch(homePageHtml, /Cindy Zhang/);
     assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
@@ -273,6 +276,9 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.doesNotMatch(homePageHtml, /Agent Memory Observatory/);
     assert.doesNotMatch(homePageHtml, /Oracle/);
     assert.doesNotMatch(homePageHtml, /kvcache/);
+    assert.doesNotMatch(homePageHtml, /This site is where I keep the parts of systems work that are easy to lose/);
+    assert.doesNotMatch(homePageHtml, /Most entries begin in the middle of debugging or building/);
+    assert.doesNotMatch(homePageHtml, /Recent logs and writeups on networking, debugging, and reproducible setup/);
   } finally {
     rmSync(outDir, { recursive: true, force: true });
   }
