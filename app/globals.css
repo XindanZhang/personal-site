@@ -1118,39 +1118,39 @@ img {
 }
 
 :root {
-  --page-bg: #282828;
-  --page-bg-alt: #32302f;
-  --page-ink: #ebdbb2;
-  --muted: #a89984;
-  --muted-strong: #d5c4a1;
-  --panel: #1d2021;
-  --panel-strong: #282828;
-  --panel-soft: #32302f;
-  --line: #504945;
-  --line-strong: #665c54;
-  --accent: #98971a;
-  --accent-strong: #d79921;
-  --accent-hot: #458588;
-  --danger: #cc241d;
+  --page-bg: #0d0f10;
+  --page-bg-alt: #14181a;
+  --page-ink: #d8d2c4;
+  --muted: #8a8478;
+  --muted-strong: #b9b2a3;
+  --panel: #101314;
+  --panel-strong: #121516;
+  --panel-soft: #171b1d;
+  --line: #272d30;
+  --line-strong: #353d41;
+  --accent: #7c8f62;
+  --accent-strong: #b19363;
+  --accent-hot: #6c8ea1;
+  --danger: #a35252;
   --shadow: none;
   --glow: none;
 }
 
 :root[data-theme="light"] {
-  --page-bg: #fbf1c7;
-  --page-bg-alt: #efe2b8;
-  --page-ink: #2d2418;
-  --muted: #74634d;
-  --muted-strong: #4f4332;
-  --panel: #f3e6bf;
-  --panel-strong: #f8eecf;
-  --panel-soft: #ebddb1;
-  --line: #b6a27d;
-  --line-strong: #8b7654;
-  --accent: #79740e;
-  --accent-strong: #b57614;
-  --accent-hot: #076678;
-  --danger: #9d0006;
+  --page-bg: #f3efe5;
+  --page-bg-alt: #ece5d8;
+  --page-ink: #241f1a;
+  --muted: #6c655d;
+  --muted-strong: #403831;
+  --panel: #f0eadf;
+  --panel-strong: #f7f2e8;
+  --panel-soft: #ebe4d6;
+  --line: #c8beb0;
+  --line-strong: #a99d8f;
+  --accent: #5f7550;
+  --accent-strong: #9a764b;
+  --accent-hot: #56788d;
+  --danger: #9b4d4d;
 }
 
 body.mode-terminal {
@@ -1168,7 +1168,7 @@ body.mode-terminal::after {
 }
 
 body.mode-terminal ::selection {
-  background: rgba(152, 151, 26, 0.28);
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
   color: var(--page-ink);
 }
 
@@ -1182,8 +1182,8 @@ body.mode-terminal ::selection {
   border: 1px solid var(--line-strong);
   background: var(--panel);
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--line) 65%, transparent),
-    0 1.75rem 4rem rgba(0, 0, 0, 0.22);
+    0 0 0 1px color-mix(in srgb, var(--line) 55%, transparent),
+    0 1.2rem 2.4rem rgba(0, 0, 0, 0.26);
 }
 
 .shell-header,
@@ -1375,8 +1375,7 @@ body.mode-terminal ::selection {
   padding: 0;
   list-style: none;
   display: grid;
-  border: 1px solid var(--line);
-  background: var(--panel);
+  border-top: 1px solid var(--line);
 }
 
 .terminal-nav-item {
@@ -1394,7 +1393,6 @@ body.mode-terminal ::selection {
   align-items: center;
   justify-content: center;
   padding: 0.55rem 0.4rem;
-  border-right: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.74rem;
 }
@@ -1430,7 +1428,7 @@ body.mode-terminal ::selection {
 
 .terminal-nav-item.is-active .terminal-nav-link,
 .terminal-nav-link:hover {
-  background: var(--panel-soft);
+  background: transparent;
   color: var(--page-ink);
 }
 
@@ -1509,6 +1507,8 @@ body.mode-terminal ::selection {
 .prompt-section {
   display: grid;
   gap: 0.45rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--line);
 }
 
 .prompt-line {
@@ -1563,34 +1563,7 @@ body.mode-terminal ::selection {
 .manpage-layout,
 .bookmark-terminal {
   display: grid;
-  gap: 1rem;
-}
-
-.terminal-pane,
-.journal-sidebar > .prompt-section,
-.journal-main > .prompt-section,
-.project-terminal-summary > .prompt-section,
-.project-terminal-groups > .prompt-section,
-.manpage-main > .prompt-section,
-.manpage-sidebar > .prompt-section,
-.bookmark-terminal > .prompt-section {
-  display: grid;
-  gap: 0.55rem;
-  padding: 0.75rem 0.85rem;
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
-}
-
-.terminal-pane.is-hero {
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 28%),
-    var(--panel-strong);
-}
-
-.terminal-pane.is-status {
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--accent-hot) 8%, transparent), transparent 28%),
-    var(--panel-strong);
+  gap: 1.35rem;
 }
 
 .journal-sidebar,
@@ -1598,16 +1571,49 @@ body.mode-terminal ::selection {
 .project-terminal-summary,
 .project-terminal-groups,
 .manpage-main,
-.manpage-sidebar {
+.manpage-sidebar,
+.shell-columns,
+.shell-column {
   display: grid;
+  gap: 0;
+}
+
+.shell-columns {
+  gap: 1.4rem;
+}
+
+.shell-column.is-log,
+.journal-main,
+.project-terminal-groups,
+.manpage-main {
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--line);
+}
+
+.shell-column > .prompt-section:first-child,
+.journal-sidebar > .prompt-section:first-child,
+.journal-main > .prompt-section:first-child,
+.project-terminal-summary > .prompt-section:first-child,
+.project-terminal-groups > .prompt-section:first-child,
+.manpage-main > .prompt-section:first-child,
+.manpage-sidebar > .prompt-section:first-child,
+.bookmark-terminal > .prompt-section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.shell-section.is-identity .terminal-output {
   gap: 1rem;
+}
+
+.shell-section.is-status .terminal-output,
+.shell-section.is-manifest .terminal-output {
+  gap: 0.65rem;
 }
 
 .bookmark-list {
   display: grid;
   gap: 0;
-  border: 1px solid var(--line);
-  background: var(--panel);
 }
 
 .bookmark-row {
@@ -1615,7 +1621,7 @@ body.mode-terminal ::selection {
   grid-template-columns: 4ch 16ch minmax(0, 1fr);
   gap: 0.75rem;
   align-items: start;
-  padding: 0.7rem 0.8rem;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--line);
   color: inherit;
   text-decoration: none;
@@ -1702,8 +1708,66 @@ body.mode-terminal ::selection {
 .terminal-listing {
   display: grid;
   gap: 0;
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
+}
+
+.workspace-table {
+  display: grid;
+  gap: 0;
+}
+
+.workspace-row {
+  display: grid;
+  grid-template-columns: 24ch minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.workspace-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.workspace-row:hover {
+  color: var(--page-ink);
+}
+
+.workspace-meta {
+  display: grid;
+  grid-template-columns: 12ch 6ch 10ch;
+  gap: 0.8rem;
+}
+
+.workspace-permissions,
+.workspace-size,
+.workspace-date {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.workspace-permissions {
+  color: var(--accent);
+}
+
+.workspace-file {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.workspace-name {
+  color: var(--page-ink);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.workspace-note {
+  color: var(--muted-strong);
+  font-size: 0.88rem;
+  line-height: 1.65;
 }
 
 .terminal-listing-row {
@@ -1808,17 +1872,16 @@ body.mode-terminal ::selection {
 .archive-ledger {
   display: grid;
   gap: 0;
-  border: 1px solid var(--line);
 }
 
 .archive-row {
   display: grid;
   gap: 0.6rem;
-  padding: 0.75rem 0.85rem;
+  padding: 0.75rem 0;
   border: 0;
   border-top: 1px solid var(--line);
   border-radius: 0;
-  background: var(--panel-strong);
+  background: transparent;
   box-shadow: none;
   backdrop-filter: none;
 }
@@ -1911,8 +1974,6 @@ body.mode-terminal ::selection {
 
 .project-ledger {
   display: grid;
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
 }
 
 .project-ledger-row {
@@ -1920,7 +1981,7 @@ body.mode-terminal ::selection {
   grid-template-columns: 10ch minmax(0, 1.2fr) minmax(0, 0.8fr) auto;
   gap: 0.85rem;
   align-items: start;
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--line);
 }
 
@@ -1962,7 +2023,7 @@ body.mode-terminal ::selection {
 }
 
 .project-ledger-row:hover {
-  background: var(--page-bg-alt);
+  background: transparent;
 }
 
 .project-card-head,
@@ -1995,14 +2056,13 @@ body.mode-terminal ::selection {
 .readme-link-list {
   display: grid;
   gap: 0;
-  border: 1px solid var(--line);
-  background: var(--panel-strong);
+  background: transparent;
 }
 
 .readme-section,
 .readme-outline-row,
 .readme-link-row {
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 0;
   border-top: 1px solid var(--line);
 }
 
@@ -2038,14 +2098,13 @@ body.mode-terminal ::selection {
 .readme-grid {
   display: grid;
   gap: 0;
-  border: 1px solid var(--line);
-  background: var(--panel);
+  background: transparent;
 }
 
 .readme-kv {
   display: grid;
   gap: 0.3rem;
-  padding: 0.65rem 0.75rem;
+  padding: 0.65rem 0;
   border-top: 1px solid var(--line);
 }
 
@@ -2210,7 +2269,7 @@ body.mode-terminal ::selection {
   gap: 0.35rem;
   align-items: center;
   padding: 0.55rem 0.7rem;
-  background: var(--panel-strong);
+  background: transparent;
 }
 
 .shell-statusbar-segment,
@@ -2218,9 +2277,8 @@ body.mode-terminal ::selection {
 .shell-statusbar-clock {
   display: inline-flex;
   align-items: center;
-  min-height: 1.7rem;
-  padding: 0.14rem 0.45rem;
-  border: 1px solid var(--line);
+  min-height: auto;
+  padding: 0;
   color: var(--muted-strong);
   font-size: 0.72rem;
   line-height: 1.2;
@@ -2228,9 +2286,7 @@ body.mode-terminal ::selection {
 }
 
 .shell-statusbar-segment.is-strong {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--panel);
+  color: var(--accent);
 }
 
 .shell-statusbar-links {
@@ -2247,9 +2303,8 @@ body.mode-terminal ::selection {
 
 .shell-statusbar-link:hover,
 .shell-statusbar-link:focus-visible {
-  border-color: var(--accent);
   color: var(--page-ink);
-  background: var(--page-bg-alt);
+  background: transparent;
 }
 
 .shell-statusbar-clock {
@@ -2257,33 +2312,9 @@ body.mode-terminal ::selection {
 }
 
 @media (min-width: 48rem) {
-  .terminal-dashboard {
-    grid-template-columns: minmax(0, 1.18fr) minmax(24rem, 0.82fr);
-    grid-template-areas:
-      "hero workspace"
-      "feed manifest"
-      "feed status";
+  .shell-columns {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
     align-items: start;
-  }
-
-  .terminal-pane.is-hero {
-    grid-area: hero;
-  }
-
-  .terminal-pane.is-workspace {
-    grid-area: workspace;
-  }
-
-  .terminal-pane.is-feed {
-    grid-area: feed;
-  }
-
-  .terminal-pane.is-manifest {
-    grid-area: manifest;
-  }
-
-  .terminal-pane.is-status {
-    grid-area: status;
   }
 
   .journal-layout,
@@ -2345,13 +2376,21 @@ body.mode-terminal ::selection {
     justify-content: space-between;
   }
 
-  .terminal-listing-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.35rem 0.7rem;
+  .shell-columns,
+  .journal-layout,
+  .project-terminal,
+  .manpage-layout {
+    gap: 1rem;
   }
 
-  .terminal-listing-link {
-    grid-column: 1 / -1;
+  .shell-column.is-log,
+  .journal-main,
+  .project-terminal-groups,
+  .manpage-main {
+    padding-left: 0;
+    border-left: 0;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
   }
 
   .project-ledger-row {
@@ -2369,8 +2408,13 @@ body.mode-terminal ::selection {
     grid-template-columns: 1fr;
   }
 
+  .workspace-row,
   .bookmark-row {
     grid-template-columns: 1fr;
+  }
+
+  .workspace-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .shell-statusbar {
