@@ -2,38 +2,25 @@ import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
-function FriendBadge({ name }: { name: string }) {
-  const initials = name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
-
-  return <div className="friend-badge">{initials}</div>;
-}
-
 export default function FriendsPage() {
   return (
     <SiteLayout active="friends">
-      <div className="page-stack">
+      <div className="bookmark-terminal">
         <PromptSection command="cat /etc/bookmarks.txt">
           <h1 className="shell-heading">Bookmarks</h1>
           <p className="shell-copy">{site.friendsIntro}</p>
-          <div className="friends-grid">
-            {site.friends.map((friend) => (
+          <div className="bookmark-list">
+            {site.friends.map((friend, index) => (
               <a
                 key={friend.name}
-                className="friend-entry"
+                className="bookmark-row"
                 href={friend.href}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <FriendBadge name={friend.name} />
-                <div className="min-w-0 flex-1">
-                  <h2 className="friend-name">{friend.name}</h2>
-                  <p className="friend-note">{friend.note}</p>
-                </div>
+                <span className="bookmark-index">{String(index + 1).padStart(2, "0")}</span>
+                <span className="bookmark-name">{friend.name}</span>
+                <span className="bookmark-note">{friend.note}</span>
               </a>
             ))}
           </div>

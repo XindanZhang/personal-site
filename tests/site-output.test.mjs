@@ -107,6 +107,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /class="terminal-nav"/);
     assert.match(blogIndexHtml, /class="terminal-nav-list"/);
     assert.match(blogIndexHtml, /class="shell-statusbar"/);
+    assert.match(blogIndexHtml, /class="journal-layout"/);
+    assert.match(blogIndexHtml, /class="journal-sidebar"/);
+    assert.match(blogIndexHtml, /class="journal-main"/);
     assert.match(blogIndexHtml, /ctx=journal/);
     assert.match(blogIndexHtml, /F1 journal/);
     assert.match(blogIndexHtml, /F2 projects/);
@@ -152,6 +155,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(projectsHtml, /ls \/workspace\/projects\/featured/);
     assert.match(projectsHtml, /ls \/workspace\/projects\/active/);
     assert.match(projectsHtml, /ls \/workspace\/projects\/archive/);
+    assert.match(projectsHtml, /class="project-terminal"/);
+    assert.match(projectsHtml, /class="project-terminal-summary"/);
+    assert.match(projectsHtml, /class="project-terminal-groups"/);
     assert.match(projectsHtml, /class="project-ledger"/);
     assert.match(projectsHtml, /class="project-ledger-row"/);
     assert.match(projectsHtml, /class="project-ledger-name"/);
@@ -160,6 +166,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(friendsHtml, /cat \/etc\/bookmarks\.txt/);
     assert.match(friendsHtml, /A small ring of sites and tools I revisit/);
     assert.match(friendsHtml, /Nextmini/);
+    assert.match(friendsHtml, /class="bookmark-terminal"/);
+    assert.match(friendsHtml, /class="bookmark-list"/);
+    assert.match(friendsHtml, /class="bookmark-row"/);
     assert.doesNotMatch(friendsHtml, /La Terminal/);
     assert.doesNotMatch(friendsHtml, /ArchWiki/);
     assert.doesNotMatch(friendsHtml, /GitHub Pages/);
@@ -168,6 +177,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, /tail -n 6 ~\/\.local\/share\/site\.history/);
     assert.match(aboutHtml, /printf &#x27;%s\\\\n&#x27; github email journal nextmini/);
     assert.match(aboutHtml, /I am Cindy\./);
+    assert.match(aboutHtml, /class="manpage-layout"/);
+    assert.match(aboutHtml, /class="manpage-main"/);
+    assert.match(aboutHtml, /class="manpage-sidebar"/);
     assert.match(aboutHtml, /class="readme-sheet"/);
     assert.match(aboutHtml, /class="readme-section"/);
     assert.match(aboutHtml, /class="readme-grid"/);
@@ -198,6 +210,10 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /class="terminal-nav"/);
     assert.match(homePageHtml, /class="terminal-nav-list"/);
     assert.match(homePageHtml, /class="shell-statusbar"/);
+    assert.match(homePageHtml, /class="terminal-dashboard"/);
+    assert.match(homePageHtml, /class="terminal-pane is-hero"/);
+    assert.match(homePageHtml, /class="terminal-pane is-workspace"/);
+    assert.match(homePageHtml, /class="terminal-pane is-feed"/);
     assert.match(homePageHtml, /ctx=home/);
     assert.match(homePageHtml, /class="prompt-section/);
     assert.match(homePageHtml, /class="prompt-line/);

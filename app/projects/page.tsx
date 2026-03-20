@@ -21,34 +21,59 @@ function ProjectGroup({
 }
 
 export default function ProjectsPage() {
+  const featuredProjects = getProjectsByStatus("featured");
+  const activeProjects = getProjectsByStatus("active");
+  const archivedProjects = getProjectsByStatus("archived");
+
   return (
     <SiteLayout active="projects">
-      <div className="page-stack">
-        <PromptSection command="cat /workspace/projects/README">
-          <h1 className="shell-heading">Projects</h1>
-          <p className="shell-copy">
-            Projects here are mostly notebook infrastructure: the archive itself, the threads it points to, and the
-            public code that keeps the whole thing visible and maintainable.
-          </p>
-        </PromptSection>
+      <div className="project-terminal">
+        <aside className="project-terminal-summary">
+          <PromptSection command="cat /workspace/projects/README">
+            <h1 className="shell-heading">Projects</h1>
+            <p className="shell-copy">
+              Projects here are mostly notebook infrastructure: the archive itself, the threads it points to, and the
+              public code that keeps the whole thing visible and maintainable.
+            </p>
+          </PromptSection>
 
-        <ProjectGroup
-          command="ls /workspace/projects/featured"
-          copy="The clearest public work, chosen because it best represents how the site is actually used."
-          projects={getProjectsByStatus("featured")}
-        />
+          <PromptSection command="printf '%s %s\n' featured active archived">
+            <div className="terminal-manifest">
+              <div className="terminal-manifest-row">
+                <p className="terminal-manifest-key">featured</p>
+                <p className="shell-copy">{featuredProjects.length} public thread(s) worth opening first.</p>
+              </div>
+              <div className="terminal-manifest-row">
+                <p className="terminal-manifest-key">active</p>
+                <p className="shell-copy">{activeProjects.length} repository or publishing surface(s) still moving.</p>
+              </div>
+              <div className="terminal-manifest-row">
+                <p className="terminal-manifest-key">archive</p>
+                <p className="shell-copy">{archivedProjects.length} older pieces kept for context.</p>
+              </div>
+            </div>
+          </PromptSection>
+        </aside>
 
-        <ProjectGroup
-          command="ls /workspace/projects/active"
-          copy="Things that are still moving: repositories, publishing infrastructure, and the site surface itself."
-          projects={getProjectsByStatus("active")}
-        />
+        <div className="project-terminal-groups">
+          <ProjectGroup
+            command="ls /workspace/projects/featured"
+            copy="The clearest public work, chosen because it best represents how the site is actually used."
+            projects={featuredProjects}
+          />
 
-        <ProjectGroup
-          command="ls /workspace/projects/archive"
-          copy="Older pieces that still explain the route here, even if they are no longer the center of the workflow."
-          projects={getProjectsByStatus("archived")}
-        />
+          <ProjectGroup
+            command="ls /workspace/projects/active"
+            copy="Things that are still moving: repositories, publishing infrastructure, and the site surface itself."
+            projects={activeProjects}
+          />
+
+          <ProjectGroup
+            command="ls /workspace/projects/archive"
+            copy="Older pieces that still explain the route here, even if they are no longer the center of the workflow."
+            projects={archivedProjects}
+          />
+        </div>
       </div>
     </SiteLayout>
   );
