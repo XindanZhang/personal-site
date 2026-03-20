@@ -10,7 +10,7 @@ interface SiteHeaderProps {
 
 export function SiteHeader({ active }: SiteHeaderProps) {
   const links = [
-    { key: "home", label: "~/", href: "/" },
+    { key: "home", label: "~", href: "/" },
     { key: "blog", label: "/journal", href: "/blog/" },
     { key: "projects", label: "/projects", href: "/projects/" },
     { key: "friends", label: "/bookmarks", href: "/friends/" },
@@ -20,11 +20,19 @@ export function SiteHeader({ active }: SiteHeaderProps) {
   return (
     <header className="shell-header">
       <div className="shell-titlebar">
-        <div>
-          <p className="masthead-note">toronto-node :: /home/xindan/personal-site</p>
-          <Link className="brand-mark" href="/">
-            {site.name}
-          </Link>
+        <div className="shell-titlebar-left">
+          <div aria-hidden="true" className="shell-window-controls">
+            <span className="shell-window-dot is-close" />
+            <span className="shell-window-dot is-min" />
+            <span className="shell-window-dot is-max" />
+          </div>
+
+          <div>
+            <p className="shell-window-title">xindan@toronto-node: ~/personal-site</p>
+            <Link className="brand-mark" href="/">
+              {site.name}
+            </Link>
+          </div>
         </div>
 
         <div className="masthead-actions">
@@ -36,9 +44,10 @@ export function SiteHeader({ active }: SiteHeaderProps) {
       </div>
 
       <div className="shell-statusline">
-        <span>user=xz</span>
+        <span>user=xindan</span>
         <span>host=toronto-node</span>
         <span>shell=zsh</span>
+        <span>tty=pts/0</span>
       </div>
 
       <nav className="shell-nav" aria-label="Primary">
@@ -52,7 +61,7 @@ export function SiteHeader({ active }: SiteHeaderProps) {
               href={link.href}
             >
               <span className="shell-nav-command">cd</span>
-              <span>{link.label}</span>
+              <span className="shell-nav-path">{link.label}</span>
             </Link>
           );
         })}

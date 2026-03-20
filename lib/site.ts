@@ -23,40 +23,42 @@ export interface TimelineEntry {
 
 export const site = {
   name: "Xindan Zhang",
-  titleSuffix: "Systems notes, network experiments, and software fieldwork.",
-  description: "A small archive for systems notes, experiments, and things worth keeping around.",
+  titleSuffix: "Networking notes, protocol experiments, and terminal-first build logs.",
+  description: "Terminal-first notes on networking, distributed systems, debugging, and the tools worth reopening.",
   availability: "Available for thoughtful collaboration",
   email: "mailto:xindan.zhang@mail.utoronto.ca",
   github: "https://github.com/XindanZhang",
   source: "https://github.com/XindanZhang/personal-site",
   home: {
-    heroTitle: "A working notebook for systems, experiments, and careful notes.",
+    heroTitle: "Networking notes, protocol experiments, and terminal logs.",
     heroBody:
-      "I use this site to turn setup details, technical fragments, and ongoing threads into something readable enough to revisit later.",
+      "This site is where I keep the parts of systems work that are easy to lose: commands that fixed something, traces that explained a bug, and notes that stayed useful after the terminal closed.",
     quote:
-      "The goal is not volume. The goal is to keep only the notes that still feel useful after the moment passes.",
-    body: "Most pieces start as a narrow observation, then stay because they continue to explain something clearly.",
+      "No landing-page theater. Just the logs, diagrams, and writeups that were worth keeping.",
+    body: "Most entries begin in the middle of debugging or building, then get cleaned up only after the workflow becomes repeatable.",
     sideTitle: "Current threads",
     sideNotes: [
-      "Tracing dataplane internals in Nextmini.",
-      "Collecting terminal and tooling notes that age well.",
-      "Designing the site as an archive instead of a profile page.",
+      "Tracing dataplane behavior in Nextmini and related controller paths.",
+      "Keeping terminal notes around tmux, shells, and remote workflows honest.",
+      "Turning one-off setup fragments into build logs I can rerun later.",
     ],
-    blogSummary: "Recent entries from the notebook, chosen for clarity and staying power.",
-    projectsSummary: "The quieter infrastructure around the archive: repositories, series pages, and the site itself.",
+    blogSummary: "Recent logs and writeups on networking, debugging, and reproducible setup.",
+    projectsSummary: "The code, tooling, and publishing pieces that support the notebook itself.",
   },
   blog: {
-    description: "Writing about systems, networking, terminals, and whatever is worth keeping around.",
+    description: "Notes on systems, networking, debugging, and the terminal workflows behind them.",
   },
   friendsIntro: "A small ring of sites and tools I revisit.",
   about: {
-    intro: "Hi, I'm Xindan Zhang. I keep this site as a public notebook for systems work, software tooling, and the stray details that become useful only after they are written down.",
-    body: "Most of the material here sits somewhere between documentation and field notes: concrete enough to reuse, personal enough to reflect how I actually work.",
+    intro:
+      "I am Xindan Zhang. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
+    body:
+      "The goal is simple: keep technical notes concrete enough to rerun, concise enough to scan, and personal enough to reflect how I actually debug and build things.",
   },
   projects: [
     {
       name: "Nextmini Notes",
-      description: "A running thread of notes about Nextmini, controller internals, and related experiments.",
+      description: "A running series on Nextmini internals, controller behavior, and nearby experiments.",
       status: "featured",
       tags: ["networking", "series", "notes"],
       href: "/blog/series/nextmini/",
@@ -64,7 +66,7 @@ export const site = {
     },
     {
       name: "Blog Archive",
-      description: "The full writing archive for this site, including short notes and series pages.",
+      description: "The complete set of logs, writeups, and longer technical threads published here.",
       status: "featured",
       tags: ["writing", "archive", "blog"],
       href: "/blog/",
@@ -72,7 +74,7 @@ export const site = {
     },
     {
       name: "GitHub Profile",
-      description: "Public repositories, experiments, and the code that feeds this site.",
+      description: "Public repositories, prototypes, and the code that supports this notebook.",
       status: "active",
       tags: ["github", "code", "profile"],
       href: "https://github.com/XindanZhang",
@@ -81,7 +83,7 @@ export const site = {
     },
     {
       name: "Site Source",
-      description: "The repository for this Next.js and Tailwind-powered personal site.",
+      description: "The repository for the terminal-style Next.js site you are looking at now.",
       status: "active",
       tags: ["next.js", "tailwind", "source"],
       href: "https://github.com/XindanZhang/personal-site",
@@ -90,7 +92,7 @@ export const site = {
     },
     {
       name: "Personal Site",
-      description: "Static publishing on GitHub Pages with a single archive-first layout.",
+      description: "A static-exported site with a shell-first interface and a writable build workflow.",
       status: "active",
       tags: ["static-export", "github-pages", "website"],
       href: "/",
@@ -98,7 +100,7 @@ export const site = {
     },
     {
       name: "Jekyll Setup Log",
-      description: "An older build note that still documents how the blog started out before this migration.",
+      description: "An older migration note that still documents how the site started before the rebuild.",
       status: "archived",
       tags: ["jekyll", "migration", "history"],
       href: "/blog/create-blog-website-using-jekyll/",
@@ -117,9 +119,9 @@ export const site = {
       href: "https://la-terminal.net/",
     },
     {
-      name: "AprilNEA",
-      note: "An engineering blog with a clean archive structure and strong visual shell.",
-      href: "https://aprilnea.me/en",
+      name: "ArchWiki",
+      note: "Documentation that still solves terminal problems faster than most search results.",
+      href: "https://wiki.archlinux.org/",
     },
     {
       name: "GitHub Pages",

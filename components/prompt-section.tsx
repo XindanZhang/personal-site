@@ -6,10 +6,11 @@ interface PromptSectionProps {
   as?: ElementType;
   caret?: boolean;
   className?: string;
-  host?: string;
+  cwd?: string;
   typed?: boolean;
   typeDelayMs?: number;
   typeDurationMs?: number;
+  userHost?: string;
 }
 
 export function PromptSection({
@@ -18,11 +19,13 @@ export function PromptSection({
   as: Tag = "section",
   caret = false,
   className = "",
-  host = "xz@toronto-node",
+  cwd = "~",
   typed = false,
   typeDelayMs = 0,
   typeDurationMs = 640,
+  userHost = "xindan@toronto-node",
 }: PromptSectionProps) {
+  const promptPath = `:${cwd}$`;
   const sectionClassName = typed
     ? className
       ? `prompt-section is-typed ${className}`
@@ -43,7 +46,8 @@ export function PromptSection({
   return (
     <Tag className={sectionClassName} style={typingStyle}>
       <div className={promptLineClassName}>
-        <span className="prompt-prefix">{host}</span>
+        <span className="prompt-userhost">{userHost}</span>
+        <span className="prompt-path">{promptPath}</span>
         {typed ? (
           <span className="prompt-command-clip">
             <span className="prompt-command prompt-command-typing">{command}</span>
