@@ -88,6 +88,12 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /#6c8ea1/i);
     assert.match(cssBundle, /#f4f2ea/i);
     assert.match(cssBundle, /#7db6ff/i);
+    assert.match(cssBundle, /--block-journal:#7db6ff/i);
+    assert.match(cssBundle, /--block-projects:#d97bb0/i);
+    assert.match(cssBundle, /--block-readme:#8f86d8/i);
+    assert.match(cssBundle, /--section-color:var\(--block-journal\)/i);
+    assert.match(cssBundle, /--section-color:var\(--block-projects\)/i);
+    assert.match(cssBundle, /border-left:2px solid var\(--block-workspace\)/i);
     assert.match(cssBundle, /shell-footer\{[^}]*position:fixed/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
