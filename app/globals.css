@@ -1747,3 +1747,77 @@ body.mode-terminal ::selection {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.prompt-section.is-typed .prompt-command-clip {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  animation: terminal-type var(--type-duration, 640ms) steps(var(--type-steps, 12), end) var(--type-delay, 0ms) both;
+}
+
+.prompt-section.is-typed .prompt-command-typing {
+  display: inline-block;
+  width: calc(var(--type-ch, 1) * 1ch);
+}
+
+.prompt-section.is-typed .terminal-output {
+  opacity: 0;
+  transform: translateY(0.25rem);
+  animation: terminal-reveal 260ms ease-out calc(var(--type-delay, 0ms) + var(--type-duration, 640ms) + 80ms)
+    both;
+}
+
+.prompt-section.is-typed .terminal-caret {
+  opacity: 0;
+  animation:
+    terminal-caret-appear 1ms linear calc(var(--type-delay, 0ms) + var(--type-duration, 640ms)) forwards,
+    terminal-caret-blink 1s step-end calc(var(--type-delay, 0ms) + var(--type-duration, 640ms)) infinite;
+}
+
+@keyframes terminal-type {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: calc(var(--type-ch, 1) * 1ch);
+  }
+}
+
+@keyframes terminal-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes terminal-caret-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-section.is-typed .prompt-command-clip {
+    width: calc(var(--type-ch, 1) * 1ch);
+    animation: none;
+  }
+
+  .prompt-section.is-typed .terminal-output,
+  .prompt-section.is-typed .terminal-caret {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

@@ -81,6 +81,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /#8fb996/i);
     assert.match(cssBundle, /#c5a46d/i);
     assert.match(cssBundle, /#f5f2e9/i);
+    assert.match(cssBundle, /@keyframes terminal-type/i);
+    assert.match(cssBundle, /@keyframes terminal-reveal/i);
     assert.doesNotMatch(cssBundle, /#74ffa1/i);
     assert.doesNotMatch(cssBundle, /#1d8d43/i);
     assert.doesNotMatch(cssBundle, /#ffd479/i);
@@ -148,6 +150,11 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /class="prompt-line/);
     assert.match(homePageHtml, /class="terminal-output/);
     assert.match(homePageHtml, /class="terminal-caret/);
+    assert.match(homePageHtml, /prompt-line is-typed/);
+    assert.match(homePageHtml, /prompt-command-typing/);
+    assert.match(homePageHtml, /--type-delay:140ms/);
+    assert.match(homePageHtml, /--type-delay:420ms/);
+    assert.match(homePageHtml, /--type-delay:760ms/);
     assert.match(homePageHtml, /whoami/);
     assert.match(homePageHtml, /ls \/workspace/);
     assert.match(homePageHtml, /tail -n 5 \/journal\/index\.log/);

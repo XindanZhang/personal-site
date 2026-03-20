@@ -14,14 +14,14 @@ export default function HomePage() {
   return (
     <SiteLayout active="home">
       <div className="terminal-home">
-        <PromptSection caret command="whoami">
+        <PromptSection caret command="whoami" typeDelayMs={140} typeDurationMs={360} typed>
           <h1 className="shell-heading">{site.home.heroTitle}</h1>
           <p className="shell-copy">{site.home.heroBody}</p>
           <p className="shell-copy">{site.home.body}</p>
           <p className="shell-copy shell-quote">{site.home.quote}</p>
         </PromptSection>
 
-        <PromptSection command="ls /workspace">
+        <PromptSection command="ls /workspace" typeDelayMs={420} typeDurationMs={520} typed>
           <div className="directory-grid">
             <Link className="directory-entry" href="/blog/">
               <span className="directory-name">journal/</span>
@@ -42,12 +42,12 @@ export default function HomePage() {
           </div>
         </PromptSection>
 
-        <PromptSection command="tail -n 5 /journal/index.log">
+        <PromptSection command="tail -n 5 /journal/index.log" typeDelayMs={760} typeDurationMs={760} typed>
           <PostTable posts={highlightedPosts} />
         </PromptSection>
 
         {featuredProject || nextminiSeries ? (
-          <PromptSection command="ls /workspace/projects">
+          <PromptSection command="ls /workspace/projects" typeDelayMs={1120} typeDurationMs={720} typed>
             <div className="shell-grid">
               {featuredProject ? <ProjectCard project={featuredProject} /> : null}
               {nextminiSeries ? (
@@ -66,7 +66,7 @@ export default function HomePage() {
           </PromptSection>
         ) : null}
 
-        <PromptSection command="cat /status/now.txt">
+        <PromptSection command="cat /status/now.txt" typeDelayMs={1480} typeDurationMs={620} typed>
           <ul className="terminal-note-list">
             {site.home.sideNotes.map((note) => (
               <li key={note}>{note}</li>
