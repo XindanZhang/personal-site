@@ -87,6 +87,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /#b19363/i);
     assert.match(cssBundle, /#6c8ea1/i);
     assert.match(cssBundle, /#f4f2ea/i);
+    assert.match(cssBundle, /#7db6ff/i);
+    assert.match(cssBundle, /shell-footer\{[^}]*position:fixed/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -111,8 +113,12 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /class="journal-sidebar"/);
     assert.match(blogIndexHtml, /class="journal-main"/);
     assert.match(blogIndexHtml, /ctx=journal/);
-    assert.match(blogIndexHtml, /F1 journal/);
-    assert.match(blogIndexHtml, /F2 projects/);
+    assert.match(blogIndexHtml, /shell-statusbar-link is-f1/);
+    assert.match(blogIndexHtml, /shell-statusbar-link is-f2/);
+    assert.match(blogIndexHtml, /shell-statusbar-link is-f3/);
+    assert.match(blogIndexHtml, /shell-statusbar-link is-f4/);
+    assert.match(blogIndexHtml, /shell-statusbar-key">F1</);
+    assert.match(blogIndexHtml, /shell-statusbar-key">F2</);
     assert.match(blogIndexHtml, /cwd=~\/personal-site/);
     assert.match(blogIndexHtml, /page=.*\.\/journal\//);
     assert.match(blogIndexHtml, /class="prompt-section/);
@@ -221,6 +227,10 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /class="journal-headlines"/);
     assert.match(homePageHtml, /class="journal-headline-row"/);
     assert.match(homePageHtml, /ctx=home/);
+    assert.match(homePageHtml, /shell-statusbar-link is-f1/);
+    assert.match(homePageHtml, /shell-statusbar-link is-f2/);
+    assert.match(homePageHtml, /shell-statusbar-link is-f3/);
+    assert.match(homePageHtml, /shell-statusbar-link is-f4/);
     assert.match(homePageHtml, /class="prompt-section/);
     assert.match(homePageHtml, /class="prompt-line/);
     assert.match(homePageHtml, /class="terminal-output/);

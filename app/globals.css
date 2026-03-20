@@ -1131,6 +1131,10 @@ img {
   --accent: #7c8f62;
   --accent-strong: #b19363;
   --accent-hot: #6c8ea1;
+  --dock-f1: #7fd98f;
+  --dock-f2: #7db6ff;
+  --dock-f3: #dfb86d;
+  --dock-f4: #d97bb0;
   --danger: #a35252;
   --shadow: none;
   --glow: none;
@@ -1150,6 +1154,10 @@ img {
   --accent: #5e7457;
   --accent-strong: #856947;
   --accent-hot: #4d6b78;
+  --dock-f1: #4d8e5a;
+  --dock-f2: #456fa8;
+  --dock-f3: #9d6d2d;
+  --dock-f4: #9e547a;
   --danger: #9b4d4d;
 }
 
@@ -1175,7 +1183,7 @@ body.mode-terminal ::selection {
 .site-shell {
   width: min(116ch, calc(100% - 1rem));
   margin: 0 auto;
-  padding: 0.75rem 0 1.5rem;
+  padding: 0.75rem 0 5.25rem;
 }
 
 .shell-window {
@@ -2461,18 +2469,30 @@ body.mode-terminal ::selection {
 }
 
 .shell-footer {
+  position: fixed;
+  left: 50%;
+  bottom: 0.75rem;
+  z-index: 40;
+  width: min(116ch, calc(100% - 1rem));
   display: block;
-  border-top: 1px solid var(--line);
+  border-top: 0;
   padding: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .shell-statusbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.45rem;
   align-items: center;
   padding: 0.55rem 0.7rem;
-  background: transparent;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--panel-strong) 92%, var(--page-bg) 8%);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--line) 45%, transparent),
+    0 0.75rem 1.8rem rgba(0, 0, 0, 0.18);
+  pointer-events: auto;
 }
 
 .shell-statusbar-segment,
@@ -2481,7 +2501,9 @@ body.mode-terminal ::selection {
   display: inline-flex;
   align-items: center;
   min-height: auto;
-  padding: 0;
+  padding: 0.22rem 0.45rem;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
   color: var(--muted-strong);
   font-size: 0.72rem;
   line-height: 1.2;
@@ -2489,6 +2511,8 @@ body.mode-terminal ::selection {
 }
 
 .shell-statusbar-segment.is-strong {
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--line) 35%);
+  background: color-mix(in srgb, var(--accent) 16%, var(--panel-soft) 84%);
   color: var(--accent);
 }
 
@@ -2500,6 +2524,7 @@ body.mode-terminal ::selection {
 }
 
 .shell-statusbar-link {
+  gap: 0.35rem;
   color: var(--page-ink);
   text-decoration: none;
 }
@@ -2507,7 +2532,47 @@ body.mode-terminal ::selection {
 .shell-statusbar-link:hover,
 .shell-statusbar-link:focus-visible {
   color: var(--page-ink);
-  background: transparent;
+  transform: translateY(-1px);
+}
+
+.shell-statusbar-key {
+  color: var(--page-ink);
+  font-weight: 600;
+}
+
+.shell-statusbar-link.is-f1 {
+  border-color: color-mix(in srgb, var(--dock-f1) 62%, var(--line) 38%);
+  background: color-mix(in srgb, var(--dock-f1) 14%, var(--panel-soft) 86%);
+  color: var(--dock-f1);
+}
+
+.shell-statusbar-link.is-f2 {
+  border-color: color-mix(in srgb, var(--dock-f2) 62%, var(--line) 38%);
+  background: color-mix(in srgb, var(--dock-f2) 14%, var(--panel-soft) 86%);
+  color: var(--dock-f2);
+}
+
+.shell-statusbar-link.is-f3 {
+  border-color: color-mix(in srgb, var(--dock-f3) 62%, var(--line) 38%);
+  background: color-mix(in srgb, var(--dock-f3) 14%, var(--panel-soft) 86%);
+  color: var(--dock-f3);
+}
+
+.shell-statusbar-link.is-f4 {
+  border-color: color-mix(in srgb, var(--dock-f4) 62%, var(--line) 38%);
+  background: color-mix(in srgb, var(--dock-f4) 14%, var(--panel-soft) 86%);
+  color: var(--dock-f4);
+}
+
+.shell-statusbar-link.is-f1:hover,
+.shell-statusbar-link.is-f2:hover,
+.shell-statusbar-link.is-f3:hover,
+.shell-statusbar-link.is-f4:hover,
+.shell-statusbar-link.is-f1:focus-visible,
+.shell-statusbar-link.is-f2:focus-visible,
+.shell-statusbar-link.is-f3:focus-visible,
+.shell-statusbar-link.is-f4:focus-visible {
+  background: color-mix(in srgb, currentColor 20%, var(--panel-soft) 80%);
 }
 
 .shell-statusbar-clock {
@@ -2567,6 +2632,7 @@ body.mode-terminal ::selection {
 @media (max-width: 47.99rem) {
   .site-shell {
     width: min(100% - 1rem, 100ch);
+    padding-bottom: 6.4rem;
   }
 
   .shell-titlebar {
@@ -2640,6 +2706,11 @@ body.mode-terminal ::selection {
 
   .shell-statusbar-links {
     margin-left: 0;
+  }
+
+  .shell-footer {
+    bottom: 0.45rem;
+    width: calc(100% - 0.75rem);
   }
 }
 
