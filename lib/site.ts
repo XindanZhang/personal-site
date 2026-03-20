@@ -113,21 +113,6 @@ export const site = {
       note: "Network emulation and experimentation testbed.",
       href: "https://nextmini.org/",
     },
-    {
-      name: "La Terminal",
-      note: "A mobile terminal app that treats long-running sessions as a real workflow.",
-      href: "https://la-terminal.net/",
-    },
-    {
-      name: "ArchWiki",
-      note: "Documentation that still solves terminal problems faster than most search results.",
-      href: "https://wiki.archlinux.org/",
-    },
-    {
-      name: "GitHub Pages",
-      note: "A simple deployment target that keeps this site easy to ship.",
-      href: "https://pages.github.com/",
-    },
   ] satisfies FriendLink[],
   skillGroups: [
     {

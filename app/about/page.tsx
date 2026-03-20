@@ -3,34 +3,84 @@ import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
+const readmeSections = [
+  { line: "12", heading: "## focus", note: "what I work on and how I like to debug" },
+  { line: "24", heading: "## toolkit", note: "languages, topics, and publishing stack" },
+  { line: "39", heading: "## history", note: "how this notebook has changed over time" },
+  { line: "52", heading: "## links", note: "where to reach me and what to open next" },
+] as const;
+
+const readmeFacts = [
+  {
+    label: "focus",
+    value: "networking, protocol behavior, small systems experiments, and terminal-heavy workflows",
+  },
+  {
+    label: "method",
+    value: "trace first, rerun with fewer assumptions, then write down only the commands that still matter",
+  },
+  {
+    label: "stack",
+    value: "next.js, tailwind css, markdown content, and static export for github pages",
+  },
+  {
+    label: "status",
+    value: site.availability,
+  },
+] as const;
+
 export default function AboutPage() {
   return (
     <SiteLayout active="about">
       <div className="page-stack">
-        <PromptSection command="cat /home/xindan/README">
-          <h1 className="shell-heading">README</h1>
-          <p className="shell-copy">{site.about.intro}</p>
-          <p className="shell-copy">{site.about.body}</p>
+        <PromptSection command="sed -n '1,160p' README.md">
+          <article className="readme-sheet">
+            <section className="readme-section">
+              <p className="readme-kicker"># README.md</p>
+              <h1 className="shell-heading">Cindy</h1>
+              <p className="shell-copy">{site.about.intro}</p>
+              <p className="shell-copy">{site.about.body}</p>
+            </section>
+
+            <section className="readme-section">
+              <h2 className="readme-heading">focus</h2>
+              <div className="readme-grid">
+                {readmeFacts.map((fact) => (
+                  <dl key={fact.label} className="readme-kv">
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </dl>
+                ))}
+              </div>
+            </section>
+
+            <section className="readme-section">
+              <h2 className="readme-heading">toolkit</h2>
+              <div className="readme-grid">
+                {site.skillGroups.map((group) => (
+                  <dl key={group.title} className="readme-kv">
+                    <dt>{group.title}</dt>
+                    <dd>{group.items.join(" / ")}</dd>
+                  </dl>
+                ))}
+              </div>
+            </section>
+          </article>
         </PromptSection>
 
-        <PromptSection command="ls /home/xindan/skills">
-          <div className="practice-grid">
-            {site.skillGroups.map((group) => (
-              <div key={group.title} className="practice-card">
-                <h2 className="practice-title">{group.title}</h2>
-                <div className="practice-items">
-                  {group.items.map((item) => (
-                    <span key={item} className="practice-chip">
-                      {item}
-                    </span>
-                  ))}
-                </div>
+        <PromptSection command="grep -n '^##' README.md">
+          <div className="readme-outline">
+            {readmeSections.map((section) => (
+              <div key={section.heading} className="readme-outline-row">
+                <span className="readme-outline-line">{section.line}</span>
+                <span className="readme-outline-heading">{section.heading}</span>
+                <span className="readme-outline-note">{section.note}</span>
               </div>
             ))}
           </div>
         </PromptSection>
 
-        <PromptSection command="history | tail -n 3">
+        <PromptSection command="tail -n 6 ~/.local/share/site.history">
           <div className="timeline-list">
             {site.timeline.map((entry) => (
               <div key={entry.year} className="timeline-entry">
@@ -41,25 +91,33 @@ export default function AboutPage() {
           </div>
         </PromptSection>
 
-        <PromptSection command="links">
-          <div className="elsewhere-links">
-            <a className="button-link is-secondary" href={site.github} rel="noopener noreferrer" target="_blank">
-              GitHub
-              <span aria-hidden="true">↗</span>
-            </a>
-            <a className="button-link is-secondary" href={site.email}>
-              Email
-              <span aria-hidden="true">↗</span>
-            </a>
-            <Link className="button-link is-secondary" href="/blog/">
-              Journal
-              <span aria-hidden="true">↗</span>
-            </Link>
-            <Link className="button-link is-secondary" href="/blog/series/nextmini/">
-              Nextmini series
-              <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
+        <PromptSection command="printf '%s\\n' github email journal nextmini">
+          <ul className="readme-link-list">
+            <li className="readme-link-row">
+              <span className="readme-link-label">github</span>
+              <a className="terminal-inline-link" href={site.github} rel="noopener noreferrer" target="_blank">
+                github.com/XindanZhang
+              </a>
+            </li>
+            <li className="readme-link-row">
+              <span className="readme-link-label">email</span>
+              <a className="terminal-inline-link" href={site.email}>
+                xindan.zhang@mail.utoronto.ca
+              </a>
+            </li>
+            <li className="readme-link-row">
+              <span className="readme-link-label">journal</span>
+              <Link className="terminal-inline-link" href="/blog/">
+                /blog/
+              </Link>
+            </li>
+            <li className="readme-link-row">
+              <span className="readme-link-label">nextmini</span>
+              <Link className="terminal-inline-link" href="/blog/series/nextmini/">
+                /blog/series/nextmini/
+              </Link>
+            </li>
+          </ul>
           <p className="shell-copy">
             Read the <Link className="inline-link" href="/blog/">journal</Link> or browse the{" "}
             <Link className="inline-link" href="/projects/">

@@ -45,6 +45,7 @@ test("build exports a terminal-native Next.js site structure", () => {
       "controller-interface",
       "index.html",
     );
+    const ethernetPostPath = resolve(outDir, "blog", "ethernet-1500b-and-jumbo-9000", "index.html");
     const blogPostPath = resolve(outDir, "blog", "create-blog-website-using-jekyll", "index.html");
     const projectsPath = resolve(outDir, "projects", "index.html");
     const friendsPath = resolve(outDir, "friends", "index.html");
@@ -60,6 +61,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.equal(existsSync(tagPath), true);
     assert.equal(existsSync(nextminiSeriesPath), true);
     assert.equal(existsSync(nextminiPostPath), true);
+    assert.equal(existsSync(ethernetPostPath), true);
     assert.equal(existsSync(blogPostPath), true);
     assert.equal(existsSync(projectsPath), true);
     assert.equal(existsSync(friendsPath), true);
@@ -70,6 +72,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     const tagHtml = readFileSync(tagPath, "utf8");
     const nextminiSeriesHtml = readFileSync(nextminiSeriesPath, "utf8");
     const nextminiPostHtml = readFileSync(nextminiPostPath, "utf8");
+    const ethernetPostHtml = readFileSync(ethernetPostPath, "utf8");
     const blogPostHtml = readFileSync(blogPostPath, "utf8");
     const projectsHtml = readFileSync(projectsPath, "utf8");
     const friendsHtml = readFileSync(friendsPath, "utf8");
@@ -99,6 +102,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /mode-terminal/);
     assert.match(blogIndexHtml, /class="site-shell/);
     assert.match(blogIndexHtml, /class="shell-window/);
+    assert.match(blogIndexHtml, /class="terminal-nav"/);
+    assert.match(blogIndexHtml, /class="terminal-nav-list"/);
+    assert.match(blogIndexHtml, /pwd: ~\/personal-site/);
     assert.match(blogIndexHtml, /class="prompt-section/);
     assert.match(blogIndexHtml, /class="archive-ledger/);
     assert.match(blogIndexHtml, /Theme/);
@@ -110,11 +116,14 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /ls \/journal\/tags/);
     assert.match(blogIndexHtml, /ls -ltr \/journal/);
     assert.match(blogIndexHtml, /La Terminal/);
+    assert.match(blogIndexHtml, /Ethernet 1500B and Jumbo 9000/);
     assert.match(blogIndexHtml, /href="\/personal-site\/blog\/category\/nextmini-series\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/blog\/tag\/nextmini\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/projects\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/friends\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/about\/"/);
+    assert.doesNotMatch(blogIndexHtml, /class="shell-nav-link/);
+    assert.doesNotMatch(blogIndexHtml, />cd<\/span>/);
     assert.match(categoryHtml, /pwd: \/journal\/category\/nextmini-series/);
     assert.match(categoryHtml, /Part 4/);
     assert.match(tagHtml, /pwd: \/journal\/tag\/nextmini/);
@@ -128,6 +137,11 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(nextminiPostHtml, /Controller interface/);
     assert.match(nextminiPostHtml, /source_url/);
     assert.match(nextminiPostHtml, /https:\/\/nextmini\.org\//);
+    assert.match(ethernetPostHtml, /cat \/journal\/ethernet-1500b-and-jumbo-9000\.md/);
+    assert.match(ethernetPostHtml, /RFC 894/);
+    assert.match(ethernetPostHtml, /1500 bytes/);
+    assert.match(ethernetPostHtml, /9000 bytes/);
+    assert.match(ethernetPostHtml, /jumbo frames are non-standardized/i);
     assert.match(blogPostHtml, /cat \/journal\/create-blog-website-using-jekyll\.md/);
     assert.match(projectsHtml, /ls \/workspace\/projects\/featured/);
     assert.match(projectsHtml, /ls \/workspace\/projects\/active/);
@@ -139,10 +153,23 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.doesNotMatch(projectsHtml, /class="project-card"/);
     assert.match(friendsHtml, /cat \/etc\/bookmarks\.txt/);
     assert.match(friendsHtml, /A small ring of sites and tools I revisit/);
-    assert.match(aboutHtml, /cat \/home\/xindan\/README/);
-    assert.match(aboutHtml, /ls \/home\/xindan\/skills/);
-    assert.match(aboutHtml, /history \| tail -n 3/);
+    assert.match(friendsHtml, /Nextmini/);
+    assert.doesNotMatch(friendsHtml, /La Terminal/);
+    assert.doesNotMatch(friendsHtml, /ArchWiki/);
+    assert.doesNotMatch(friendsHtml, /GitHub Pages/);
+    assert.match(aboutHtml, /sed -n '1,160p' README\.md/);
+    assert.match(aboutHtml, /grep -n '\^##' README\.md/);
+    assert.match(aboutHtml, /tail -n 6 ~\/\.local\/share\/site\.history/);
+    assert.match(aboutHtml, /printf &#x27;%s\\\\n&#x27; github email journal nextmini/);
     assert.match(aboutHtml, /I am Cindy\./);
+    assert.match(aboutHtml, /class="readme-sheet"/);
+    assert.match(aboutHtml, /class="readme-section"/);
+    assert.match(aboutHtml, /class="readme-grid"/);
+    assert.match(aboutHtml, /class="readme-link-list"/);
+    assert.doesNotMatch(aboutHtml, /class="practice-card"/);
+    assert.doesNotMatch(aboutHtml, /class="practice-grid"/);
+    assert.doesNotMatch(aboutHtml, /class="button-link is-secondary"/);
+    assert.doesNotMatch(aboutHtml, /class="shell-nav-link"/);
     assert.doesNotMatch(blogIndexHtml, /Archive stream/);
     assert.doesNotMatch(blogIndexHtml, />XZ</);
     assert.doesNotMatch(blogPostHtml, />XZ</);
@@ -162,6 +189,8 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /mode-terminal/);
     assert.match(homePageHtml, /class="site-shell/);
     assert.match(homePageHtml, /class="shell-window/);
+    assert.match(homePageHtml, /class="terminal-nav"/);
+    assert.match(homePageHtml, /class="terminal-nav-list"/);
     assert.match(homePageHtml, /class="prompt-section/);
     assert.match(homePageHtml, /class="prompt-line/);
     assert.match(homePageHtml, /class="terminal-output/);
@@ -196,6 +225,8 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/friends\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/about\/"/);
+    assert.doesNotMatch(homePageHtml, /class="shell-nav-link"/);
+    assert.doesNotMatch(homePageHtml, />cd<\/span>/);
     assert.match(homePageHtml, /Available for thoughtful collaboration/);
     assert.match(homePageHtml, /mailto:xindan\.zhang@mail\.utoronto\.ca/);
     assert.doesNotMatch(homePageHtml, /orbital-hero/);
