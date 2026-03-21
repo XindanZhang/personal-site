@@ -2355,7 +2355,7 @@ body.mode-terminal ::selection {
 
 .readme-shortcuts,
 .readme-link-list {
-  padding-left: 1.55rem;
+  padding-left: 1.35rem;
   border-left: 2px solid color-mix(in srgb, var(--block-readme) 65%, var(--line) 35%);
 }
 
@@ -2422,8 +2422,8 @@ body.mode-terminal ::selection {
 .readme-shortcut-row,
 .readme-link-row {
   display: grid;
-  grid-template-columns: 8ch minmax(0, 1fr);
-  gap: 0.2rem 0.95rem;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.2rem 0.8rem;
   align-items: start;
   color: inherit;
   text-decoration: none;
@@ -2448,14 +2448,14 @@ body.mode-terminal ::selection {
 
 .readme-link-list {
   margin: 0;
-  padding: 0 0 0 1.55rem;
+  padding: 0 0 0 1.35rem;
   list-style: none;
 }
 
 .readme-link-row {
-  grid-template-columns: 8ch minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   align-items: start;
-  gap: 0.2rem 0.95rem;
+  gap: 0.2rem 0.8rem;
 }
 
 .readme-link-stack {

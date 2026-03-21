@@ -4,7 +4,7 @@ import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
 const quickOpen = [
-  { label: "journal", href: "/blog/", note: "recent posts" },
+  { label: "blog", href: "/blog/", note: "recent posts" },
   { label: "projects", href: "/projects/", note: "site code + repos" },
   { label: "nextmini", href: "/blog/series/nextmini/", note: "current series" },
 ] as const;

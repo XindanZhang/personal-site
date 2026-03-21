@@ -27,7 +27,7 @@ export default async function BlogTagPage({
         activeTagSlug={tagSlug}
         categories={getAllCategories()}
         description={`filter=tag:#${tag.label}`}
-        pathCommand={`pwd: /journal/tag/${tagSlug}`}
+        pathCommand={`pwd: /blog/tag/${tagSlug}`}
         posts={getPostsByTag(tagSlug)}
         tags={getAllTags()}
       />

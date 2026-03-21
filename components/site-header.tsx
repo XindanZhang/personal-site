@@ -11,7 +11,7 @@ interface SiteHeaderProps {
 export function SiteHeader({ active }: SiteHeaderProps) {
   const currentPage: Record<NavKey, string> = {
     home: "./",
-    blog: "./journal/",
+    blog: "./blog/",
     projects: "./projects/",
     friends: "./links/",
     about: "./README.md",

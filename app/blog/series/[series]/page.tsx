@@ -26,7 +26,7 @@ export default async function SeriesPage({
   return (
     <SiteLayout active="blog">
       <div className="page-stack">
-        <PromptSection command={`cat /journal/series/${series.slug}.txt`}>
+        <PromptSection command={`cat /blog/series/${series.slug}.txt`}>
           <h1 className="shell-heading">{series.name}</h1>
           <p className="shell-copy">
             A longer thread collected into one place so the overview, follow-up notes, and implementation details stay
@@ -46,11 +46,11 @@ export default async function SeriesPage({
             </p>
           ) : null}
           <Link className="terminal-inline-link" href="/blog/">
-            cd /journal
+            cd /blog
           </Link>
         </PromptSection>
 
-        <PromptSection command={`ls -1 /journal/series/${series.slug}`}>
+        <PromptSection command={`ls -1 /blog/series/${series.slug}`}>
           <PostTable posts={series.posts} />
         </PromptSection>
       </div>

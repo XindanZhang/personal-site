@@ -4,7 +4,7 @@ import { getAllCategories, getAllPosts, getAllTags } from "../../lib/blog";
 import { site } from "../../lib/site";
 
 export const metadata = {
-  title: "Journal",
+  title: "Blog",
   description: site.blog.description,
 };
 
@@ -12,7 +12,7 @@ export default function BlogPage() {
   return (
     <SiteLayout active="blog">
       <BlogArchive
-        pathCommand="pwd: /journal"
+        pathCommand="pwd: /blog"
         categories={getAllCategories()}
         description={site.blog.description}
         posts={getAllPosts()}

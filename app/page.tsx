@@ -18,7 +18,7 @@ const currentThreads = [
 ] as const;
 
 const workspaceEntries = [
-  { href: "/blog/", label: "journal/", note: "logs" },
+  { href: "/blog/", label: "blog/", note: "logs" },
   { href: "/projects/", label: "projects/", note: "builds" },
   { href: "/friends/", label: "friends/", note: "ring" },
   { href: "/about/", label: "about/", note: "profile" },
@@ -111,8 +111,8 @@ export default function HomePage() {
 
             <PromptSection
               className="shell-section is-feed"
-              command="tail -n 4 /journal/head.log"
-              cwd="~/journal"
+              command="tail -n 4 /blog/head.log"
+              cwd="~/blog"
               typeDelayMs={760}
               typeDurationMs={760}
               typed

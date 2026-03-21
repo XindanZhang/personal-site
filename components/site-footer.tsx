@@ -3,7 +3,7 @@ type FooterKey = "home" | "blog" | "projects" | "friends" | "about";
 
 const footerContext: Record<FooterKey, string> = {
   home: "home",
-  blog: "journal",
+  blog: "blog",
   projects: "projects",
   friends: "links",
   about: "readme",
@@ -29,10 +29,10 @@ export function SiteFooter({ active }: SiteFooterProps) {
             className="shell-statusbar-link is-f1"
             data-shell-shortcut="F1"
             href="/blog/"
-            title="F1 journal"
+            title="F1 blog"
           >
             <span className="shell-statusbar-key">F1</span>
-            <span>journal</span>
+            <span>blog</span>
           </Link>
           <Link
             aria-keyshortcuts="F2"

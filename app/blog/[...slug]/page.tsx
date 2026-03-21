@@ -35,7 +35,7 @@ export default async function BlogPostPage({
     <SiteLayout active="blog">
       <div className="article-layout">
         <div className="article-main">
-          <PromptSection caret command={`cat /journal/${post.slug}.md`}>
+          <PromptSection caret command={`cat /blog/${post.slug}.md`}>
             <div className="article-kicker">
               <Link
                 className="article-pill"
@@ -60,7 +60,7 @@ export default async function BlogPostPage({
             <p className="shell-copy">{post.summary}</p>
             <div className="article-toolbar">
               <Link className="journal-link" href="/blog/">
-                cd /journal
+                cd /blog
               </Link>
               <CopyLinkButton />
             </div>

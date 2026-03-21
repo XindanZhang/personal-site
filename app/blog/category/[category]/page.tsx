@@ -27,7 +27,7 @@ export default async function BlogCategoryPage({
         activeCategorySlug={categorySlug}
         categories={getAllCategories()}
         description={`filter=category:${category.label}`}
-        pathCommand={`pwd: /journal/category/${categorySlug}`}
+        pathCommand={`pwd: /blog/category/${categorySlug}`}
         posts={getPostsByCategory(categorySlug)}
         tags={getAllTags()}
       />

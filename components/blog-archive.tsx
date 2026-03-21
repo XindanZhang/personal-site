@@ -34,14 +34,14 @@ export function BlogArchive({
           <p className="shell-copy">{description}</p>
         </PromptSection>
 
-        <PromptSection as="section" command="ls /journal/categories">
+        <PromptSection as="section" command="ls /blog/categories">
           <div className="filter-group">
             <div className="filter-wrap">
               <Link
                 className={`${filterLinkClass} ${!activeCategorySlug && !activeTagSlug ? "is-active" : ""}`}
                 href="/blog/"
               >
-                All notes
+                All posts
               </Link>
 
               {categories.map((category) => (
@@ -57,7 +57,7 @@ export function BlogArchive({
           </div>
         </PromptSection>
 
-        <PromptSection as="section" command="ls /journal/tags">
+        <PromptSection as="section" command="ls /blog/tags">
           <div className="filter-group">
             <div className="filter-wrap">
               {tags.map((tag) => (
@@ -75,7 +75,7 @@ export function BlogArchive({
       </aside>
 
       <div className="journal-main">
-        <PromptSection as="section" command="ls -ltr /journal">
+        <PromptSection as="section" command="ls -ltr /blog">
           {posts.length > 0 ? (
             <PostTable posts={posts} />
           ) : (
