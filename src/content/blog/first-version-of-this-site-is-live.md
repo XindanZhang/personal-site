@@ -29,9 +29,3 @@ The stack is also different now. The site is built with `Next.js`, `Tailwind CSS
 I did not want an editorial landing page or a portfolio full of big cards. I wanted something that feels structured, technical, and a little closer to a shell interface, but still readable enough to use every day.
 
 That part is still evolving. The current version is good enough to publish with, but I still want to keep improving the spacing, color balance, hover behavior, and the overall reading flow.
-
-## What comes next
-
-The main goal from here is simple: keep writing.
-
-I want to keep adding Nextmini notes, networking writeups, and small setup logs that are short enough to scan but concrete enough to rerun later. If the site keeps doing that well, then this first version has already done its job.
