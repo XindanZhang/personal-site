@@ -100,7 +100,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /--sheen-b:/i);
     assert.match(cssBundle, /shell-footer\{[^}]*position:fixed/i);
     assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*pointer-events:none/i);
-    assert.match(cssBundle, /site-shell\{[^}]*padding:.75rem 0 7.5rem/i);
+    assert.match(cssBundle, /shell-main\{[^}]*padding:.9rem 1rem 7rem/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);

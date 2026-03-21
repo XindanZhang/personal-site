@@ -1220,7 +1220,7 @@ body.mode-terminal ::selection {
 .site-shell {
   width: min(116ch, calc(100% - 1rem));
   margin: 0 auto;
-  padding: 0.75rem 0 7.5rem;
+  padding: 0.75rem 0 1.25rem;
 }
 
 .shell-window {
@@ -1277,9 +1277,12 @@ body.mode-terminal ::selection {
 }
 
 .shell-header,
-.shell-main,
 .shell-footer {
   padding: 0.9rem 1rem;
+}
+
+.shell-main {
+  padding: 0.9rem 1rem 7rem;
 }
 
 .shell-header {
@@ -2947,7 +2950,11 @@ body.mode-terminal ::selection {
 @media (max-width: 47.99rem) {
   .site-shell {
     width: min(100% - 1rem, 100ch);
-    padding-bottom: 8.8rem;
+    padding-bottom: 1rem;
+  }
+
+  .shell-main {
+    padding-bottom: 9.2rem;
   }
 
   .shell-titlebar {
