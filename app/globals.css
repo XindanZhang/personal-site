@@ -1902,44 +1902,53 @@ body.mode-terminal ::selection {
 }
 
 .workspace-tree {
-  gap: 0;
+  display: grid;
+  gap: 0.35rem;
 }
 
 .workspace-tree-row {
-  display: grid;
-  grid-template-columns: 4ch minmax(0, 1fr) auto;
-  gap: 0.9rem;
-  align-items: baseline;
-  padding: 0.5rem 0;
-  border-top: 1px solid var(--line);
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.12rem 0;
   color: inherit;
   text-decoration: none;
 }
 
-.workspace-tree-row:first-child {
-  border-top: 0;
-  padding-top: 0;
+.workspace-tree-row::before {
+  content: "./";
+  color: var(--muted);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
 }
 
 .workspace-tree-row:hover .workspace-tree-name {
   color: var(--accent);
 }
 
-.workspace-tree-branch {
-  color: var(--muted);
-  font-size: 0.82rem;
+.workspace-tree-target {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .workspace-tree-name {
   color: var(--page-ink);
-  font-size: 0.92rem;
-  line-height: 1.45;
+  font-size: 0.94rem;
+  line-height: 1.35;
 }
 
-.workspace-tree-note {
+.workspace-tree-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.08rem 0.38rem;
+  border: 1px solid color-mix(in srgb, var(--block-workspace) 55%, var(--line) 45%);
+  background: color-mix(in srgb, var(--block-workspace) 10%, transparent);
   color: var(--accent-hot);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.67rem;
+  letter-spacing: 0.04em;
   text-transform: lowercase;
 }
 
@@ -2557,7 +2566,7 @@ body.mode-terminal ::selection {
   display: block;
   border-top: 0;
   padding: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transform: translateX(-50%);
 }
 
@@ -2774,7 +2783,7 @@ body.mode-terminal ::selection {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .workspace-tree-note,
+  .workspace-tree-tag,
   .journal-headline-label {
     justify-self: start;
   }

@@ -24,19 +24,43 @@ export function SiteFooter({ active }: SiteFooterProps) {
         <span className="shell-statusbar-segment">prefix=^b</span>
 
         <div className="shell-statusbar-links">
-          <Link className="shell-statusbar-link is-f1" href="/blog/">
+          <Link
+            aria-keyshortcuts="F1"
+            className="shell-statusbar-link is-f1"
+            data-shell-shortcut="F1"
+            href="/blog/"
+            title="F1 journal"
+          >
             <span className="shell-statusbar-key">F1</span>
             <span>journal</span>
           </Link>
-          <Link className="shell-statusbar-link is-f2" href="/projects/">
+          <Link
+            aria-keyshortcuts="F2"
+            className="shell-statusbar-link is-f2"
+            data-shell-shortcut="F2"
+            href="/projects/"
+            title="F2 projects"
+          >
             <span className="shell-statusbar-key">F2</span>
             <span>projects</span>
           </Link>
-          <Link className="shell-statusbar-link is-f3" href="/friends/">
+          <Link
+            aria-keyshortcuts="F3"
+            className="shell-statusbar-link is-f3"
+            data-shell-shortcut="F3"
+            href="/friends/"
+            title="F3 links"
+          >
             <span className="shell-statusbar-key">F3</span>
             <span>links</span>
           </Link>
-          <Link className="shell-statusbar-link is-f4" href="/about/">
+          <Link
+            aria-keyshortcuts="F4"
+            className="shell-statusbar-link is-f4"
+            data-shell-shortcut="F4"
+            href="/about/"
+            title="F4 README"
+          >
             <span className="shell-statusbar-key">F4</span>
             <span>README</span>
           </Link>

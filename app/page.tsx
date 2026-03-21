@@ -18,11 +18,11 @@ const currentThreads = [
 ] as const;
 
 const workspaceEntries = [
-  { branch: "├──", href: "/blog/", label: "journal/", note: "logs" },
-  { branch: "├──", href: "/projects/", label: "projects/", note: "builds" },
-  { branch: "├──", href: "/friends/", label: "friends/", note: "ring" },
-  { branch: "├──", href: "/about/", label: "about/", note: "profile" },
-  { branch: "└──", href: "/about/", label: "README.md", note: "index" },
+  { href: "/blog/", label: "journal/", note: "logs" },
+  { href: "/projects/", label: "projects/", note: "builds" },
+  { href: "/friends/", label: "friends/", note: "ring" },
+  { href: "/about/", label: "about/", note: "profile" },
+  { href: "/about/", label: "README.md", note: "index" },
 ] as const;
 
 export default function HomePage() {
@@ -100,9 +100,10 @@ export default function HomePage() {
               <div className="workspace-tree">
                 {workspaceEntries.map((entry) => (
                   <Link key={entry.label} className="workspace-tree-row" href={entry.href}>
-                    <span className="workspace-tree-branch">{entry.branch}</span>
-                    <span className="workspace-tree-name">{entry.label}</span>
-                    <span className="workspace-tree-note">{entry.note}</span>
+                    <span className="workspace-tree-target">
+                      <span className="workspace-tree-name">{entry.label}</span>
+                      <span className="workspace-tree-tag">{entry.note}</span>
+                    </span>
                   </Link>
                 ))}
               </div>

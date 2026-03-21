@@ -96,6 +96,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /--section-color:var\(--block-projects\)/i);
     assert.match(cssBundle, /border-left:2px solid var\(--block-workspace\)/i);
     assert.match(cssBundle, /shell-footer\{[^}]*position:fixed/i);
+    assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*pointer-events:none/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -124,6 +125,11 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /shell-statusbar-link is-f2/);
     assert.match(blogIndexHtml, /shell-statusbar-link is-f3/);
     assert.match(blogIndexHtml, /shell-statusbar-link is-f4/);
+    assert.match(blogIndexHtml, /data-shell-shortcut="F1"/);
+    assert.match(blogIndexHtml, /data-shell-shortcut="F2"/);
+    assert.match(blogIndexHtml, /data-shell-shortcut="F3"/);
+    assert.match(blogIndexHtml, /data-shell-shortcut="F4"/);
+    assert.match(blogIndexHtml, /aria-keyshortcuts="F1"/);
     assert.match(blogIndexHtml, /shell-statusbar-key">F1</);
     assert.match(blogIndexHtml, /shell-statusbar-key">F2</);
     assert.match(blogIndexHtml, /cwd=~\/personal-site/);
@@ -233,6 +239,8 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /class="identity-grid"/);
     assert.match(homePageHtml, /class="workspace-tree"/);
     assert.match(homePageHtml, /class="workspace-tree-row"/);
+    assert.match(homePageHtml, /class="workspace-tree-target"/);
+    assert.match(homePageHtml, /class="workspace-tree-tag"/);
     assert.match(homePageHtml, /class="journal-headlines"/);
     assert.match(homePageHtml, /class="journal-headline-row"/);
     assert.match(homePageHtml, /ctx=home/);
@@ -242,6 +250,10 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /shell-statusbar-link is-f2/);
     assert.match(homePageHtml, /shell-statusbar-link is-f3/);
     assert.match(homePageHtml, /shell-statusbar-link is-f4/);
+    assert.match(homePageHtml, /data-shell-shortcut="F1"/);
+    assert.match(homePageHtml, /data-shell-shortcut="F2"/);
+    assert.match(homePageHtml, /data-shell-shortcut="F3"/);
+    assert.match(homePageHtml, /data-shell-shortcut="F4"/);
     assert.match(homePageHtml, /class="prompt-section/);
     assert.match(homePageHtml, /class="prompt-line/);
     assert.match(homePageHtml, /class="terminal-output/);
@@ -278,6 +290,7 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/friends\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/about\/"/);
+    assert.doesNotMatch(homePageHtml, /class="workspace-tree-branch"/);
     assert.doesNotMatch(homePageHtml, /class="terminal-pane/);
     assert.doesNotMatch(homePageHtml, /class="shell-nav-link"/);
     assert.doesNotMatch(homePageHtml, />cd<\/span>/);
