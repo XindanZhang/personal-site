@@ -1855,6 +1855,30 @@ body.mode-terminal ::selection {
   border-left-color: var(--block-links);
 }
 
+.bookmark-header {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.bookmark-kicker {
+  margin: 0;
+  color: var(--block-links);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.bookmark-lead {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--muted-strong);
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
 .bookmark-list {
   display: grid;
   gap: 0;
@@ -1864,10 +1888,10 @@ body.mode-terminal ::selection {
 
 .bookmark-row {
   display: grid;
-  grid-template-columns: 4ch 16ch minmax(0, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: 4ch minmax(12rem, 16rem) minmax(0, 1fr);
+  gap: 0.85rem 1rem;
   align-items: start;
-  padding: 0.7rem 0;
+  padding: 0.8rem 0;
   border-top: 1px solid var(--line);
   color: inherit;
   text-decoration: none;
@@ -1878,23 +1902,57 @@ body.mode-terminal ::selection {
 }
 
 .bookmark-row:hover {
-  background: var(--page-bg-alt);
+  background: color-mix(in srgb, var(--block-links) 5%, transparent);
 }
 
 .bookmark-index {
-  color: var(--muted);
-  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--block-links) 58%, var(--muted) 42%);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.bookmark-main,
+.bookmark-meta {
+  display: grid;
+  gap: 0.14rem;
+  min-width: 0;
 }
 
 .bookmark-name {
-  color: var(--page-ink);
-  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--block-links) 72%, var(--page-ink) 28%);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.bookmark-host {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .bookmark-note {
   color: var(--muted-strong);
-  font-size: 0.88rem;
-  line-height: 1.65;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.bookmark-open {
+  color: var(--block-links);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.bookmark-footnote {
+  margin: 0.95rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.72;
 }
 
 .terminal-readout {

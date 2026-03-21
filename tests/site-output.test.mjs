@@ -211,8 +211,12 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(bookmarksHtml, /A short list of bookmarks I still reopen/);
     assert.match(bookmarksHtml, /Nextmini/);
     assert.match(bookmarksHtml, /class="bookmark-terminal"/);
+    assert.match(bookmarksHtml, /class="bookmark-header"/);
+    assert.match(bookmarksHtml, /class="bookmark-kicker"/);
     assert.match(bookmarksHtml, /class="bookmark-list"/);
     assert.match(bookmarksHtml, /class="bookmark-row"/);
+    assert.match(bookmarksHtml, /class="bookmark-host"/);
+    assert.match(bookmarksHtml, /class="bookmark-open"/);
     assert.doesNotMatch(bookmarksHtml, /La Terminal/);
     assert.doesNotMatch(bookmarksHtml, /ArchWiki/);
     assert.doesNotMatch(bookmarksHtml, /GitHub Pages/);
