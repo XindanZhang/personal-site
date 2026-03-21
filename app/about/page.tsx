@@ -43,7 +43,7 @@ export default function AboutPage() {
               </section>
 
               <section className="readme-section">
-                <h2 className="readme-heading">focus</h2>
+                <h2 className="readme-heading">Focus</h2>
                 <div className="readme-grid">
                   {readmeFacts.map((fact) => (
                     <dl key={fact.label} className="readme-kv">
@@ -55,13 +55,19 @@ export default function AboutPage() {
               </section>
 
               <section className="readme-section">
-                <h2 className="readme-heading">toolkit</h2>
-                <div className="readme-grid">
+                <h2 className="readme-heading">Toolkit</h2>
+                <div className="readme-group-list">
                   {site.skillGroups.map((group) => (
-                    <dl key={group.title} className="readme-kv">
-                      <dt>{group.title}</dt>
-                      <dd>{group.items.join(" / ")}</dd>
-                    </dl>
+                    <section key={group.title} className="readme-group">
+                      <h3 className="readme-group-title">{group.title}</h3>
+                      <ul className="readme-tag-list">
+                        {group.items.map((item) => (
+                          <li key={item} className="readme-tag">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
                   ))}
                 </div>
               </section>

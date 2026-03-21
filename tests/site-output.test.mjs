@@ -217,6 +217,11 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, /class="readme-sheet"/);
     assert.match(aboutHtml, /class="readme-section"/);
     assert.match(aboutHtml, /class="readme-grid"/);
+    assert.match(aboutHtml, /class="readme-group-list"/);
+    assert.match(aboutHtml, /class="readme-group"/);
+    assert.match(aboutHtml, /class="readme-group-title"/);
+    assert.match(aboutHtml, /class="readme-tag-list"/);
+    assert.match(aboutHtml, /class="readme-tag"/);
     assert.match(aboutHtml, /class="readme-shortcuts"/);
     assert.match(aboutHtml, /readme-shortcut-row/);
     assert.match(aboutHtml, /readme-shortcut-link/);
@@ -228,6 +233,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, />XindanZhang</);
     assert.match(aboutHtml, />mail\.utoronto\.ca</);
     assert.match(aboutHtml, /href="\/personal-site\/projects\/"/);
+    assert.doesNotMatch(aboutHtml, /Rust \/ TypeScript \/ Python \/ Shell \/ C/);
     assert.doesNotMatch(aboutHtml, /class="readme-outline"/);
     assert.doesNotMatch(aboutHtml, /grep -n '\^##' README\.md/);
     assert.doesNotMatch(aboutHtml, /class="practice-card"/);

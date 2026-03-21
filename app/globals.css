@@ -2480,15 +2480,26 @@ body.mode-terminal ::selection {
 }
 
 .readme-kicker,
-.readme-heading,
 .readme-shortcut-link {
   color: var(--accent);
+}
+
+.readme-heading {
+  color: var(--page-ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .readme-grid {
   display: grid;
   gap: 0;
   background: transparent;
+}
+
+.readme-group-list {
+  display: grid;
+  gap: 0;
 }
 
 .readme-kv {
@@ -2507,6 +2518,51 @@ body.mode-terminal ::selection {
   color: var(--muted-strong);
   font-size: 0.9rem;
   line-height: 1.7;
+}
+
+.readme-group {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.readme-group:first-child {
+  border-top: 0;
+  padding-top: 0.2rem;
+}
+
+.readme-group-title {
+  margin: 0;
+  color: var(--page-ink);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+}
+
+.readme-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.readme-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.24rem 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-soft) 90%, transparent);
+  color: var(--muted-strong);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  white-space: nowrap;
 }
 
 .readme-shortcut-row,
