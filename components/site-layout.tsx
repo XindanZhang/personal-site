@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 import { ShellShortcuts } from "./shell-shortcuts";
 
@@ -14,7 +13,6 @@ export function SiteLayout({ active, children }: SiteLayoutProps) {
       <ShellShortcuts />
       <div className="shell-window">
         <SiteHeader active={active} />
-        <SiteFooter active={active} />
         <main className="shell-main">{children}</main>
       </div>
     </div>

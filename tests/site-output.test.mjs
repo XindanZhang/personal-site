@@ -98,9 +98,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /border-left:2px solid var\(--block-workspace\)/i);
     assert.match(cssBundle, /--sheen-a:/i);
     assert.match(cssBundle, /--sheen-b:/i);
-    assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*position:fixed/i);
-    assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*(?:^|[;{])bottom:/i);
     assert.match(cssBundle, /shell-main\{[^}]*padding:1rem 1rem 1\.25rem/i);
+    assert.match(cssBundle, /shell-navline\{/i);
+    assert.match(cssBundle, /shell-nav-actions\{/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -127,8 +127,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /mode-terminal/);
     assert.match(blogIndexHtml, /class="site-shell/);
     assert.match(blogIndexHtml, /class="shell-window/);
-    assert.match(blogIndexHtml, /class="shell-header[\s\S]*class="shell-footer[\s\S]*class="shell-main/);
-    assert.match(blogIndexHtml, /class="shell-statusbar"/);
+    assert.match(blogIndexHtml, /class="shell-header[\s\S]*class="[^"]*shell-navline[^"]*"[\s\S]*class="shell-main/);
+    assert.doesNotMatch(blogIndexHtml, /class="shell-footer"/);
     assert.doesNotMatch(blogIndexHtml, /class="terminal-nav"/);
     assert.doesNotMatch(blogIndexHtml, /class="terminal-nav-list"/);
     assert.match(blogIndexHtml, /class="journal-layout"/);
@@ -146,6 +146,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /aria-keyshortcuts="F1"/);
     assert.match(blogIndexHtml, /shell-statusbar-key">F1</);
     assert.match(blogIndexHtml, /shell-statusbar-key">F2</);
+    assert.match(blogIndexHtml, /ctx=blog/);
+    assert.match(blogIndexHtml, /prefix=\^b/);
     assert.match(blogIndexHtml, /cwd=~\/personal-site/);
     assert.match(blogIndexHtml, /page=.*\.\/blog\//);
     assert.match(blogIndexHtml, /class="prompt-section/);
@@ -268,7 +270,8 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /mode-terminal/);
     assert.match(homePageHtml, /class="site-shell/);
     assert.match(homePageHtml, /class="shell-window/);
-    assert.match(homePageHtml, /class="shell-statusbar"/);
+    assert.match(homePageHtml, /class="[^"]*shell-navline[^"]*"/);
+    assert.doesNotMatch(homePageHtml, /class="shell-footer"/);
     assert.doesNotMatch(homePageHtml, /class="terminal-nav"/);
     assert.doesNotMatch(homePageHtml, /class="terminal-nav-list"/);
     assert.match(homePageHtml, /class="terminal-dashboard"/);

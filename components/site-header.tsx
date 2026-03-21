@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "../lib/site";
+import { ShellNavLine } from "./site-footer";
 import { ThemeToggle } from "./theme-toggle";
 
 type NavKey = "home" | "blog" | "projects" | "bookmarks" | "about";
@@ -57,6 +58,8 @@ export function SiteHeader({ active }: SiteHeaderProps) {
         <span>cwd=~/personal-site</span>
         <span>page={currentPage[active]}</span>
       </div>
+
+      <ShellNavLine active={active} />
     </header>
   );
 }
