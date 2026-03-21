@@ -14,8 +14,8 @@ export function SiteLayout({ active, children }: SiteLayoutProps) {
       <ShellShortcuts />
       <div className="shell-window">
         <SiteHeader active={active} />
-        <main className="shell-main">{children}</main>
         <SiteFooter active={active} />
+        <main className="shell-main">{children}</main>
       </div>
     </div>
   );

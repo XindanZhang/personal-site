@@ -98,9 +98,9 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /border-left:2px solid var\(--block-workspace\)/i);
     assert.match(cssBundle, /--sheen-a:/i);
     assert.match(cssBundle, /--sheen-b:/i);
-    assert.match(cssBundle, /shell-footer\{[^}]*position:fixed/i);
-    assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*pointer-events:none/i);
-    assert.match(cssBundle, /shell-main\{[^}]*padding:.9rem 1rem 7rem/i);
+    assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*position:fixed/i);
+    assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*(?:^|[;{])bottom:/i);
+    assert.match(cssBundle, /shell-main\{[^}]*padding:1rem 1rem 1\.25rem/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -127,6 +127,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /mode-terminal/);
     assert.match(blogIndexHtml, /class="site-shell/);
     assert.match(blogIndexHtml, /class="shell-window/);
+    assert.match(blogIndexHtml, /class="shell-header[\s\S]*class="shell-footer[\s\S]*class="shell-main/);
     assert.match(blogIndexHtml, /class="shell-statusbar"/);
     assert.doesNotMatch(blogIndexHtml, /class="terminal-nav"/);
     assert.doesNotMatch(blogIndexHtml, /class="terminal-nav-list"/);

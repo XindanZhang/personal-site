@@ -1282,7 +1282,7 @@ body.mode-terminal ::selection {
 }
 
 .shell-main {
-  padding: 0.9rem 1rem 7rem;
+  padding: 1rem 1rem 1.25rem;
 }
 
 .shell-header {
@@ -1291,6 +1291,14 @@ body.mode-terminal ::selection {
   border-bottom: 1px solid var(--line);
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--sheen-a) 10%, var(--panel-strong) 90%), var(--panel-strong));
+}
+
+.shell-footer {
+  display: block;
+  padding-top: 0;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--sheen-b) 6%, var(--panel-strong) 94%), var(--panel-strong));
 }
 
 .shell-titlebar,
@@ -2781,19 +2789,6 @@ body.mode-terminal ::selection {
   border-radius: 0;
 }
 
-.shell-footer {
-  position: fixed;
-  left: 50%;
-  bottom: 0.75rem;
-  z-index: 40;
-  width: min(116ch, calc(100% - 1rem));
-  display: block;
-  border-top: 0;
-  padding: 0;
-  pointer-events: auto;
-  transform: translateX(-50%);
-}
-
 .shell-statusbar {
   display: flex;
   flex-wrap: wrap;
@@ -2801,10 +2796,11 @@ body.mode-terminal ::selection {
   align-items: center;
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--line-strong);
+  border-radius: 0.4rem;
   background: color-mix(in srgb, var(--panel-strong) 96%, var(--page-bg) 4%);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--line) 45%, transparent),
-    0 0.8rem 2rem rgba(0, 0, 0, 0.22);
+    0 0.8rem 2rem rgba(0, 0, 0, 0.18);
   pointer-events: auto;
 }
 
@@ -2950,11 +2946,10 @@ body.mode-terminal ::selection {
 @media (max-width: 47.99rem) {
   .site-shell {
     width: min(100% - 1rem, 100ch);
-    padding-bottom: 1rem;
   }
 
   .shell-main {
-    padding-bottom: 9.2rem;
+    padding-bottom: 1rem;
   }
 
   .shell-titlebar {
@@ -3043,11 +3038,6 @@ body.mode-terminal ::selection {
 
   .shell-statusbar-links {
     margin-left: 0;
-  }
-
-  .shell-footer {
-    bottom: 0.45rem;
-    width: calc(100% - 0.75rem);
   }
 }
 
