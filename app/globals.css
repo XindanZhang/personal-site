@@ -2355,7 +2355,7 @@ body.mode-terminal ::selection {
 
 .readme-shortcuts,
 .readme-link-list {
-  padding-left: 1.25rem;
+  padding-left: 1.55rem;
   border-left: 2px solid color-mix(in srgb, var(--block-readme) 65%, var(--line) 35%);
 }
 
@@ -2448,7 +2448,7 @@ body.mode-terminal ::selection {
 
 .readme-link-list {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 1.55rem;
   list-style: none;
 }
 
