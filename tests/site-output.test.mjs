@@ -206,6 +206,10 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, /class="readme-section"/);
     assert.match(aboutHtml, /class="readme-grid"/);
     assert.match(aboutHtml, /class="readme-link-list"/);
+    assert.match(aboutHtml, /readme-link-target/);
+    assert.match(aboutHtml, /readme-link-meta/);
+    assert.match(aboutHtml, />XindanZhang</);
+    assert.match(aboutHtml, />mail\.utoronto\.ca</);
     assert.doesNotMatch(aboutHtml, /class="practice-card"/);
     assert.doesNotMatch(aboutHtml, /class="practice-grid"/);
     assert.doesNotMatch(aboutHtml, /class="button-link is-secondary"/);

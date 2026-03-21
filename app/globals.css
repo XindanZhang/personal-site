@@ -2452,8 +2452,25 @@ body.mode-terminal ::selection {
 }
 
 .readme-link-row {
-  grid-template-columns: 10ch minmax(0, 1fr);
-  align-items: center;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 0.22rem;
+}
+
+.readme-link-target {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--accent);
+  font-size: 0.94rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.readme-link-meta {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
 }
 
 .friend-entry {

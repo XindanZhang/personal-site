@@ -98,27 +98,36 @@ export default function AboutPage() {
             <ul className="readme-link-list">
               <li className="readme-link-row">
                 <span className="readme-link-label">github</span>
-                <a className="terminal-inline-link" href={site.github} rel="noopener noreferrer" target="_blank">
-                  github.com/XindanZhang
+                <a
+                  className="terminal-inline-link readme-link-target"
+                  href={site.github}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  XindanZhang
                 </a>
+                <span className="readme-link-meta">github.com/XindanZhang</span>
               </li>
               <li className="readme-link-row">
                 <span className="readme-link-label">email</span>
-                <a className="terminal-inline-link" href={site.email}>
-                  xindan.zhang@mail.utoronto.ca
+                <a className="terminal-inline-link readme-link-target" href={site.email}>
+                  xindan.zhang
                 </a>
+                <span className="readme-link-meta">mail.utoronto.ca</span>
               </li>
               <li className="readme-link-row">
                 <span className="readme-link-label">journal</span>
-                <Link className="terminal-inline-link" href="/blog/">
+                <Link className="terminal-inline-link readme-link-target" href="/blog/">
                   /blog/
                 </Link>
+                <span className="readme-link-meta">recent logs and writeups</span>
               </li>
               <li className="readme-link-row">
                 <span className="readme-link-label">nextmini</span>
-                <Link className="terminal-inline-link" href="/blog/series/nextmini/">
-                  /blog/series/nextmini/
+                <Link className="terminal-inline-link readme-link-target" href="/blog/series/nextmini/">
+                  nextmini series
                 </Link>
+                <span className="readme-link-meta">/blog/series/nextmini/</span>
               </li>
             </ul>
             <p className="shell-copy">
