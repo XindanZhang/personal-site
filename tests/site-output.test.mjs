@@ -101,6 +101,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /shell-main\{[^}]*padding:1rem 1rem 1\.25rem/i);
     assert.match(cssBundle, /shell-navline\{/i);
     assert.match(cssBundle, /shell-nav-actions\{/i);
+    assert.doesNotMatch(cssBundle, /animation:terminal-ambient/i);
+    assert.doesNotMatch(cssBundle, /animation:terminal-sheen/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -123,6 +125,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.doesNotMatch(cssBundle, /#f6f8fa/i);
     assert.doesNotMatch(cssBundle, /#218bff/i);
     assert.match(blogIndexHtml, /\/personal-site\/_next\/static\//);
+    assert.match(blogIndexHtml, /<head>[\s\S]*document\.documentElement\.dataset\.theme[\s\S]*<\/head>/);
     assert.doesNotMatch(blogIndexHtml, /\/personal-site\/_astro\//);
     assert.match(blogIndexHtml, /mode-terminal/);
     assert.match(blogIndexHtml, /class="site-shell/);
@@ -218,6 +221,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, /tail -n 6 ~\/\.local\/share\/site\.history/);
     assert.match(aboutHtml, /cat ~\/\.contacts/);
     assert.match(aboutHtml, /I am Cindy\./);
+    assert.match(aboutHtml, /Copy email/);
     assert.match(aboutHtml, /class="manpage-layout"/);
     assert.match(aboutHtml, /class="manpage-main"/);
     assert.match(aboutHtml, /class="manpage-sidebar"/);
@@ -267,6 +271,7 @@ test("home page uses a prompt-and-output terminal layout", () => {
     const homePageHtml = readFileSync(homePagePath, "utf8");
 
     assert.match(homePageHtml, /\/personal-site\/_next\/static\//);
+    assert.match(homePageHtml, /<head>[\s\S]*document\.documentElement\.dataset\.theme[\s\S]*<\/head>/);
     assert.match(homePageHtml, /mode-terminal/);
     assert.match(homePageHtml, /class="site-shell/);
     assert.match(homePageHtml, /class="shell-window/);

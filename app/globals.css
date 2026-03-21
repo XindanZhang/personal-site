@@ -1199,8 +1199,7 @@ body.mode-terminal::before {
     radial-gradient(circle at 18% 20%, var(--sheen-a) 0, transparent 26%),
     radial-gradient(circle at 82% 18%, var(--sheen-b) 0, transparent 24%);
   filter: blur(56px);
-  opacity: 0.82;
-  animation: terminal-ambient 24s ease-in-out infinite alternate;
+  opacity: 0.66;
 }
 
 body.mode-terminal::after {
@@ -1267,8 +1266,7 @@ body.mode-terminal ::selection {
     color-mix(in srgb, var(--sheen-b) 100%, transparent) 56%,
     transparent 100%
   );
-  opacity: 0.82;
-  animation: terminal-sheen 18s linear infinite;
+  opacity: 0.56;
 }
 
 .shell-window > * {
@@ -2692,6 +2690,13 @@ body.mode-terminal ::selection {
   grid-row: 1;
 }
 
+.readme-link-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding-top: 0.18rem;
+}
+
 .readme-link-target {
   display: inline-flex;
   width: fit-content;
@@ -2706,6 +2711,35 @@ body.mode-terminal ::selection {
   color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.45;
+}
+
+.copy-inline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+  padding: 0.18rem 0.48rem;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+  color: var(--muted-strong);
+  font-size: 0.68rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.copy-inline-button:hover,
+.copy-inline-button:focus-visible {
+  border-color: var(--accent);
+  color: var(--page-ink);
+}
+
+.copy-inline-button.is-copied {
+  border-color: color-mix(in srgb, var(--block-identity) 60%, var(--line) 40%);
+  color: var(--block-identity);
 }
 
 .friend-entry {

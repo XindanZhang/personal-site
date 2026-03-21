@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CopyEmailButton } from "../../components/copy-email-button";
 import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
@@ -29,6 +30,8 @@ const readmeFacts = [
 ] as const;
 
 export default function AboutPage() {
+  const emailAddress = site.email.replace(/^mailto:/, "");
+
   return (
     <SiteLayout active="about">
       <div className="manpage-layout">
@@ -122,6 +125,9 @@ export default function AboutPage() {
                     xindan.zhang
                   </a>
                   <span className="readme-link-meta">mail.utoronto.ca</span>
+                  <div className="readme-link-actions">
+                    <CopyEmailButton email={emailAddress} />
+                  </div>
                 </div>
               </li>
             </ul>

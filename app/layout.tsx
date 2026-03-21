@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
+import Script from "next/script";
 import type { ReactNode } from "react";
 import { site } from "../lib/site";
 import "./globals.css";
@@ -49,8 +50,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script id="theme-script" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
+      </head>
       <body className={`${ibmPlexMono.variable} site-body mode-terminal antialiased`}>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
       </body>
     </html>
