@@ -23,8 +23,8 @@ export interface TimelineEntry {
 
 export const site = {
   name: "Cindy",
-  titleSuffix: "Networking notes, protocol experiments, and terminal-first build logs.",
-  description: "Terminal-first notes on networking, distributed systems, debugging, and the tools worth reopening.",
+  titleSuffix: "Networking notes, protocol experiments, and build logs.",
+  description: "Notes on networking, distributed systems, debugging, and the tools worth reopening.",
   availability: "Available for thoughtful collaboration",
   email: "mailto:xindan.zhang@mail.utoronto.ca",
   github: "https://github.com/XindanZhang",

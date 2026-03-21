@@ -51,7 +51,7 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <p className="shell-motd">terminal-first notes on systems work that survives past the session.</p>
+              <p className="shell-motd">notes, fixes, and traces I want to find again later.</p>
             </PromptSection>
 
             <PromptSection

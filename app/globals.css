@@ -2341,7 +2341,7 @@ body.mode-terminal ::selection {
 }
 
 .readme-sheet,
-.readme-outline,
+.readme-shortcuts,
 .readme-link-list {
   display: grid;
   gap: 0;
@@ -2353,21 +2353,21 @@ body.mode-terminal ::selection {
   border-left: 2px solid var(--block-readme);
 }
 
-.readme-outline,
+.readme-shortcuts,
 .readme-link-list {
-  padding-left: 0.9rem;
+  padding-left: 1.25rem;
   border-left: 2px solid color-mix(in srgb, var(--block-readme) 65%, var(--line) 35%);
 }
 
 .readme-section,
-.readme-outline-row,
+.readme-shortcut-row,
 .readme-link-row {
   padding: 0.7rem 0;
   border-top: 1px solid var(--line);
 }
 
 .readme-section:first-child,
-.readme-outline-row:first-child,
+.readme-shortcut-row:first-child,
 .readme-link-row:first-child {
   border-top: 0;
 }
@@ -2379,7 +2379,7 @@ body.mode-terminal ::selection {
 
 .readme-kicker,
 .readme-heading,
-.readme-outline-line,
+.readme-shortcut-label,
 .readme-link-label,
 .readme-kv dt {
   margin: 0;
@@ -2391,7 +2391,7 @@ body.mode-terminal ::selection {
 
 .readme-kicker,
 .readme-heading,
-.readme-outline-heading {
+.readme-shortcut-link {
   color: var(--accent);
 }
 
@@ -2419,30 +2419,31 @@ body.mode-terminal ::selection {
   line-height: 1.7;
 }
 
-.readme-outline {
-  list-style: none;
-}
-
-.readme-outline-row,
+.readme-shortcut-row,
 .readme-link-row {
   display: grid;
-  gap: 0.55rem;
-}
-
-.readme-outline-row {
-  grid-template-columns: 4ch minmax(0, 13ch) minmax(0, 1fr);
+  grid-template-columns: 8ch minmax(0, 1fr);
+  gap: 0.2rem 0.95rem;
   align-items: start;
+  color: inherit;
+  text-decoration: none;
 }
 
-.readme-outline-line,
+.readme-shortcut-label,
 .readme-link-label {
   color: var(--muted);
 }
 
-.readme-outline-note {
+.readme-shortcut-link {
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.readme-shortcut-note {
   color: var(--muted-strong);
-  font-size: 0.88rem;
-  line-height: 1.6;
+  grid-column: 2;
+  font-size: 0.74rem;
+  line-height: 1.45;
 }
 
 .readme-link-list {
@@ -2452,9 +2453,14 @@ body.mode-terminal ::selection {
 }
 
 .readme-link-row {
-  grid-template-columns: 1fr;
+  grid-template-columns: 8ch minmax(0, 1fr);
   align-items: start;
-  gap: 0.22rem;
+  gap: 0.2rem 0.95rem;
+}
+
+.readme-link-stack {
+  display: grid;
+  gap: 0.16rem;
 }
 
 .readme-link-target {
@@ -2778,7 +2784,7 @@ body.mode-terminal ::selection {
   }
 
   .terminal-nav-meta,
-  .readme-outline-row,
+  .readme-shortcut-row,
   .readme-link-row {
     grid-template-columns: 1fr;
   }

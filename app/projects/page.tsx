@@ -32,8 +32,7 @@ export default function ProjectsPage() {
           <PromptSection command="cat /workspace/projects/README">
             <h1 className="shell-heading">Projects</h1>
             <p className="shell-copy">
-              Projects here are mostly notebook infrastructure: the archive itself, the threads it points to, and the
-              public code that keeps the whole thing visible and maintainable.
+              This page collects the code behind the site: active experiments, public repos, and the tools I still use.
             </p>
           </PromptSection>
 

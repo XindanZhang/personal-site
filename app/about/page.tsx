@@ -3,11 +3,10 @@ import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
-const readmeSections = [
-  { line: "12", heading: "## focus", note: "what I work on and how I like to debug" },
-  { line: "24", heading: "## toolkit", note: "languages, topics, and publishing stack" },
-  { line: "39", heading: "## history", note: "how this notebook has changed over time" },
-  { line: "52", heading: "## links", note: "where to reach me and what to open next" },
+const quickOpen = [
+  { label: "journal", href: "/blog/", note: "recent posts" },
+  { label: "projects", href: "/projects/", note: "site code + repos" },
+  { label: "nextmini", href: "/blog/series/nextmini/", note: "current series" },
 ] as const;
 
 const readmeFacts = [
@@ -82,61 +81,44 @@ export default function AboutPage() {
         </div>
 
         <aside className="manpage-sidebar">
-          <PromptSection command="grep -n '^##' README.md">
-            <div className="readme-outline">
-              {readmeSections.map((section) => (
-                <div key={section.heading} className="readme-outline-row">
-                  <span className="readme-outline-line">{section.line}</span>
-                  <span className="readme-outline-heading">{section.heading}</span>
-                  <span className="readme-outline-note">{section.note}</span>
-                </div>
+          <PromptSection command="ls /personal-site/">
+            <div className="readme-shortcuts">
+              {quickOpen.map((entry) => (
+                <Link key={entry.label} className="readme-shortcut-row" href={entry.href}>
+                  <span className="readme-shortcut-label">{entry.label}</span>
+                  <span className="readme-shortcut-link">{entry.href}</span>
+                  <span className="readme-shortcut-note">{entry.note}</span>
+                </Link>
               ))}
             </div>
           </PromptSection>
 
-          <PromptSection command="printf '%s\\n' github email journal nextmini">
+          <PromptSection command="cat ~/.contacts">
             <ul className="readme-link-list">
               <li className="readme-link-row">
                 <span className="readme-link-label">github</span>
-                <a
-                  className="terminal-inline-link readme-link-target"
-                  href={site.github}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  XindanZhang
-                </a>
-                <span className="readme-link-meta">github.com/XindanZhang</span>
+                <div className="readme-link-stack">
+                  <a
+                    className="terminal-inline-link readme-link-target"
+                    href={site.github}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    XindanZhang
+                  </a>
+                  <span className="readme-link-meta">github.com/XindanZhang</span>
+                </div>
               </li>
               <li className="readme-link-row">
                 <span className="readme-link-label">email</span>
-                <a className="terminal-inline-link readme-link-target" href={site.email}>
-                  xindan.zhang
-                </a>
-                <span className="readme-link-meta">mail.utoronto.ca</span>
-              </li>
-              <li className="readme-link-row">
-                <span className="readme-link-label">journal</span>
-                <Link className="terminal-inline-link readme-link-target" href="/blog/">
-                  /blog/
-                </Link>
-                <span className="readme-link-meta">recent logs and writeups</span>
-              </li>
-              <li className="readme-link-row">
-                <span className="readme-link-label">nextmini</span>
-                <Link className="terminal-inline-link readme-link-target" href="/blog/series/nextmini/">
-                  nextmini series
-                </Link>
-                <span className="readme-link-meta">/blog/series/nextmini/</span>
+                <div className="readme-link-stack">
+                  <a className="terminal-inline-link readme-link-target" href={site.email}>
+                    xindan.zhang
+                  </a>
+                  <span className="readme-link-meta">mail.utoronto.ca</span>
+                </div>
               </li>
             </ul>
-            <p className="shell-copy">
-              Read the <Link className="inline-link" href="/blog/">journal</Link> or browse the{" "}
-              <Link className="inline-link" href="/projects/">
-                projects
-              </Link>{" "}
-              page for the parts of the site that change most often.
-            </p>
           </PromptSection>
         </aside>
       </div>
