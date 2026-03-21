@@ -101,6 +101,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /shell-main\{[^}]*padding:1rem 1rem 1\.25rem/i);
     assert.match(cssBundle, /shell-navline\{/i);
     assert.match(cssBundle, /shell-nav-actions\{/i);
+    assert.match(cssBundle, /pointer-glow:before/i);
+    assert.match(cssBundle, /--pointer-glow-color/i);
     assert.doesNotMatch(cssBundle, /animation:terminal-ambient/i);
     assert.doesNotMatch(cssBundle, /animation:terminal-sheen/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
@@ -155,6 +157,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /page=.*\.\/blog\//);
     assert.match(blogIndexHtml, /class="prompt-section/);
     assert.match(blogIndexHtml, /class="archive-ledger/);
+    assert.match(blogIndexHtml, /archive-row pointer-glow is-blog/);
     assert.match(blogIndexHtml, /archive-category" style="background-color:#/i);
     assert.doesNotMatch(blogIndexHtml, /archive-category" style="background-color:transparent/i);
     assert.match(blogIndexHtml, /Theme/);
@@ -202,7 +205,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(projectsHtml, /class="project-terminal-summary"/);
     assert.match(projectsHtml, /class="project-terminal-groups"/);
     assert.match(projectsHtml, /class="project-ledger"/);
-    assert.match(projectsHtml, /class="project-ledger-row"/);
+    assert.match(projectsHtml, /project-ledger-row pointer-glow is-projects/);
     assert.match(projectsHtml, /class="project-ledger-name"/);
     assert.match(projectsHtml, /class="project-ledger-action"/);
     assert.match(projectsHtml, /project-ledger-column-meta/);
@@ -214,7 +217,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(bookmarksHtml, /class="bookmark-header"/);
     assert.match(bookmarksHtml, /class="bookmark-kicker"/);
     assert.match(bookmarksHtml, /class="bookmark-list"/);
-    assert.match(bookmarksHtml, /class="bookmark-row"/);
+    assert.match(bookmarksHtml, /bookmark-row pointer-glow is-links/);
     assert.match(bookmarksHtml, /class="bookmark-host"/);
     assert.match(bookmarksHtml, /class="bookmark-open"/);
     assert.doesNotMatch(bookmarksHtml, /La Terminal/);

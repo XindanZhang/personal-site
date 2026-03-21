@@ -1,3 +1,4 @@
+import { PointerGlow } from "../../components/pointer-glow";
 import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
@@ -19,9 +20,10 @@ export default function BookmarksPage() {
           </div>
           <div className="bookmark-list">
             {bookmarkEntries.map((bookmark, index) => (
-              <a
+              <PointerGlow
+                as="a"
                 key={bookmark.name}
-                className="bookmark-row"
+                className="bookmark-row pointer-glow is-links"
                 href={bookmark.href}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -35,7 +37,7 @@ export default function BookmarksPage() {
                   <span className="bookmark-note">{bookmark.note}</span>
                   <span className="bookmark-open">Open ↗</span>
                 </div>
-              </a>
+              </PointerGlow>
             ))}
           </div>
           <p className="bookmark-footnote">

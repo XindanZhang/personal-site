@@ -2354,6 +2354,53 @@ body.mode-terminal ::selection {
   border-top: 0;
 }
 
+.pointer-glow {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --pointer-glow-color: var(--accent);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pointer-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    14rem circle at var(--pointer-x) var(--pointer-y),
+    color-mix(in srgb, var(--pointer-glow-color) 14%, transparent),
+    transparent 68%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 0;
+}
+
+.pointer-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pointer-glow.is-blog {
+  --pointer-glow-color: var(--block-journal);
+}
+
+.pointer-glow.is-projects {
+  --pointer-glow-color: var(--block-projects);
+}
+
+.pointer-glow.is-links {
+  --pointer-glow-color: var(--block-links);
+}
+
+@media (hover: hover) {
+  .pointer-glow:hover::before {
+    opacity: 1;
+  }
+}
+
 .archive-date,
 .archive-entry {
   display: grid;

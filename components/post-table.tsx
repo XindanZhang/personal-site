@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { BlogPost } from "../lib/blog";
 import { formatMediumDate, formatShortDate, getBadgeTheme } from "../lib/blog";
+import { PointerGlow } from "./pointer-glow";
 
 interface PostTableProps {
   posts: BlogPost[];
@@ -25,7 +26,7 @@ export function PostTable({ posts }: PostTableProps) {
         const badgeTheme = getBadgeTheme(post.categoryLabel);
 
         return (
-          <article key={post.slug} className="archive-row">
+          <PointerGlow key={post.slug} as="article" className="archive-row pointer-glow is-blog">
             <div className="archive-date">
               <span className="archive-date-short">{formatShortDate(post.publishedAt)}</span>
               <span className="archive-date-long">{formatMediumDate(post.publishedAt)}</span>
@@ -57,7 +58,7 @@ export function PostTable({ posts }: PostTableProps) {
                 ))}
               </div>
             </div>
-          </article>
+          </PointerGlow>
         );
       })}
     </div>

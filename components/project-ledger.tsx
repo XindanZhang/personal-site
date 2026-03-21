@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ProjectLink, ProjectStatus } from "../lib/site";
+import { PointerGlow } from "./pointer-glow";
 
 const statusLabels: Record<ProjectStatus, string> = {
   featured: "featured",
@@ -27,7 +28,7 @@ export function ProjectLedger({ projects }: { projects: ProjectLink[] }) {
   return (
     <div className="project-ledger">
       {projects.map((project) => (
-        <article key={project.name} className="project-ledger-row">
+        <PointerGlow key={project.name} as="article" className="project-ledger-row pointer-glow is-projects">
           <div className="project-ledger-column project-ledger-column-status">
             <span className={`project-status status-${project.status}`}>{statusLabels[project.status]}</span>
           </div>
@@ -47,7 +48,7 @@ export function ProjectLedger({ projects }: { projects: ProjectLink[] }) {
             </div>
             <ProjectLedgerAction project={project} />
           </div>
-        </article>
+        </PointerGlow>
       ))}
     </div>
   );
