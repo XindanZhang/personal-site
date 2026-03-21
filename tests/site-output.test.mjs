@@ -48,7 +48,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     const ethernetPostPath = resolve(outDir, "blog", "ethernet-1500b-and-jumbo-9000", "index.html");
     const blogPostPath = resolve(outDir, "blog", "create-blog-website-using-jekyll", "index.html");
     const projectsPath = resolve(outDir, "projects", "index.html");
-    const friendsPath = resolve(outDir, "friends", "index.html");
+    const bookmarksPath = resolve(outDir, "bookmarks", "index.html");
     const aboutPath = resolve(outDir, "about", "index.html");
 
     assert.equal(existsSync(nextminiSourcePath), true);
@@ -64,7 +64,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.equal(existsSync(ethernetPostPath), true);
     assert.equal(existsSync(blogPostPath), true);
     assert.equal(existsSync(projectsPath), true);
-    assert.equal(existsSync(friendsPath), true);
+    assert.equal(existsSync(bookmarksPath), true);
+    assert.equal(existsSync(resolve(outDir, "friends", "index.html")), false);
     assert.equal(existsSync(aboutPath), true);
 
     const blogIndexHtml = readFileSync(blogIndexPath, "utf8");
@@ -75,7 +76,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     const ethernetPostHtml = readFileSync(ethernetPostPath, "utf8");
     const blogPostHtml = readFileSync(blogPostPath, "utf8");
     const projectsHtml = readFileSync(projectsPath, "utf8");
-    const friendsHtml = readFileSync(friendsPath, "utf8");
+    const bookmarksHtml = readFileSync(bookmarksPath, "utf8");
     const aboutHtml = readFileSync(aboutPath, "utf8");
     const cssBundle = readFileSync(cssBundlePath, "utf8");
     assert.match(cssBundle, /IBM Plex Mono/);
@@ -151,7 +152,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /href="\/personal-site\/blog\/category\/nextmini-series\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/blog\/tag\/nextmini\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/projects\/"/);
-    assert.match(blogIndexHtml, /href="\/personal-site\/friends\/"/);
+    assert.match(blogIndexHtml, /href="\/personal-site\/bookmarks\/"/);
     assert.match(blogIndexHtml, /href="\/personal-site\/about\/"/);
     assert.doesNotMatch(blogIndexHtml, /class="shell-nav-link/);
     assert.doesNotMatch(blogIndexHtml, />cd<\/span>/);
@@ -185,15 +186,15 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(projectsHtml, /class="project-ledger-name"/);
     assert.match(projectsHtml, /class="project-ledger-action"/);
     assert.doesNotMatch(projectsHtml, /class="project-card"/);
-    assert.match(friendsHtml, /cat \/etc\/bookmarks\.txt/);
-    assert.match(friendsHtml, /A small ring of sites and tools I revisit/);
-    assert.match(friendsHtml, /Nextmini/);
-    assert.match(friendsHtml, /class="bookmark-terminal"/);
-    assert.match(friendsHtml, /class="bookmark-list"/);
-    assert.match(friendsHtml, /class="bookmark-row"/);
-    assert.doesNotMatch(friendsHtml, /La Terminal/);
-    assert.doesNotMatch(friendsHtml, /ArchWiki/);
-    assert.doesNotMatch(friendsHtml, /GitHub Pages/);
+    assert.match(bookmarksHtml, /cat \/etc\/bookmarks\.txt/);
+    assert.match(bookmarksHtml, /A short list of bookmarks I still reopen/);
+    assert.match(bookmarksHtml, /Nextmini/);
+    assert.match(bookmarksHtml, /class="bookmark-terminal"/);
+    assert.match(bookmarksHtml, /class="bookmark-list"/);
+    assert.match(bookmarksHtml, /class="bookmark-row"/);
+    assert.doesNotMatch(bookmarksHtml, /La Terminal/);
+    assert.doesNotMatch(bookmarksHtml, /ArchWiki/);
+    assert.doesNotMatch(bookmarksHtml, /GitHub Pages/);
     assert.match(aboutHtml, /sed -n '1,160p' README\.md/);
     assert.match(aboutHtml, /ls \/personal-site\//);
     assert.match(aboutHtml, /tail -n 6 ~\/\.local\/share\/site\.history/);
@@ -287,7 +288,7 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.match(homePageHtml, /:~\/workspace\$/);
     assert.match(homePageHtml, /blog\//);
     assert.match(homePageHtml, /projects\//);
-    assert.match(homePageHtml, /friends\//);
+    assert.match(homePageHtml, /bookmarks\//);
     assert.match(homePageHtml, /about\//);
     assert.match(homePageHtml, /Cindy/);
     assert.match(homePageHtml, /networking \/ systems \/ tooling/);
@@ -300,7 +301,7 @@ test("home page uses a prompt-and-output terminal layout", () => {
     assert.doesNotMatch(homePageHtml, /Cindy Zhang/);
     assert.match(homePageHtml, /href="\/personal-site\/blog\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/projects\/"/);
-    assert.match(homePageHtml, /href="\/personal-site\/friends\/"/);
+    assert.match(homePageHtml, /href="\/personal-site\/bookmarks\/"/);
     assert.match(homePageHtml, /href="\/personal-site\/about\/"/);
     assert.doesNotMatch(homePageHtml, /class="workspace-tree-branch"/);
     assert.doesNotMatch(homePageHtml, /class="terminal-pane/);

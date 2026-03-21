@@ -1,11 +1,11 @@
 import Link from "next/link";
-type FooterKey = "home" | "blog" | "projects" | "friends" | "about";
+type FooterKey = "home" | "blog" | "projects" | "bookmarks" | "about";
 
 const footerContext: Record<FooterKey, string> = {
   home: "home",
   blog: "blog",
   projects: "projects",
-  friends: "links",
+  bookmarks: "bookmarks",
   about: "readme",
 };
 
@@ -48,11 +48,11 @@ export function SiteFooter({ active }: SiteFooterProps) {
             aria-keyshortcuts="F3"
             className="shell-statusbar-link is-f3"
             data-shell-shortcut="F3"
-            href="/friends/"
-            title="F3 links"
+            href="/bookmarks/"
+            title="F3 bookmarks"
           >
             <span className="shell-statusbar-key">F3</span>
-            <span>links</span>
+            <span>bookmarks</span>
           </Link>
           <Link
             aria-keyshortcuts="F4"

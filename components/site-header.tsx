@@ -2,7 +2,7 @@ import Link from "next/link";
 import { site } from "../lib/site";
 import { ThemeToggle } from "./theme-toggle";
 
-type NavKey = "home" | "blog" | "projects" | "friends" | "about";
+type NavKey = "home" | "blog" | "projects" | "bookmarks" | "about";
 
 interface SiteHeaderProps {
   active: NavKey;
@@ -13,7 +13,7 @@ export function SiteHeader({ active }: SiteHeaderProps) {
     home: "./",
     blog: "./blog/",
     projects: "./projects/",
-    friends: "./links/",
+    bookmarks: "./bookmarks/",
     about: "./README.md",
   };
 

@@ -2,25 +2,25 @@ import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
-export default function FriendsPage() {
+export default function BookmarksPage() {
   return (
-    <SiteLayout active="friends">
+    <SiteLayout active="bookmarks">
       <div className="bookmark-terminal">
         <PromptSection command="cat /etc/bookmarks.txt">
           <h1 className="shell-heading">Bookmarks</h1>
-          <p className="shell-copy">{site.friendsIntro}</p>
+          <p className="shell-copy">{site.bookmarksIntro}</p>
           <div className="bookmark-list">
-            {site.friends.map((friend, index) => (
+            {site.bookmarks.map((bookmark, index) => (
               <a
-                key={friend.name}
+                key={bookmark.name}
                 className="bookmark-row"
-                href={friend.href}
+                href={bookmark.href}
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <span className="bookmark-index">{String(index + 1).padStart(2, "0")}</span>
-                <span className="bookmark-name">{friend.name}</span>
-                <span className="bookmark-note">{friend.note}</span>
+                <span className="bookmark-name">{bookmark.name}</span>
+                <span className="bookmark-note">{bookmark.note}</span>
               </a>
             ))}
           </div>

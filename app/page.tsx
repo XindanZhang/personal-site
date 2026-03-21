@@ -12,15 +12,13 @@ const identityRows = [
 ] as const;
 
 const currentThreads = [
-  { key: "now", value: "nextmini dataplane" },
-  { key: "keep", value: "remote shell notes" },
-  { key: "ship", value: "repeatable setup logs" },
+  { key: "now", value: "Nextmini" },
 ] as const;
 
 const workspaceEntries = [
   { href: "/blog/", label: "blog/", note: "logs" },
   { href: "/projects/", label: "projects/", note: "builds" },
-  { href: "/friends/", label: "friends/", note: "ring" },
+  { href: "/bookmarks/", label: "bookmarks/", note: "refs" },
   { href: "/about/", label: "about/", note: "profile" },
   { href: "/about/", label: "README.md", note: "index" },
 ] as const;

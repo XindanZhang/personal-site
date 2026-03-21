@@ -3,6 +3,10 @@ import { PromptSection } from "../../components/prompt-section";
 import { SiteLayout } from "../../components/site-layout";
 import { getProjectsByStatus } from "../../lib/site";
 
+function formatCount(count: number, singular: string, plural = `${singular}s`) {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
+
 function ProjectGroup({
   command,
   copy,
@@ -40,15 +44,15 @@ export default function ProjectsPage() {
             <div className="terminal-manifest">
               <div className="terminal-manifest-row">
                 <p className="terminal-manifest-key">featured</p>
-                <p className="shell-copy">{featuredProjects.length} public thread(s) worth opening first.</p>
+                <p className="shell-copy">{formatCount(featuredProjects.length, "featured project")}.</p>
               </div>
               <div className="terminal-manifest-row">
                 <p className="terminal-manifest-key">active</p>
-                <p className="shell-copy">{activeProjects.length} repository or publishing surface(s) still moving.</p>
+                <p className="shell-copy">{formatCount(activeProjects.length, "active project")}.</p>
               </div>
               <div className="terminal-manifest-row">
                 <p className="terminal-manifest-key">archive</p>
-                <p className="shell-copy">{archivedProjects.length} older pieces kept for context.</p>
+                <p className="shell-copy">{formatCount(archivedProjects.length, "archived project")}.</p>
               </div>
             </div>
           </PromptSection>

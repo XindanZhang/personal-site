@@ -10,7 +10,7 @@ export interface ProjectLink {
   external?: boolean;
 }
 
-export interface FriendLink {
+export interface BookmarkLink {
   name: string;
   note: string;
   href: string;
@@ -48,7 +48,7 @@ export const site = {
   blog: {
     description: "Notes on systems, networking, debugging, and the terminal workflows behind them.",
   },
-  friendsIntro: "A small ring of sites and tools I revisit.",
+  bookmarksIntro: "A short list of bookmarks I still reopen.",
   about: {
     intro:
       "I am Cindy. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
@@ -107,13 +107,13 @@ export const site = {
       hrefLabel: "Visit",
     },
   ] satisfies ProjectLink[],
-  friends: [
+  bookmarks: [
     {
       name: "Nextmini",
       note: "Network emulation and experimentation testbed.",
       href: "https://nextmini.org/",
     },
-  ] satisfies FriendLink[],
+  ] satisfies BookmarkLink[],
   skillGroups: [
     {
       title: "Languages",

@@ -4,7 +4,7 @@ import { SiteHeader } from "./site-header";
 import { ShellShortcuts } from "./shell-shortcuts";
 
 interface SiteLayoutProps {
-  active: "home" | "blog" | "projects" | "friends" | "about";
+  active: "home" | "blog" | "projects" | "bookmarks" | "about";
   children: ReactNode;
 }
 
