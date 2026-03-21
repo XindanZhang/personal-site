@@ -100,6 +100,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(cssBundle, /--sheen-b:/i);
     assert.match(cssBundle, /shell-footer\{[^}]*position:fixed/i);
     assert.doesNotMatch(cssBundle, /shell-footer\{[^}]*pointer-events:none/i);
+    assert.match(cssBundle, /site-shell\{[^}]*padding:.75rem 0 7.5rem/i);
     assert.match(cssBundle, /font-variant-numeric:tabular-nums/i);
     assert.match(cssBundle, /focus-visible/i);
     assert.match(cssBundle, /counter-reset:prompt-line/i);
@@ -148,6 +149,8 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(blogIndexHtml, /page=.*\.\/blog\//);
     assert.match(blogIndexHtml, /class="prompt-section/);
     assert.match(blogIndexHtml, /class="archive-ledger/);
+    assert.match(blogIndexHtml, /archive-category" style="background-color:#/i);
+    assert.doesNotMatch(blogIndexHtml, /archive-category" style="background-color:transparent/i);
     assert.match(blogIndexHtml, /Theme/);
     assert.match(blogIndexHtml, /Dark/);
     assert.match(blogIndexHtml, /Light/);
@@ -196,6 +199,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(projectsHtml, /class="project-ledger-row"/);
     assert.match(projectsHtml, /class="project-ledger-name"/);
     assert.match(projectsHtml, /class="project-ledger-action"/);
+    assert.match(projectsHtml, /project-ledger-column-meta/);
     assert.doesNotMatch(projectsHtml, /class="project-card"/);
     assert.match(bookmarksHtml, /cat \/etc\/bookmarks\.txt/);
     assert.match(bookmarksHtml, /A short list of bookmarks I still reopen/);
@@ -216,7 +220,10 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, /class="manpage-sidebar"/);
     assert.match(aboutHtml, /class="readme-sheet"/);
     assert.match(aboutHtml, /class="readme-section"/);
-    assert.match(aboutHtml, /class="readme-grid"/);
+    assert.match(aboutHtml, /class="readme-detail-list"/);
+    assert.match(aboutHtml, /class="readme-detail-card"/);
+    assert.match(aboutHtml, /class="readme-detail-label"/);
+    assert.match(aboutHtml, /class="readme-detail-value"/);
     assert.match(aboutHtml, /class="readme-group-list"/);
     assert.match(aboutHtml, /class="readme-group"/);
     assert.match(aboutHtml, /class="readme-group-title"/);
@@ -234,6 +241,7 @@ test("build exports a terminal-native Next.js site structure", () => {
     assert.match(aboutHtml, />mail\.utoronto\.ca</);
     assert.match(aboutHtml, /href="\/personal-site\/projects\/"/);
     assert.doesNotMatch(aboutHtml, /Rust \/ TypeScript \/ Python \/ Shell \/ C/);
+    assert.doesNotMatch(aboutHtml, /class="readme-grid"/);
     assert.doesNotMatch(aboutHtml, /class="readme-outline"/);
     assert.doesNotMatch(aboutHtml, /grep -n '\^##' README\.md/);
     assert.doesNotMatch(aboutHtml, /class="practice-card"/);

@@ -44,12 +44,12 @@ export default function AboutPage() {
 
               <section className="readme-section">
                 <h2 className="readme-heading">Focus</h2>
-                <div className="readme-grid">
+                <div className="readme-detail-list">
                   {readmeFacts.map((fact) => (
-                    <dl key={fact.label} className="readme-kv">
-                      <dt>{fact.label}</dt>
-                      <dd>{fact.value}</dd>
-                    </dl>
+                    <article key={fact.label} className="readme-detail-card">
+                      <h3 className="readme-detail-label">{fact.label}</h3>
+                      <p className="readme-detail-value">{fact.value}</p>
+                    </article>
                   ))}
                 </div>
               </section>

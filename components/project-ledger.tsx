@@ -37,7 +37,7 @@ export function ProjectLedger({ projects }: { projects: ProjectLink[] }) {
             <p className="project-ledger-summary">{project.description}</p>
           </div>
 
-          <div className="project-ledger-column project-ledger-column-tags">
+          <div className="project-ledger-column project-ledger-column-meta">
             <div className="project-tags">
               {project.tags.map((tag) => (
                 <span key={tag} className="project-tag">
@@ -45,9 +45,6 @@ export function ProjectLedger({ projects }: { projects: ProjectLink[] }) {
                 </span>
               ))}
             </div>
-          </div>
-
-          <div className="project-ledger-column project-ledger-column-action">
             <ProjectLedgerAction project={project} />
           </div>
         </article>

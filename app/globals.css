@@ -1220,7 +1220,7 @@ body.mode-terminal ::selection {
 .site-shell {
   width: min(116ch, calc(100% - 1rem));
   margin: 0 auto;
-  padding: 0.75rem 0 5.25rem;
+  padding: 0.75rem 0 7.5rem;
 }
 
 .shell-window {
@@ -2357,8 +2357,8 @@ body.mode-terminal ::selection {
 
 .project-ledger-row {
   display: grid;
-  grid-template-columns: 10ch minmax(0, 1.2fr) minmax(0, 0.8fr) auto;
-  gap: 0.85rem;
+  grid-template-columns: 8.5ch minmax(0, 1fr) minmax(16rem, 24ch);
+  gap: 0.85rem 1.1rem;
   align-items: start;
   padding: 0.7rem 0;
   border-top: 1px solid var(--line);
@@ -2372,10 +2372,17 @@ body.mode-terminal ::selection {
   min-width: 0;
 }
 
-.project-ledger-column-status,
-.project-ledger-column-action {
+.project-ledger-column-status {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 0.15rem;
+}
+
+.project-ledger-column-meta {
+  display: grid;
+  gap: 0.55rem;
+  justify-items: end;
+  align-content: start;
 }
 
 .project-ledger-name {
@@ -2399,6 +2406,10 @@ body.mode-terminal ::selection {
   line-height: 1.4;
   text-decoration: none;
   white-space: nowrap;
+}
+
+.project-ledger-column-meta .project-tags {
+  justify-content: flex-end;
 }
 
 .project-ledger-row:hover {
@@ -2495,6 +2506,38 @@ body.mode-terminal ::selection {
   display: grid;
   gap: 0;
   background: transparent;
+}
+
+.readme-detail-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.readme-detail-card {
+  display: grid;
+  gap: 0.45rem;
+  min-height: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-soft) 62%, transparent);
+}
+
+.readme-detail-label {
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+.readme-detail-value {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 0.88rem;
+  line-height: 1.7;
 }
 
 .readme-group-list {
@@ -2848,6 +2891,10 @@ body.mode-terminal ::selection {
 }
 
 @media (min-width: 48rem) {
+  .readme-detail-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .shell-columns {
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
     align-items: start;
@@ -2900,7 +2947,7 @@ body.mode-terminal ::selection {
 @media (max-width: 47.99rem) {
   .site-shell {
     width: min(100% - 1rem, 100ch);
-    padding-bottom: 6.4rem;
+    padding-bottom: 8.8rem;
   }
 
   .shell-titlebar {
@@ -2935,7 +2982,11 @@ body.mode-terminal ::selection {
     gap: 0.45rem;
   }
 
-  .project-ledger-column-action {
+  .project-ledger-column-meta {
+    justify-items: start;
+  }
+
+  .project-ledger-column-meta .project-tags {
     justify-content: flex-start;
   }
 
