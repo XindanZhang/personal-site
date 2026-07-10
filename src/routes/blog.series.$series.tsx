@@ -24,7 +24,7 @@ function SeriesPage() {
     <>
       <section className="page-heading series-heading">
         <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> writing.index</Link>
-        <p className="command-line"><span>xindan@portfolio:~$</span> cat series/{series.slug}.index</p>
+        <p className="command-line"><span>xindan@toronto:~$</span> cat series/{series.slug}.index</p>
         <div className="heading-grid">
           <div><p className="eyebrow">SERIES / {series.posts.length.toString().padStart(2, "0")} PARTS</p><h1>{series.name}</h1></div>
           <div><p>One research thread, ordered so the overview, experiments, and implementation details stay readable together.</p>{series.posts[0]?.sourceUrl ? <a className="text-link" href={series.posts[0].sourceUrl} target="_blank" rel="noopener noreferrer">Project source <ArrowUpRight aria-hidden="true" size={14} /></a> : null}</div>

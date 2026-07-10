@@ -46,7 +46,7 @@ function BlogPostPage() {
       <article className="article-page">
         <header className="article-header">
           <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> writing.index</Link>
-          <p className="command-line"><span>xindan@portfolio:~$</span> less {post.slug}.md</p>
+          <p className="command-line"><span>xindan@toronto:~$</span> less {post.slug}.md</p>
           <div className="article-taxonomy">
             <Link to="/blog/category/$category/" params={{ category: post.categorySlug }}>{post.categoryLabel}</Link>
             {post.series && post.seriesSlug ? <Link to="/blog/series/$series/" params={{ series: post.seriesSlug }}>{post.series}</Link> : null}

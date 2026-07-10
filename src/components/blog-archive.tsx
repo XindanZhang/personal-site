@@ -28,7 +28,7 @@ export function BlogArchive({ routeLabel, description, posts, categories, tags, 
   return (
     <div className="writing-page">
       <section className="page-heading writing-heading">
-        <p className="command-line"><span>xindan@portfolio:~$</span> cd {routeLabel}</p>
+        <p className="command-line"><span>xindan@toronto:~$</span> cd {routeLabel}</p>
         <div className="heading-grid">
           <div><p className="eyebrow">WRITING / INDEX</p><h1>Field notes</h1></div>
           <p>{description}</p>
@@ -56,6 +56,7 @@ export function BlogArchive({ routeLabel, description, posts, categories, tags, 
             ))}
           </div>
         </details>
+        <Link className="filter-console-link" to="/bookmarks/">cat ~/.bookmarks</Link>
       </aside>
 
       <BlogSearch posts={searchablePosts} />

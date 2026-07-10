@@ -19,7 +19,7 @@ function ProjectsPage() {
   return (
     <>
       <section className="page-heading work-heading">
-        <p className="command-line"><span>xindan@portfolio:~$</span> find ./work -type project</p>
+        <p className="command-line"><span>xindan@toronto:~$</span> find ./work -type project</p>
         <div className="heading-grid"><div><p className="eyebrow">WORK / SELECTED SYSTEMS</p><h1>Small systems, inspected closely.</h1></div><p>Network experiments, public research notes, and publishing tools built around one principle: make behavior observable before making it elegant.</p></div>
       </section>
 

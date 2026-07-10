@@ -17,7 +17,7 @@ function BookmarksPage() {
   return (
     <>
       <section className="page-heading links-heading">
-        <p className="command-line"><span>xindan@portfolio:~$</span> cat ~/.bookmarks</p>
+        <p className="command-line"><span>xindan@toronto:~$</span> cat ~/.bookmarks</p>
         <div className="heading-grid"><div><p className="eyebrow">LINKS / WORKING REFERENCES</p><h1>One reference I keep reopening.</h1></div><p>{site.bookmarksIntro} A reference stays here only while it continues to shape how I build, test, or write.</p></div>
       </section>
       <section className="bookmark-index" aria-label="Bookmarked references">

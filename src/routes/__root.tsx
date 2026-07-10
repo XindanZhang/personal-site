@@ -9,19 +9,13 @@ import {
 import { SiteFooter } from "~/components/site-footer";
 import { SiteHeader } from "~/components/site-header";
 import { site } from "~/lib/site";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/500.css";
-import "@fontsource/ibm-plex-mono/600.css";
-import "@fontsource/ibm-plex-mono/700.css";
-import "@fontsource-variable/ibm-plex-sans";
 import "../styles/site.css";
 
 const themeScript = `
 (() => {
   try {
     const stored = window.localStorage.getItem("theme");
-    const system = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-    document.documentElement.dataset.theme = stored === "light" || stored === "dark" ? stored : system;
+    document.documentElement.dataset.theme = stored === "light" || stored === "dark" ? stored : "dark";
   } catch {
     document.documentElement.dataset.theme = "dark";
   }
@@ -42,6 +36,7 @@ export const Route = createRootRoute({
     links: [
       { rel: "icon", href: `${site.basePath}/favicon.ico` },
       { rel: "icon", href: `${site.basePath}/favicon.svg`, type: "image/svg+xml" },
+      { rel: "preload", href: `${site.basePath}/fonts/paper-mono.woff2`, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "canonical", href: "https://xindanzhang.github.io/personal-site/" },
     ],
   }),
@@ -84,7 +79,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 function NotFoundPage() {
   return (
     <section className="error-screen" aria-labelledby="not-found-title">
-      <p className="command-line"><span>xindan@portfolio:~$</span> resolve --path current</p>
+      <p className="command-line"><span>xindan@toronto:~$</span> resolve --path current</p>
       <p className="error-code">ERR 404 / NO ENTRY</p>
       <h1 id="not-found-title">This path is not in the index.</h1>
       <p>The page may have moved, or the command was typed from an old note.</p>

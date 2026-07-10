@@ -21,90 +21,85 @@ function HomePage() {
 
   return (
     <>
-      <section className="home-hero" aria-labelledby="home-title">
-        <div className="hero-noise" aria-hidden="true" />
-        <div className="hero-terminal-bar">
-          <span>SESSION 01</span><span>TTY / PORTFOLIO</span><span className="hero-terminal-state">CONNECTED</span>
-        </div>
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <p className="command-line hero-command"><span>xindan@toronto:~$</span> whoami<span className="block-cursor" aria-hidden="true" /></p>
-            <p className="hero-kicker">NETWORK SYSTEMS / TOOLING / FIELD NOTES</p>
-            <h1 id="home-title">Xindan Zhang <small>also Cindy</small></h1>
-            <p className="hero-lede">{site.home.heroTitle}</p>
-            <div className="hero-actions">
-              <Link className="command-button is-primary" to="/projects/">Open work index <ArrowRight aria-hidden="true" size={16} /></Link>
-              <Link className="command-button" to="/blog/">Read logs <BookOpen aria-hidden="true" size={16} /></Link>
-              <a className="icon-button hero-email" href={site.email} aria-label="Email Xindan" title="Email Xindan"><Mail aria-hidden="true" size={18} /></a>
-            </div>
+      <section className="profile-session" aria-labelledby="home-title">
+        <div className="session-command"><span>xindan@toronto:~$</span> profile --brief</div>
+        <div className="profile-copy">
+          <h1 id="home-title">Xindan Zhang <span>/ Cindy</span></h1>
+          <p className="terminal-role">network_systems :: tooling :: field_notes</p>
+          <p className="terminal-lede">{site.home.heroTitle}</p>
+          <div className="inline-status">
+            <span><b>STATE</b> OPEN_TO_COLLABORATE</span>
+            <span><b>NODE</b> TORONTO_CA</span>
+            <span><b>ACTIVE</b> NEXTMINI</span>
           </div>
-
-          <div className="system-monitor" aria-label="Current profile details">
-            <div className="monitor-header"><span>WHOAMI.OUT</span><span>8.4 KB</span></div>
-            <dl>
-              <div><dt>USER</dt><dd>XINDAN_ZHANG</dd></div>
-              <div><dt>ALIAS</dt><dd>CINDY</dd></div>
-              <div><dt>NODE</dt><dd>TORONTO_CA</dd></div>
-              <div><dt>FOCUS</dt><dd>NETWORK_SYSTEMS</dd></div>
-              <div><dt>ACTIVE</dt><dd>NEXTMINI</dd></div>
-              <div><dt>STATUS</dt><dd><i className="live-dot" aria-hidden="true" /> OPEN_TO_COLLABORATE</dd></div>
-            </dl>
-            <div className="signal-map" aria-label="A compact network path from terminal to controller to data plane">
-              <span>TTY</span><i /><span>CTRL</span><i /><span>DATA</span><i /><span>TRACE</span>
-            </div>
+          <div className="terminal-actions">
+            <Link className="terminal-action is-primary" to="/projects/">[01] ./work <ArrowRight aria-hidden="true" size={14} /></Link>
+            <Link className="terminal-action" to="/blog/"><BookOpen aria-hidden="true" size={14} /> [02] cat notes.log</Link>
+            <a className="terminal-action" href={site.email}><Mail aria-hidden="true" size={14} /> [03] mail</a>
           </div>
         </div>
-        <div className="hero-status-rail">
-          <span><b>STATUS</b> {site.availability}</span><span><b>LOCAL</b> Toronto, Canada</span><span><b>NOW</b> Nextmini internals</span>
+        <div className="boot-log" aria-label="Session startup status">
+          <span><b>[ OK ]</b> profile mounted</span>
+          <span><b>[ OK ]</b> network trace ready</span>
+          <span><b>[ OK ]</b> notes indexed</span>
         </div>
       </section>
 
-      <Reveal as="section" className="home-section current-thread" aria-labelledby="thread-title">
-        <header className="section-heading">
-          <div><p className="command-line"><span>$</span> ls ./research/nextmini</p><h2 id="thread-title">Current thread</h2></div>
-          <p>A four-part field guide from controller surface to packet behavior, with the implementation details left intact.</p>
-        </header>
-        <div className="thread-layout">
-          <div className="thread-readme">
-            <span>README / NEXTMINI</span>
-            <blockquote>{site.home.quote}</blockquote>
-            <a className="text-link" href="https://nextmini.org/" target="_blank" rel="noopener noreferrer">Project site <ArrowUpRight aria-hidden="true" size={14} /></a>
+      <Reveal as="section" className="home-console-grid" aria-label="Current work and recent writing">
+        <section className="console-pane" aria-labelledby="logs-title">
+          <header className="console-title">
+            <span id="logs-title">tail -n 3 ~/writing.log</span>
+            <Link to="/blog/">OPEN ALL</Link>
+          </header>
+          <div className="compact-log-list">
+            {recentPosts.map((post, index) => (
+              <article key={post.slug}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <p><time dateTime={post.publishedAt}>{formatMediumDate(post.publishedAt)}</time> / {post.categoryLabel}</p>
+                  <h2><PostLink slug={post.slug}>{post.title}</PostLink></h2>
+                  <small>{post.summary}</small>
+                </div>
+                <ArrowUpRight aria-hidden="true" size={14} />
+              </article>
+            ))}
           </div>
-          <ol className="thread-files">
+        </section>
+
+        <section className="console-pane" aria-labelledby="thread-title">
+          <header className="console-title">
+            <span id="thread-title">tree ~/research/nextmini</span>
+            <span><i className="live-dot" aria-hidden="true" /> RUNNING</span>
+          </header>
+          <div className="console-intro">
+            <p>{site.home.quote}</p>
+            <a href="https://nextmini.org/" target="_blank" rel="noopener noreferrer">nextmini.org <ArrowUpRight aria-hidden="true" size={12} /></a>
+          </div>
+          <ol className="process-list">
             {nextmini?.posts.map((post, index) => (
               <li key={post.slug}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <PostLink slug={post.slug}><strong>{post.title}</strong><small>{post.summary}</small></PostLink>
-                <ArrowRight aria-hidden="true" size={16} />
+                <span>{index === (nextmini.posts.length - 1) ? "└─" : "├─"}</span>
+                <PostLink slug={post.slug}><strong>{post.title}.md</strong><small>{post.summary}</small></PostLink>
+                <ArrowRight aria-hidden="true" size={13} />
               </li>
             ))}
           </ol>
+        </section>
+      </Reveal>
+
+      <Reveal as="section" className="home-stack" delay={70} aria-labelledby="stack-title">
+        <header className="console-title"><span id="stack-title">inspect --practice</span><span>04 GROUPS</span></header>
+        <div className="stack-summary">
+          <div><h2>Built around observable behavior.</h2><p>{site.home.heroBody}</p><Link className="terminal-action" to="/about/">./about <ArrowRight aria-hidden="true" size={13} /></Link></div>
+          <div className="stack-directory">
+            {site.skillGroups.map((group, index) => <div key={group.title}><span>{String(index + 1).padStart(2, "0")}</span><strong>{group.title}</strong><p>{group.items.join(" / ")}</p></div>)}
+          </div>
         </div>
       </Reveal>
 
-      <Reveal as="section" className="home-section recent-logs" delay={60} aria-labelledby="logs-title">
-        <header className="section-heading compact">
-          <div><p className="command-line"><span>$</span> tail -n 3 ./writing.log</p><h2 id="logs-title">Recent logs</h2></div>
-          <Link className="text-link" to="/blog/">All writing <ArrowRight aria-hidden="true" size={14} /></Link>
-        </header>
-        <div className="home-log-list">
-          {recentPosts.map((post, index) => (
-            <article key={post.slug} className="home-log-row">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <time dateTime={post.publishedAt}>{formatMediumDate(post.publishedAt)}</time>
-              <div><small>{post.categoryLabel}</small><h3><PostLink slug={post.slug}>{post.title}</PostLink></h3><p>{post.summary}</p></div>
-              <ArrowUpRight aria-hidden="true" size={17} />
-            </article>
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal as="section" className="home-section stack-section" delay={100} aria-labelledby="stack-title">
-        <div className="stack-copy"><p className="command-line"><span>$</span> inspect --practice</p><h2 id="stack-title">Built around observable behavior.</h2><p>{site.home.heroBody}</p><Link className="command-button" to="/about/">More about me <ArrowRight aria-hidden="true" size={15} /></Link></div>
-        <div className="stack-directory">
-          {site.skillGroups.map((group, index) => <div key={group.title}><span>{String(index + 1).padStart(2, "0")}</span><strong>{group.title}</strong><p>{group.items.join(" / ")}</p></div>)}
-        </div>
-      </Reveal>
+      <div className="active-prompt" aria-label="Terminal ready">
+        <span>xindan@toronto:~$</span><i className="prompt-cursor" aria-hidden="true" />
+      </div>
     </>
   );
 }

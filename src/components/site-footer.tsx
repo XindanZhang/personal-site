@@ -1,20 +1,20 @@
-import { ArrowUpRight } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { site } from "~/lib/site";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { getRoutePath, isRouteActive, navigation } from "~/lib/navigation";
 
 export function SiteFooter() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const routePath = getRoutePath(pathname);
+
   return (
     <footer className="site-footer">
-      <div className="footer-prompt">
-        <span aria-hidden="true">$</span>
-        <p>End of buffer. Continue the conversation over email.</p>
-      </div>
-      <nav aria-label="Footer navigation">
-        <Link to="/bookmarks/">Links</Link>
-        <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight aria-hidden="true" size={13} /></a>
-        <a href={site.email}>Email</a>
+      <nav aria-label="Session tabs">
+        {navigation.map((item) => {
+          const active = isRouteActive(routePath, item.to);
+          return <Link key={item.to} className={active ? "is-active" : ""} to={item.to}><span>{item.command}:</span>{item.label}{active ? "*" : ""}</Link>;
+        })}
       </nav>
-      <p className="footer-meta">TORONTO / {new Date().getUTCFullYear()} / EOF</p>
+      <div className="footer-trace"><span>TTY</span><i /><span>CTRL</span><i /><span>DATA</span><i /><span>TRACE</span></div>
+      <p><i className="live-dot" aria-hidden="true" /> ONLINE</p>
     </footer>
   );
 }

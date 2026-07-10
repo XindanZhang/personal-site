@@ -25,7 +25,7 @@ function AboutPage() {
   return (
     <>
       <section className="page-heading about-heading">
-        <p className="command-line"><span>xindan@portfolio:~$</span> man xindan</p>
+        <p className="command-line"><span>xindan@toronto:~$</span> man xindan</p>
         <div className="heading-grid"><div><p className="eyebrow">ABOUT / XINDAN ZHANG</p><h1>I make technical behavior easier to see and revisit.</h1></div><p>{site.about.intro}</p></div>
       </section>
 
