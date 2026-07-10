@@ -22,7 +22,9 @@ export interface TimelineEntry {
 }
 
 export const site = {
-  name: "Cindy",
+  basePath: "/personal-site",
+  name: "Xindan Zhang",
+  shortName: "Cindy",
   titleSuffix: "Networking notes, protocol experiments, and build logs.",
   description: "Notes on networking, distributed systems, debugging, and the tools worth reopening.",
   availability: "Available for thoughtful collaboration",
@@ -30,11 +32,10 @@ export const site = {
   github: "https://github.com/XindanZhang",
   source: "https://github.com/XindanZhang/personal-site",
   home: {
-    heroTitle: "Networking notes, protocol experiments, and terminal logs.",
+    heroTitle: "I trace networks, build small systems, and document what survives the debugging session.",
     heroBody:
       "This site is where I keep the parts of systems work that are easy to lose: commands that fixed something, traces that explained a bug, and notes that stayed useful after the terminal closed.",
-    quote:
-      "No landing-page theater. Just the logs, diagrams, and writeups that were worth keeping.",
+    quote: "Trace the behavior. Remove assumptions. Keep the useful part.",
     body: "Most entries begin in the middle of debugging or building, then get cleaned up only after the workflow becomes repeatable.",
     sideTitle: "Current threads",
     sideNotes: [
@@ -51,52 +52,35 @@ export const site = {
   bookmarksIntro: "A short list of bookmarks I still reopen.",
   about: {
     intro:
-      "I am Cindy. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
+      "I am Xindan Zhang, and I also go by Cindy. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
     body:
       "The goal is simple: keep technical notes concrete enough to rerun, concise enough to scan, and personal enough to reflect how I actually debug and build things.",
   },
   projects: [
     {
-      name: "Nextmini Notes",
-      description: "A running series on Nextmini internals, controller behavior, and nearby experiments.",
+      name: "Nextmini Research Notes",
+      description: "A four-part field guide to Nextmini internals, controller behavior, lossless paths, and nearby network experiments.",
       status: "featured",
-      tags: ["networking", "series", "notes"],
+      tags: ["networking", "protocols", "research"],
       href: "/blog/series/nextmini/",
-      hrefLabel: "Visit",
+      hrefLabel: "Read series",
     },
     {
-      name: "Blog Archive",
-      description: "The complete set of logs, writeups, and longer technical threads published here.",
-      status: "featured",
-      tags: ["writing", "archive", "blog"],
+      name: "Systems Field Notes",
+      description: "A searchable archive of reproducible setup logs, packet-level investigations, terminal workflows, and technical reviews.",
+      status: "active",
+      tags: ["writing", "debugging", "documentation"],
       href: "/blog/",
-      hrefLabel: "Visit",
-    },
-    {
-      name: "GitHub Profile",
-      description: "Public repositories, prototypes, and the code that supports this notebook.",
-      status: "active",
-      tags: ["github", "code", "profile"],
-      href: "https://github.com/XindanZhang",
-      hrefLabel: "GitHub",
-      external: true,
-    },
-    {
-      name: "Site Source",
-      description: "The repository for the terminal-style Next.js site you are looking at now.",
-      status: "active",
-      tags: ["next.js", "tailwind", "source"],
-      href: "https://github.com/XindanZhang/personal-site",
-      hrefLabel: "GitHub",
-      external: true,
+      hrefLabel: "Browse notes",
     },
     {
       name: "Personal Site",
-      description: "A static-exported site with a shell-first interface and a writable build workflow.",
+      description: "A statically exported Next.js notebook with a custom content pipeline, accessible themes, and a GitHub Pages release workflow.",
       status: "active",
-      tags: ["static-export", "github-pages", "website"],
-      href: "/",
-      hrefLabel: "Visit",
+      tags: ["next.js", "design system", "open source"],
+      href: "https://github.com/XindanZhang/personal-site",
+      hrefLabel: "View source",
+      external: true,
     },
     {
       name: "Jekyll Setup Log",
@@ -104,7 +88,7 @@ export const site = {
       status: "archived",
       tags: ["jekyll", "migration", "history"],
       href: "/blog/create-blog-website-using-jekyll/",
-      hrefLabel: "Visit",
+      hrefLabel: "Read log",
     },
   ] satisfies ProjectLink[],
   bookmarks: [

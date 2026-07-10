@@ -1,5 +1,6 @@
 "use client";
 
+import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
@@ -10,39 +11,28 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const current = document.documentElement.dataset.theme;
-    setTheme(current === "light" ? "light" : "dark");
+    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
   }, []);
 
-  function handleTheme(nextTheme: Theme) {
+  function handleToggle() {
+    const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     applyTheme(nextTheme);
   }
 
   return (
-    <div className="theme-toggle" aria-label="Theme">
-      <span className="theme-label">Theme</span>
-      <div className="theme-switches">
-        <button
-          aria-pressed={theme === "dark"}
-          className={`key-switch ${theme === "dark" ? "is-active" : ""}`}
-          onClick={() => handleTheme("dark")}
-          type="button"
-        >
-          Dark
-        </button>
-        <button
-          aria-pressed={theme === "light"}
-          className={`key-switch ${theme === "light" ? "is-active" : ""}`}
-          onClick={() => handleTheme("light")}
-          type="button"
-        >
-          Light
-        </button>
-      </div>
-    </div>
+    <button
+      className="icon-button theme-button"
+      type="button"
+      onClick={handleToggle}
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      title={`Use ${theme === "dark" ? "light" : "dark"} theme`}
+    >
+      <Sun className="theme-icon theme-icon-sun" aria-hidden="true" size={18} strokeWidth={1.8} />
+      <Moon className="theme-icon theme-icon-moon" aria-hidden="true" size={18} strokeWidth={1.8} />
+    </button>
   );
 }

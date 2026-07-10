@@ -1,139 +1,135 @@
+import { ArrowRight, ArrowUpRight, Github, Mail } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { CopyEmailButton } from "../../components/copy-email-button";
-import { PromptSection } from "../../components/prompt-section";
+import { Reveal } from "../../components/reveal";
 import { SiteLayout } from "../../components/site-layout";
 import { site } from "../../lib/site";
 
-const quickOpen = [
-  { label: "blog", href: "/blog/", note: "recent posts" },
-  { label: "projects", href: "/projects/", note: "site code + repos" },
-  { label: "nextmini", href: "/blog/series/nextmini/", note: "current series" },
+const principles = [
+  {
+    label: "Focus",
+    value: "Networking, protocol behavior, small systems experiments, and terminal-heavy workflows.",
+  },
+  {
+    label: "Method",
+    value: "Trace first, rerun with fewer assumptions, then preserve only the commands and details that still matter.",
+  },
+  {
+    label: "Publishing",
+    value: "Concrete enough to reproduce, concise enough to scan, and honest about where each investigation began.",
+  },
 ] as const;
 
-const readmeFacts = [
-  {
-    label: "focus",
-    value: "networking, protocol behavior, small systems experiments, and terminal-heavy workflows",
-  },
-  {
-    label: "method",
-    value: "trace first, rerun with fewer assumptions, then write down only the commands that still matter",
-  },
-  {
-    label: "stack",
-    value: "next.js, tailwind css, markdown content, and static export for github pages",
-  },
-  {
-    label: "status",
-    value: site.availability,
-  },
-] as const;
+export const metadata = {
+  title: "About",
+  description: "About Xindan Zhang, a systems-focused builder and writer in Toronto.",
+};
 
 export default function AboutPage() {
   const emailAddress = site.email.replace(/^mailto:/, "");
 
   return (
     <SiteLayout active="about">
-      <div className="manpage-layout">
-        <div className="manpage-main">
-          <PromptSection command="sed -n '1,160p' README.md">
-            <article className="readme-sheet">
-              <section className="readme-section">
-                <p className="readme-kicker"># README.md</p>
-                <h1 className="shell-heading">Cindy</h1>
-                <p className="shell-copy">{site.about.intro}</p>
-                <p className="shell-copy">{site.about.body}</p>
-              </section>
+      <section className="page-intro about-intro">
+        <p className="section-index">About / Xindan Zhang</p>
+        <h1>I make technical behavior easier to see and revisit.</h1>
+        <p>{site.about.intro}</p>
+      </section>
 
-              <section className="readme-section">
-                <h2 className="readme-heading">Focus</h2>
-                <div className="readme-detail-list">
-                  {readmeFacts.map((fact) => (
-                    <article key={fact.label} className="readme-detail-card">
-                      <h3 className="readme-detail-label">{fact.label}</h3>
-                      <p className="readme-detail-value">{fact.value}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-
-              <section className="readme-section">
-                <h2 className="readme-heading">Toolkit</h2>
-                <div className="readme-group-list">
-                  {site.skillGroups.map((group) => (
-                    <section key={group.title} className="readme-group">
-                      <h3 className="readme-group-title">{group.title}</h3>
-                      <ul className="readme-tag-list">
-                        {group.items.map((item) => (
-                          <li key={item} className="readme-tag">
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  ))}
-                </div>
-              </section>
-            </article>
-          </PromptSection>
-
-          <PromptSection command="tail -n 6 ~/.local/share/site.history">
-            <div className="timeline-list">
-              {site.timeline.map((entry) => (
-                <div key={entry.year} className="timeline-entry">
-                  <span className="timeline-year">{entry.year}</span>
-                  <p className="shell-copy timeline-copy">{entry.detail}</p>
-                </div>
-              ))}
-            </div>
-          </PromptSection>
+      <Reveal as="section" className="about-profile" aria-labelledby="about-profile-title">
+        <div className="about-visual">
+          <Image
+            src={`${site.basePath}/network-field.webp`}
+            alt="Layered glass network paths representing observable systems"
+            fill
+            sizes="(max-width: 768px) 100vw, 44vw"
+          />
+          <div className="about-visual-caption glass-surface">
+            <span>Working from</span>
+            <strong>Toronto, Canada</strong>
+          </div>
         </div>
+        <div className="about-copy">
+          <p className="mono-label">Public notebook / working practice</p>
+          <h2 id="about-profile-title">From a trace to a durable note.</h2>
+          <p>{site.about.body}</p>
+          <div className="principle-list">
+            {principles.map((principle, index) => (
+              <div key={principle.label} className="principle-row">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3>{principle.label}</h3>
+                  <p>{principle.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
 
-        <aside className="manpage-sidebar">
-          <PromptSection command="ls /personal-site/">
-            <div className="readme-shortcuts">
-              {quickOpen.map((entry) => (
-                <Link key={entry.label} className="readme-shortcut-row" href={entry.href}>
-                  <span className="readme-shortcut-label">{entry.label}</span>
-                  <span className="readme-shortcut-link">{entry.href}</span>
-                  <span className="readme-shortcut-note">{entry.note}</span>
-                </Link>
-              ))}
+      <Reveal as="section" className="toolkit-section" delay={60} aria-labelledby="toolkit-title">
+        <header className="section-header">
+          <div>
+            <p className="section-index">Toolkit / What I reach for</p>
+            <h2 id="toolkit-title">A practical systems stack.</h2>
+          </div>
+          <p>Tools change. The workflow stays grounded in inspection, small experiments, and reproducible notes.</p>
+        </header>
+        <div className="toolkit-grid">
+          {site.skillGroups.map((group, index) => (
+            <section key={group.title} className="toolkit-group">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{group.title}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="timeline-section" delay={90} aria-labelledby="timeline-title">
+        <header className="section-header is-inline">
+          <div>
+            <p className="section-index">Log / Recent years</p>
+            <h2 id="timeline-title">The notebook so far.</h2>
+          </div>
+          <Link className="text-link" href="/blog/">
+            Open the archive <ArrowRight aria-hidden="true" size={15} />
+          </Link>
+        </header>
+        <div className="timeline-list">
+          {site.timeline.map((entry) => (
+            <div key={entry.year} className="timeline-entry">
+              <time>{entry.year}</time>
+              <p>{entry.detail}</p>
             </div>
-          </PromptSection>
+          ))}
+        </div>
+      </Reveal>
 
-          <PromptSection command="cat ~/.contacts">
-            <ul className="readme-link-list">
-              <li className="readme-link-row">
-                <span className="readme-link-label">github</span>
-                <div className="readme-link-stack">
-                  <a
-                    className="terminal-inline-link readme-link-target"
-                    href={site.github}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    XindanZhang
-                  </a>
-                  <span className="readme-link-meta">github.com/XindanZhang</span>
-                </div>
-              </li>
-              <li className="readme-link-row">
-                <span className="readme-link-label">email</span>
-                <div className="readme-link-stack">
-                  <a className="terminal-inline-link readme-link-target" href={site.email}>
-                    xindan.zhang
-                  </a>
-                  <span className="readme-link-meta">mail.utoronto.ca</span>
-                  <div className="readme-link-actions">
-                    <CopyEmailButton email={emailAddress} />
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </PromptSection>
-        </aside>
-      </div>
+      <Reveal as="section" className="contact-section glass-surface" delay={120} aria-labelledby="contact-title">
+        <div>
+          <p className="section-index">Contact / Open channel</p>
+          <h2 id="contact-title">Have a thoughtful systems problem?</h2>
+          <p>{site.availability}. The fastest route is email.</p>
+        </div>
+        <div className="contact-actions">
+          <a className="action-button is-primary" href={site.email}>
+            <Mail aria-hidden="true" size={17} /> Email Xindan
+          </a>
+          <CopyEmailButton email={emailAddress} />
+          <a className="icon-button" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+            <Github aria-hidden="true" size={18} />
+          </a>
+          <a className="text-link" href={site.source} target="_blank" rel="noopener noreferrer">
+            Site source <ArrowUpRight aria-hidden="true" size={15} />
+          </a>
+        </div>
+      </Reveal>
     </SiteLayout>
   );
 }

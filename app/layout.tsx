@@ -33,14 +33,14 @@ export const metadata: Metadata = {
   description: site.description,
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: `${site.basePath}/favicon.ico` },
+      { url: `${site.basePath}/favicon.svg`, type: "image/svg+xml" },
     ],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#111216",
+  themeColor: "#09090b",
 };
 
 export default function RootLayout({
@@ -55,7 +55,7 @@ export default function RootLayout({
           {themeScript}
         </Script>
       </head>
-      <body className={`${ibmPlexMono.variable} site-body mode-terminal antialiased`}>
+      <body className={`${ibmPlexMono.variable} site-body antialiased`}>
         {children}
       </body>
     </html>

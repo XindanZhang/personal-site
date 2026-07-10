@@ -1,66 +1,41 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import type { BlogPost } from "../lib/blog";
-import { formatMediumDate, formatShortDate, getBadgeTheme } from "../lib/blog";
-import { PointerGlow } from "./pointer-glow";
-
-interface PostTableProps {
-  posts: BlogPost[];
-}
+import { formatMediumDate } from "../lib/blog";
 
 function getRowLabel(post: BlogPost, index: number) {
-  if (post.seriesOrder) {
-    return `Part ${post.seriesOrder}`;
-  }
-
-  if (post.featured) {
-    return "Featured";
-  }
-
-  return String(index + 1).padStart(2, "0");
+  if (post.seriesOrder) return `Part ${post.seriesOrder}`;
+  if (post.featured) return "Featured";
+  return `Note ${index + 1}`;
 }
 
-export function PostTable({ posts }: PostTableProps) {
+export function PostTable({ posts }: { posts: BlogPost[] }) {
   return (
     <div className="archive-ledger">
-      {posts.map((post, index) => {
-        const badgeTheme = getBadgeTheme(post.categoryLabel);
-
-        return (
-          <PointerGlow key={post.slug} as="article" className="archive-row pointer-glow is-blog">
-            <div className="archive-date">
-              <span className="archive-date-short">{formatShortDate(post.publishedAt)}</span>
-              <span className="archive-date-long">{formatMediumDate(post.publishedAt)}</span>
+      {posts.map((post, index) => (
+        <article key={post.slug} className="archive-row">
+          <div className="archive-index">{String(index + 1).padStart(2, "0")}</div>
+          <div className="archive-entry">
+            <div className="archive-meta">
+              <time dateTime={post.publishedAt.toISOString()}>{formatMediumDate(post.publishedAt)}</time>
+              <span>{post.categoryLabel}</span>
+              <span>{getRowLabel(post, index)}</span>
             </div>
-
-            <div className="archive-entry">
-              <div className="archive-title-row">
-                <div className="archive-meta">
-                  <span
-                    className="archive-category"
-                    style={{ backgroundColor: badgeTheme.background, borderColor: badgeTheme.text, color: badgeTheme.text }}
-                  >
-                    {post.categoryLabel}
-                  </span>
-                  <span className="archive-number">{getRowLabel(post, index)}</span>
-                </div>
-              </div>
-
+            <h2>
               <Link className="archive-link" href={`/blog/${post.slug}/`}>
                 {post.title}
               </Link>
-              <p className="archive-summary">{post.summary}</p>
-
-              <div className="archive-keywords">
-                {post.tags.map((tag) => (
-                  <span key={tag} className="archive-keyword">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
+            </h2>
+            <p className="archive-summary">{post.summary}</p>
+            <div className="archive-keywords" aria-label="Tags">
+              {post.tags.map((tag) => (
+                <span key={tag}>#{tag}</span>
+              ))}
             </div>
-          </PointerGlow>
-        );
-      })}
+          </div>
+          <ArrowUpRight className="row-arrow" aria-hidden="true" size={18} />
+        </article>
+      ))}
     </div>
   );
 }

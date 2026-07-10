@@ -1,83 +1,78 @@
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { ProjectLedger } from "../../components/project-ledger";
-import { PromptSection } from "../../components/prompt-section";
+import { Reveal } from "../../components/reveal";
 import { SiteLayout } from "../../components/site-layout";
-import { getProjectsByStatus } from "../../lib/site";
+import { site } from "../../lib/site";
 
-function formatCount(count: number, singular: string, plural = `${singular}s`) {
-  return `${count} ${count === 1 ? singular : plural}`;
-}
-
-function ProjectGroup({
-  command,
-  copy,
-  projects,
-}: {
-  command: string;
-  copy: string;
-  projects: ReturnType<typeof getProjectsByStatus>;
-}) {
-  return (
-    <PromptSection command={command}>
-      <p className="section-lead">{copy}</p>
-      <ProjectLedger projects={projects} />
-    </PromptSection>
-  );
-}
+export const metadata = {
+  title: "Work",
+  description: "Selected networking research, systems writing, and tools by Xindan Zhang.",
+};
 
 export default function ProjectsPage() {
-  const featuredProjects = getProjectsByStatus("featured");
-  const activeProjects = getProjectsByStatus("active");
-  const archivedProjects = getProjectsByStatus("archived");
+  const [featuredProject, ...otherProjects] = site.projects;
 
   return (
     <SiteLayout active="projects">
-      <div className="project-terminal">
-        <aside className="project-terminal-summary">
-          <PromptSection command="cat /workspace/projects/README">
-            <h1 className="shell-heading">Projects</h1>
-            <p className="shell-copy">
-              This page collects the code behind the site: active experiments, public repos, and the tools I still use.
-            </p>
-          </PromptSection>
+      <section className="page-intro work-intro">
+        <p className="section-index">Work / Selected systems</p>
+        <h1>Small systems, inspected closely.</h1>
+        <p>
+          Network experiments, public research notes, and publishing tools shaped around one principle: make behavior
+          observable before making it elegant.
+        </p>
+      </section>
 
-          <PromptSection command="printf '%s %s\n' featured active archived">
-            <div className="terminal-manifest">
-              <div className="terminal-manifest-row">
-                <p className="terminal-manifest-key">featured</p>
-                <p className="shell-copy">{formatCount(featuredProjects.length, "featured project")}.</p>
-              </div>
-              <div className="terminal-manifest-row">
-                <p className="terminal-manifest-key">active</p>
-                <p className="shell-copy">{formatCount(activeProjects.length, "active project")}.</p>
-              </div>
-              <div className="terminal-manifest-row">
-                <p className="terminal-manifest-key">archive</p>
-                <p className="shell-copy">{formatCount(archivedProjects.length, "archived project")}.</p>
-              </div>
-            </div>
-          </PromptSection>
-        </aside>
-
-        <div className="project-terminal-groups">
-          <ProjectGroup
-            command="ls /workspace/projects/featured"
-            copy="The clearest public work, chosen because it best represents how the site is actually used."
-            projects={featuredProjects}
+      <Reveal as="section" className="featured-project" aria-labelledby="featured-work-title">
+        <div className="featured-project-media">
+          <Image
+            src={`${site.basePath}/network-field.webp`}
+            alt="Transparent network paths visualizing signals moving through a system"
+            fill
+            sizes="(max-width: 768px) 100vw, 58vw"
           />
-
-          <ProjectGroup
-            command="ls /workspace/projects/active"
-            copy="Things that are still moving: repositories, publishing infrastructure, and the site surface itself."
-            projects={activeProjects}
-          />
-
-          <ProjectGroup
-            command="ls /workspace/projects/archive"
-            copy="Older pieces that still explain the route here, even if they are no longer the center of the workflow."
-            projects={archivedProjects}
-          />
+          <div className="media-hud glass-surface">
+            <span>Series status</span>
+            <strong>4 notes / ongoing</strong>
+          </div>
         </div>
-      </div>
+        <div className="featured-project-copy">
+          <p className="mono-label">Featured research thread</p>
+          <h2 id="featured-work-title">{featuredProject.name}</h2>
+          <p>{featuredProject.description}</p>
+          <dl className="project-facts">
+            <div>
+              <dt>Focus</dt>
+              <dd>Controller interfaces, conductor paths, and lossless behavior</dd>
+            </div>
+            <div>
+              <dt>Method</dt>
+              <dd>Trace the implementation, rerun the experiment, preserve the useful detail</dd>
+            </div>
+          </dl>
+          <div className="project-actions">
+            <Link className="action-button is-primary" href={featuredProject.href}>
+              {featuredProject.hrefLabel} <ArrowRight aria-hidden="true" size={17} />
+            </Link>
+            <a className="text-link" href="https://nextmini.org/" target="_blank" rel="noopener noreferrer">
+              Nextmini.org <ArrowUpRight aria-hidden="true" size={15} />
+            </a>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="work-index" delay={80} aria-labelledby="work-index-title">
+        <header className="section-header">
+          <div>
+            <p className="section-index">Index / Active and archived</p>
+            <h2 id="work-index-title">More work</h2>
+          </div>
+          <p>Writing infrastructure, this site’s source, and the older build notes that document how it evolved.</p>
+        </header>
+        <ProjectLedger projects={otherProjects} />
+      </Reveal>
     </SiteLayout>
   );
 }

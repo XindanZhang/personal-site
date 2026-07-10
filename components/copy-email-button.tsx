@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface CopyEmailButtonProps {
@@ -50,7 +51,9 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
       className={`copy-inline-button ${copied ? "is-copied" : ""}`}
       onClick={handleCopy}
       type="button"
+      aria-live="polite"
     >
+      {copied ? <Check aria-hidden="true" size={15} /> : <Copy aria-hidden="true" size={15} />}
       {copied ? "Copied" : "Copy email"}
     </button>
   );
