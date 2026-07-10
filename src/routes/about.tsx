@@ -14,7 +14,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About | Xindan Zhang" },
-      { name: "description", content: "About Xindan Zhang, a systems-focused builder and writer in Toronto." },
+      { name: "description", content: "PhD student in Electrical and Computer Engineering at the University of Toronto." },
     ],
   }),
   component: AboutPage,
@@ -25,17 +25,13 @@ function AboutPage() {
   return (
     <>
       <section className="page-intro about-intro">
-        <p className="section-kicker">About · Xindan Zhang</p>
-        <div className="page-intro-grid"><h1>I make technical behavior easier to see and revisit.</h1><p>{site.about.intro}</p></div>
+        <p className="section-kicker">About</p>
+        <div className="page-intro-grid"><h1>PhD student in ECE at the University of Toronto.</h1><p>{site.about.intro}</p></div>
       </section>
 
-      <Reveal as="section" className="about-overview" aria-labelledby="profile-title">
-        <div className="about-signature">
-          <span aria-hidden="true">XZ</span>
-          <dl><div><dt>Name</dt><dd>Xindan Zhang</dd></div><div><dt>Also</dt><dd>Cindy</dd></div><div><dt>Based</dt><dd>Toronto, Canada</dd></div><div><dt>Status</dt><dd><i className="status-dot" aria-hidden="true" /> Available</dd></div></dl>
-        </div>
+      <Reveal as="section" className="about-overview is-plain" aria-labelledby="profile-title">
         <div className="about-copy">
-          <p className="section-kicker">Working practice</p><h2 id="profile-title">From a trace to a durable note.</h2>
+          <p className="section-kicker">Working practice</p><h2 id="profile-title">From a trace to a reusable result.</h2>
           <p>{site.about.body}</p>
           <div className="principle-list">{principles.map((principle, index) => <section key={principle.label}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{principle.label}</h3><p>{principle.value}</p></div></section>)}</div>
         </div>
@@ -52,8 +48,8 @@ function AboutPage() {
       </Reveal>
 
       <Reveal as="section" className="contact-section" delay={110} aria-labelledby="contact-title">
-        <div><p className="section-kicker">Contact</p><h2 id="contact-title">Have a thoughtful systems problem?</h2><p>{site.availability}. The fastest route is email.</p></div>
-        <div className="contact-actions"><a className="action-link is-primary" href={site.email}><Mail aria-hidden="true" size={17} /> Email Xindan</a><CopyEmailButton email={emailAddress} /><a className="icon-button" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" title="GitHub"><Github aria-hidden="true" size={18} /></a><a className="text-link" href={site.source} target="_blank" rel="noopener noreferrer">Site source <ArrowUpRight aria-hidden="true" size={14} /></a></div>
+        <div><p className="section-kicker">Contact</p><h2 id="contact-title">Have a thoughtful systems problem?</h2><p>Email is the best way to reach me.</p></div>
+        <div className="contact-actions"><a className="action-link is-primary" href={site.email}><Mail aria-hidden="true" size={17} /> Email</a><CopyEmailButton email={emailAddress} /><a className="icon-button" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" title="GitHub"><Github aria-hidden="true" size={18} /></a><a className="text-link" href={site.source} target="_blank" rel="noopener noreferrer">Site source <ArrowUpRight aria-hidden="true" size={14} /></a></div>
       </Reveal>
     </>
   );

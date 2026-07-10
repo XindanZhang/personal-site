@@ -3,13 +3,11 @@ import { useEffect, useRef } from "react";
 import type { GameSceneHandle } from "~/lib/game-scene";
 import { site } from "~/lib/site";
 
-const backgroundUrl = `${site.basePath}/images/delta-force-yard-v2.webp`;
-const operatorUrl = `${site.basePath}/images/vyron-cutout-v2.webp`;
+const modelUrl = `${site.basePath}/models/cosmic-operator.glb`;
 
 export function TacticalBackdrop() {
   const containerRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<GameSceneHandle | null>(null);
-  const pointerActiveRef = useRef(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -17,7 +15,7 @@ export function TacticalBackdrop() {
 
     let cancelled = false;
     let intersecting = true;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const syncPlayback = () => {
       const controller = controllerRef.current;
@@ -34,13 +32,14 @@ export function TacticalBackdrop() {
     }, { threshold: 0.05 });
     intersectionObserver.observe(container);
     document.addEventListener("visibilitychange", syncPlayback);
+    const handleMotionPreference = (event: MediaQueryListEvent) => controllerRef.current?.setReducedMotion(event.matches);
+    motionQuery.addEventListener("change", handleMotionPreference);
 
     import("~/lib/game-scene")
       .then(({ createGameScene }) => createGameScene({
         container,
-        backgroundUrl,
-        operatorUrl,
-        reducedMotion,
+        modelUrl,
+        reducedMotion: motionQuery.matches,
         onReady: () => {
           if (!cancelled) container.classList.add("is-ready");
         },
@@ -64,6 +63,7 @@ export function TacticalBackdrop() {
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", syncPlayback);
+      motionQuery.removeEventListener("change", handleMotionPreference);
       controllerRef.current?.dispose();
       controllerRef.current = null;
     };
@@ -78,27 +78,15 @@ export function TacticalBackdrop() {
   }
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
-    pointerActiveRef.current = true;
-    try {
-      event.currentTarget.setPointerCapture(event.pointerId);
-    } catch {
-      // Synthetic pointer events do not always have an active browser pointer.
-    }
     const point = getPointer(event);
     controllerRef.current?.setPointer(point.x, point.y);
     controllerRef.current?.pulse(point.x, point.y);
   }
 
   function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
-    if (event.pointerType !== "mouse" && !pointerActiveRef.current) return;
+    if (event.pointerType !== "mouse") return;
     const point = getPointer(event);
     controllerRef.current?.setPointer(point.x, point.y);
-  }
-
-  function handlePointerEnd(event: ReactPointerEvent<HTMLDivElement>) {
-    pointerActiveRef.current = false;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-    if (event.pointerType !== "mouse") controllerRef.current?.setPointer(0, 0);
   }
 
   return (
@@ -108,17 +96,9 @@ export function TacticalBackdrop() {
       aria-hidden="true"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerEnd}
-      onPointerCancel={handlePointerEnd}
-      onPointerLeave={() => {
-        pointerActiveRef.current = false;
-        controllerRef.current?.setPointer(0, 0);
-      }}
+      onPointerLeave={() => controllerRef.current?.setPointer(0, 0)}
     >
-      <div className="game-scene-fallback">
-        <img className="game-scene-yard" src={backgroundUrl} alt="" width={1774} height={887} fetchPriority="high" />
-        <img className="game-scene-operator" src={operatorUrl} alt="" width={887} height={1774} decoding="async" />
-      </div>
+      <div className="game-scene-fallback"><i /><i /><i /></div>
     </div>
   );
 }

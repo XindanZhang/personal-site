@@ -2,7 +2,7 @@ import { ArrowRight, ArrowUpRight, Mail } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { PostLink } from "~/components/post-link";
 import { Reveal } from "~/components/reveal";
-import { formatMediumDate, getAllPosts, getSeriesBySlug } from "~/lib/blog";
+import { formatMediumDate, getAllPosts } from "~/lib/blog";
 import { site } from "~/lib/site";
 
 export const Route = createFileRoute("/")({
@@ -17,7 +17,6 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const recentPosts = getAllPosts().slice(0, 3);
-  const nextmini = getSeriesBySlug("nextmini");
   const featuredProject = site.projects[0];
 
   return (
@@ -26,11 +25,11 @@ function HomePage() {
         <div className="hero-axis" aria-hidden="true"><i /><i /><i /><i /></div>
         <div className="hero-topline">
           <span>Systems · Networks · Tools</span>
-          <span><i className="status-dot" aria-hidden="true" /> Available for collaboration</span>
+          <span><i className="status-dot" aria-hidden="true" /> U of T ECE</span>
         </div>
         <h1 id="home-title"><span>Xindan</span><span>Zhang.</span></h1>
         <div className="hero-intro">
-          <p className="hero-role">Systems builder and technical writer in Toronto.</p>
+          <p className="hero-role">PhD student in Electrical &amp; Computer Engineering at U of T.</p>
           <div>
             <p>{site.home.heroTitle}</p>
             <div className="hero-actions">
@@ -48,25 +47,13 @@ function HomePage() {
           <Link className="text-link" to="/projects/">All work <ArrowRight aria-hidden="true" size={16} /></Link>
         </header>
 
-        <Link className="featured-work" to="/blog/series/$series/" params={{ series: "nextmini" }}>
-          <div className="featured-work-copy">
-            <span className="work-number">01</span>
-            <p className="work-meta">Independent research · Active</p>
-            <h3>{featuredProject.name}</h3>
-            <p>{featuredProject.description}</p>
-            <span className="work-link">Read the research series <ArrowUpRight aria-hidden="true" size={17} /></span>
-          </div>
-          <figure><img src={`${site.basePath}/figures/nextmini-topology.svg`} alt="Bird's-eye architecture comparison between Mininet and Nextmini" /><figcaption>Nextmini topology · Figure 01</figcaption></figure>
-        </Link>
-
-        <div className="work-teaser-grid">
-          <a className="work-teaser notes-teaser" href={site.projects[1].href} target="_blank" rel="noopener noreferrer">
-            <span className="work-number">02</span><p className="work-meta">Design &amp; engineering · Open source</p><h3>{site.projects[1].name}</h3><p>{site.projects[1].description}</p><ArrowUpRight aria-hidden="true" size={20} />
-          </a>
-          <Link className="work-teaser play-teaser" to="/games/">
-            <div className="play-teaser-art" aria-hidden="true"><img src={`${site.basePath}/images/delta-force-yard-v2.webp`} alt="" /><img src={`${site.basePath}/images/vyron-cutout-v2.webp`} alt="" /></div>
-            <span className="work-number">03</span><p className="work-meta">Interactive study · Three.js</p><h3>Vyron</h3><span className="work-link">Enter scene <ArrowUpRight aria-hidden="true" size={17} /></span>
+        <div className="home-work-list">
+          <Link className="home-work-row" to="/blog/series/$series/" params={{ series: "nextmini" }}>
+            <span className="work-number">01</span><div><p className="work-meta">Technical notes · Active</p><h3>{featuredProject.name}</h3><p>{featuredProject.description}</p></div><span className="work-link">Read series <ArrowUpRight aria-hidden="true" size={17} /></span>
           </Link>
+          <a className="home-work-row" href={site.projects[1].href} target="_blank" rel="noopener noreferrer">
+            <span className="work-number">02</span><div><p className="work-meta">Design &amp; engineering · Open source</p><h3>{site.projects[1].name}</h3><p>{site.projects[1].description}</p></div><span className="work-link">View source <ArrowUpRight aria-hidden="true" size={17} /></span>
+          </a>
         </div>
       </Reveal>
 
@@ -90,7 +77,6 @@ function HomePage() {
           <div><span>01</span><h3>Observe</h3><p>Start from traces, behavior, and the smallest reproducible case.</p></div>
           <div><span>02</span><h3>Test</h3><p>Remove assumptions and rerun the path until the result is explainable.</p></div>
           <div><span>03</span><h3>Document</h3><p>Keep the commands, context, and evidence that remain useful later.</p></div>
-          <div className="current-thread"><span>Current</span><h3>Nextmini</h3><p>{nextmini?.posts.length ?? 0} linked research notes</p></div>
         </div>
       </Reveal>
     </>

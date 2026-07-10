@@ -26,13 +26,12 @@ export const site = {
   name: "Xindan Zhang",
   shortName: "Cindy",
   titleSuffix: "Networking notes, protocol experiments, and build logs.",
-  description: "Notes on networking, distributed systems, debugging, and the tools worth reopening.",
-  availability: "Available for thoughtful collaboration",
+  description: "Technical notes and systems work from a University of Toronto ECE PhD student.",
   email: "mailto:xindan.zhang@mail.utoronto.ca",
   github: "https://github.com/XindanZhang",
   source: "https://github.com/XindanZhang/personal-site",
   home: {
-    heroTitle: "I trace networks, build small systems, and document what survives the debugging session.",
+    heroTitle: "I trace networks, build small systems, and keep the results reproducible.",
     heroBody:
       "This site is where I keep the parts of systems work that are easy to lose: commands that fixed something, traces that explained a bug, and notes that stayed useful after the terminal closed.",
     quote: "Trace the behavior. Remove assumptions. Keep the useful part.",
@@ -52,16 +51,16 @@ export const site = {
   bookmarksIntro: "A short list of bookmarks I still reopen.",
   about: {
     intro:
-      "I am Xindan Zhang, and I also go by Cindy. This site is a public scratchpad for systems work, networking experiments, and the shell-heavy workflows that make the results reproducible.",
+      "This site is where I keep notes on networking, systems, and reproducible workflows.",
     body:
-      "The goal is simple: keep technical notes concrete enough to rerun, concise enough to scan, and personal enough to reflect how I actually debug and build things.",
+      "I use this notebook to turn traces, experiments, and implementation details into material I can rerun and revisit.",
   },
   projects: [
     {
-      name: "Nextmini Research Notes",
-      description: "An independent four-part reading of Nextmini internals, controller behavior, lossless paths, and nearby network experiments.",
+      name: "Nextmini Code-Reading Notes",
+      description: "A four-part code-reading series on Nextmini internals, controller behavior, lossless paths, and nearby network experiments.",
       status: "featured",
-      tags: ["networking", "protocols", "research"],
+      tags: ["networking", "protocols", "code reading"],
       href: "/blog/series/nextmini/",
       hrefLabel: "Read series",
     },
@@ -73,14 +72,6 @@ export const site = {
       href: "https://github.com/XindanZhang/personal-site",
       hrefLabel: "View source",
       external: true,
-    },
-    {
-      name: "Vyron Interactive Scene",
-      description: "A full-bleed Three.js character study with pointer-driven depth, responsive composition, and mobile interaction.",
-      status: "active",
-      tags: ["three.js", "interaction", "art direction"],
-      href: "/games/",
-      hrefLabel: "Enter scene",
     },
   ] satisfies ProjectLink[],
   bookmarks: [
@@ -111,7 +102,7 @@ export const site = {
   timeline: [
     {
       year: "2026",
-      detail: "Moved this site to TanStack Start, rebuilt it as an editorial portfolio, and kept expanding the Nextmini field notes.",
+      detail: "Moved this site to TanStack Start and rebuilt its interface and publishing workflow.",
     },
     {
       year: "2025",

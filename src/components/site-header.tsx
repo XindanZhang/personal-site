@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, Github, Menu, Moon, Sun, X } from "lucide-react";
+import { ArrowUpRight, Github, House, Menu, Moon, Sun, X } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { getRoutePath, isRouteActive, navigation } from "~/lib/navigation";
@@ -11,7 +11,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const routePath = getRoutePath(pathname);
-  const isGames = isRouteActive(routePath, "/games/");
+  const isInterests = isRouteActive(routePath, "/interests/");
 
   useEffect(() => {
     setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
@@ -35,15 +35,12 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className={`site-header ${isGames ? "is-game-header" : ""}`}>
+      <header className={`site-header ${isInterests ? "is-game-header" : ""}`}>
         <div className="header-inner">
-          <Link className="site-brand" to="/" aria-label={isGames ? "Return to portfolio" : "Xindan Zhang, home"}>
-            <span className="brand-mark" aria-hidden="true">{isGames ? "V" : "XZ"}</span>
-            <strong>{isGames ? "VYRON" : "Xindan Zhang"}</strong>
-          </Link>
+          <Link className="site-brand" to="/" aria-label="Home" title="Home"><span className="brand-mark" aria-hidden="true"><House size={17} /></span></Link>
 
-          {isGames ? (
-            <Link className="game-back" to="/"><ArrowLeft aria-hidden="true" size={16} /> Portfolio</Link>
+          {isInterests ? (
+            <span className="interest-context">Interests / Delta Force</span>
           ) : (
             <nav className="desktop-nav" aria-label="Primary navigation">
               {navigation.map((item) => {
@@ -54,14 +51,14 @@ export function SiteHeader() {
           )}
 
           <div className="header-tools">
-            {!isGames ? <a className="icon-button github-button" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile" title="GitHub"><Github aria-hidden="true" size={18} /></a> : null}
-            {!isGames ? <button className="icon-button" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} title={`Use ${theme === "dark" ? "light" : "dark"} theme`}>{theme === "dark" ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}</button> : null}
-            {!isGames ? <button className="icon-button menu-button" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? "Close navigation" : "Open navigation"}>{menuOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}</button> : null}
+            {!isInterests ? <a className="icon-button github-button" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile" title="GitHub"><Github aria-hidden="true" size={18} /></a> : null}
+            {!isInterests ? <button className="icon-button" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} title={`Use ${theme === "dark" ? "light" : "dark"} theme`}>{theme === "dark" ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}</button> : null}
+            {!isInterests ? <button className="icon-button menu-button" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? "Close navigation" : "Open navigation"}>{menuOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}</button> : null}
           </div>
         </div>
       </header>
 
-      {menuOpen && !isGames ? (
+      {menuOpen && !isInterests ? (
         <div id="mobile-navigation" className="mobile-nav-panel">
           <nav aria-label="Mobile navigation">
             {navigation.map((item) => {

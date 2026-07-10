@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as InterestsRouteImport } from './routes/interests'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as AboutRouteImport } from './routes/about'
@@ -24,6 +25,11 @@ import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterestsRoute = InterestsRouteImport.update({
+  id: '/interests',
+  path: '/interests',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GamesRoute = GamesRouteImport.update({
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/bookmarks': typeof BookmarksRoute
   '/games': typeof GamesRoute
+  '/interests': typeof InterestsRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog/': typeof BlogIndexRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bookmarks': typeof BookmarksRoute
   '/games': typeof GamesRoute
+  '/interests': typeof InterestsRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog': typeof BlogIndexRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/bookmarks': typeof BookmarksRoute
   '/games': typeof GamesRoute
+  '/interests': typeof InterestsRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog/': typeof BlogIndexRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookmarks'
     | '/games'
+    | '/interests'
     | '/projects'
     | '/blog/$'
     | '/blog/'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookmarks'
     | '/games'
+    | '/interests'
     | '/projects'
     | '/blog/$'
     | '/blog'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bookmarks'
     | '/games'
+    | '/interests'
     | '/projects'
     | '/blog/$'
     | '/blog/'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookmarksRoute: typeof BookmarksRoute
   GamesRoute: typeof GamesRoute
+  InterestsRoute: typeof InterestsRoute
   ProjectsRoute: typeof ProjectsRoute
   BlogSplatRoute: typeof BlogSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interests': {
+      id: '/interests'
+      path: '/interests'
+      fullPath: '/interests'
+      preLoaderRoute: typeof InterestsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/games': {
@@ -261,6 +281,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BookmarksRoute: BookmarksRoute,
   GamesRoute: GamesRoute,
+  InterestsRoute: InterestsRoute,
   ProjectsRoute: ProjectsRoute,
   BlogSplatRoute: BlogSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
