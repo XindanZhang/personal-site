@@ -56,7 +56,7 @@ export function TacticalBackdrop() {
       onPointerLeave={resetScene}
     >
       <div className="operator-image">
-        <img src={`${site.basePath}/images/game-zone-operator.webp`} alt="" />
+        <img src={`${site.basePath}/images/game-zone-operator.webp`} alt="" width={1774} height={887} decoding="async" fetchPriority="high" />
       </div>
       <div className="tactical-grid" />
       <div className="weather-field" />

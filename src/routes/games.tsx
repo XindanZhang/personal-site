@@ -41,7 +41,10 @@ export const Route = createFileRoute("/games")({
       { title: "Games | Xindan Zhang" },
       { name: "description", content: "Xindan Zhang's immersive fan terminal for Delta Force." },
     ],
-    links: [{ rel: "canonical", href: "https://xindanzhang.github.io/personal-site/games/" }],
+    links: [
+      { rel: "canonical", href: "https://xindanzhang.github.io/personal-site/games/" },
+      { rel: "preload", href: "/personal-site/images/game-zone-operator.webp", as: "image", type: "image/webp" },
+    ],
   }),
   component: GamesPage,
 });
@@ -66,18 +69,29 @@ function GamesPage() {
         <p className="game-deck">A personal field terminal for the game I keep coming back to: scale, pressure, clean information, and one more deployment.</p>
 
         <div className="mode-switcher" role="tablist" aria-label="Delta Force modes">
-          {modes.map((mode) => {
+          {modes.map((mode, index) => {
             const Icon = mode.icon;
             const active = mode.id === activeModeId;
             return (
               <button
                 key={mode.id}
+                id={`mode-tab-${mode.id}`}
                 type="button"
                 role="tab"
                 aria-selected={active}
                 aria-controls="mode-readout"
+                tabIndex={active ? 0 : -1}
                 className={active ? "is-active" : ""}
                 onClick={() => setActiveModeId(mode.id)}
+                onKeyDown={(event) => {
+                  const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+                  if (!keys.includes(event.key)) return;
+                  event.preventDefault();
+                  const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? modes.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + modes.length) % modes.length;
+                  const nextMode = modes[nextIndex];
+                  setActiveModeId(nextMode.id);
+                  window.requestAnimationFrame(() => document.getElementById(`mode-tab-${nextMode.id}`)?.focus());
+                }}
               >
                 <Icon aria-hidden="true" size={13} />
                 <span>{mode.code}</span>
@@ -87,7 +101,7 @@ function GamesPage() {
           })}
         </div>
 
-        <div id="mode-readout" className="mode-readout" role="tabpanel">
+        <div id="mode-readout" className="mode-readout" role="tabpanel" aria-labelledby={`mode-tab-${activeModeId}`}>
           <div className="mode-icon"><ActiveIcon aria-hidden="true" size={20} /></div>
           <div><span>{activeMode.status}</span><h2>{activeMode.title}</h2><p>{activeMode.body}</p></div>
         </div>
