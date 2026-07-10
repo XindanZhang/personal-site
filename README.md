@@ -1,6 +1,6 @@
 # Xindan Zhang — Personal Site
 
-Personal website built with Next.js and Tailwind CSS, exported statically for GitHub Pages.
+Personal website built with TanStack Start and React, prerendered for GitHub Pages.
 
 ## Local development
 
@@ -11,7 +11,7 @@ npm run dev
 
 ## Build for GitHub Pages
 
-This project outputs to `docs/` for GitHub Pages on the `main` branch.
+This project prerenders every route and copies the static client output to `docs/` for GitHub Pages on the `main` branch.
 
 ```sh
 npm run build

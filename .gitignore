@@ -3,6 +3,8 @@ dist/
 .next/
 out/
 screenshots/
+src/generated/blog-data.json
+*.tsbuildinfo
 # generated types
 .astro/
 
