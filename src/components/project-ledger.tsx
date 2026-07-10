@@ -7,7 +7,7 @@ export function ProjectLedger({ projects }: { projects: ProjectLink[] }) {
     <div className="project-ledger">
       {projects.map((project, index) => (
         <article key={project.name} className="project-row">
-          <span className="row-index">{String(index + 1).padStart(2, "0")}</span>
+          <span className="row-index">{String(index + 2).padStart(2, "0")}</span>
           <div className="project-row-main">
             <div className="project-heading"><span className={`project-status is-${project.status}`}>{project.status}</span><h3>{project.name}</h3></div>
             <p>{project.description}</p>

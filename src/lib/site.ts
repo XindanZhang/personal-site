@@ -59,19 +59,11 @@ export const site = {
   projects: [
     {
       name: "Nextmini Research Notes",
-      description: "A four-part field guide to Nextmini internals, controller behavior, lossless paths, and nearby network experiments.",
+      description: "An independent four-part reading of Nextmini internals, controller behavior, lossless paths, and nearby network experiments.",
       status: "featured",
       tags: ["networking", "protocols", "research"],
       href: "/blog/series/nextmini/",
       hrefLabel: "Read series",
-    },
-    {
-      name: "Systems Field Notes",
-      description: "A searchable archive of reproducible setup logs, packet-level investigations, terminal workflows, and technical reviews.",
-      status: "active",
-      tags: ["writing", "debugging", "documentation"],
-      href: "/blog/",
-      hrefLabel: "Browse notes",
     },
     {
       name: "Personal Site",
@@ -83,12 +75,12 @@ export const site = {
       external: true,
     },
     {
-      name: "Jekyll Setup Log",
-      description: "An older migration note that still documents how the site started before the rebuild.",
-      status: "archived",
-      tags: ["jekyll", "migration", "history"],
-      href: "/blog/create-blog-website-using-jekyll/",
-      hrefLabel: "Read log",
+      name: "Vyron Interactive Scene",
+      description: "A full-bleed Three.js character study with pointer-driven depth, responsive composition, and mobile interaction.",
+      status: "active",
+      tags: ["three.js", "interaction", "art direction"],
+      href: "/games/",
+      hrefLabel: "Enter scene",
     },
   ] satisfies ProjectLink[],
   bookmarks: [
@@ -119,7 +111,7 @@ export const site = {
   timeline: [
     {
       year: "2026",
-      detail: "Moved this site to TanStack Start, rebuilt it as a terminal workstation, and kept expanding the Nextmini field notes.",
+      detail: "Moved this site to TanStack Start, rebuilt it as an editorial portfolio, and kept expanding the Nextmini field notes.",
     },
     {
       year: "2025",

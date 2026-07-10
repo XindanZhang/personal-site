@@ -19,5 +19,5 @@ export const Route = createFileRoute("/blog/tag/$tag")({
 
 function BlogTagPage() {
   const tag = Route.useLoaderData();
-  return <BlogArchive activeTagSlug={tag.slug} categories={getAllCategories()} description={`Showing tag:#${tag.label}`} routeLabel={`~/writing/tag/${tag.slug}`} posts={getPostsByTag(tag.slug)} tags={getAllTags()} />;
+  return <BlogArchive activeTagSlug={tag.slug} categories={getAllCategories()} description={`Notes connected by #${tag.label}.`} routeLabel={`~/writing/tag/${tag.slug}`} posts={getPostsByTag(tag.slug)} tags={getAllTags()} />;
 }

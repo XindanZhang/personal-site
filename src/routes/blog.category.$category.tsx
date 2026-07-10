@@ -19,5 +19,5 @@ export const Route = createFileRoute("/blog/category/$category")({
 
 function BlogCategoryPage() {
   const category = Route.useLoaderData();
-  return <BlogArchive activeCategorySlug={category.slug} categories={getAllCategories()} description={`Showing category:${category.label}`} routeLabel={`~/writing/category/${category.slug}`} posts={getPostsByCategory(category.slug)} tags={getAllTags()} />;
+  return <BlogArchive activeCategorySlug={category.slug} categories={getAllCategories()} description={`${category.label} notes, collected in one reading path.`} routeLabel={`~/writing/category/${category.slug}`} posts={getPostsByCategory(category.slug)} tags={getAllTags()} />;
 }

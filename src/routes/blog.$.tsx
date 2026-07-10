@@ -45,8 +45,7 @@ function BlogPostPage() {
       <ReadingProgress />
       <article className="article-page">
         <header className="article-header">
-          <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> writing.index</Link>
-          <p className="command-line"><span>xindan@toronto:~$</span> less {post.slug}.md</p>
+          <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> All writing</Link>
           <div className="article-taxonomy">
             <Link to="/blog/category/$category/" params={{ category: post.categorySlug }}>{post.categoryLabel}</Link>
             {post.series && post.seriesSlug ? <Link to="/blog/series/$series/" params={{ series: post.seriesSlug }}>{post.series}</Link> : null}
@@ -63,7 +62,7 @@ function BlogPostPage() {
 
         <div className={`article-grid ${post.headings.length === 0 ? "without-outline" : ""}`}>
           <div className="article-main">
-            {post.sourceUrl ? <a className="article-source" href={post.sourceUrl} target="_blank" rel="noopener noreferrer"><span>RELATED.PROJECT</span><strong>{new URL(post.sourceUrl).hostname.replace(/^www\./, "")}</strong><ArrowUpRight aria-hidden="true" size={16} /></a> : null}
+            {post.sourceUrl ? <a className="article-source" href={post.sourceUrl} target="_blank" rel="noopener noreferrer"><span>Primary reference</span><strong>{new URL(post.sourceUrl).hostname.replace(/^www\./, "")}</strong><ArrowUpRight aria-hidden="true" size={16} /></a> : null}
             <div className="article-prose" dangerouslySetInnerHTML={{ __html: post.html }} />
             <nav className="article-pagination" aria-label="Adjacent articles">
               {newerPost ? <PostLink slug={newerPost.slug}><span><ArrowLeft aria-hidden="true" size={14} /> Newer</span><strong>{newerPost.title}</strong></PostLink> : <span />}
@@ -72,7 +71,7 @@ function BlogPostPage() {
           </div>
           {post.headings.length > 0 ? (
             <aside className="article-outline">
-              <div className="outline-header"><span>CONTENTS</span><span>{post.headings.length.toString().padStart(2, "0")}</span></div>
+              <div className="outline-header"><span>On this page</span><span>{post.headings.length.toString().padStart(2, "0")}</span></div>
               <nav aria-label="Table of contents">{post.headings.map((heading) => <a key={heading.slug} className={heading.depth > 2 ? "is-sub" : ""} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
               <div className="article-tags">{post.tags.map((tag) => <Link key={tag} to="/blog/tag/$tag/" params={{ tag: tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") }}>#{tag}</Link>)}</div>
             </aside>

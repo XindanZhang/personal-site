@@ -15,9 +15,9 @@ const themeScript = `
 (() => {
   try {
     const stored = window.localStorage.getItem("theme");
-    document.documentElement.dataset.theme = stored === "light" || stored === "dark" ? stored : "dark";
+    document.documentElement.dataset.theme = stored === "light" || stored === "dark" ? stored : "light";
   } catch {
-    document.documentElement.dataset.theme = "dark";
+    document.documentElement.dataset.theme = "light";
   }
 })();`;
 
@@ -28,7 +28,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: site.name },
       { name: "description", content: site.description },
-      { name: "theme-color", content: "#090b0a" },
+      { name: "theme-color", content: "#f4f6f2" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: site.name },
       { property: "og:description", content: site.description },
@@ -79,13 +79,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 function NotFoundPage() {
   return (
     <section className="error-screen" aria-labelledby="not-found-title">
-      <p className="command-line"><span>xindan@toronto:~$</span> resolve --path current</p>
-      <p className="error-code">ERR 404 / NO ENTRY</p>
-      <h1 id="not-found-title">This path is not in the index.</h1>
-      <p>The page may have moved, or the command was typed from an old note.</p>
-      <Link className="command-button" to="/">
-        Return to ~/home
-      </Link>
+      <p className="section-kicker">Error · 404</p>
+      <h1 id="not-found-title">There is nothing here.</h1>
+      <p>The page may have moved, or the address is no longer part of this site.</p>
+      <Link className="action-link is-primary" to="/">Return home</Link>
     </section>
   );
 }

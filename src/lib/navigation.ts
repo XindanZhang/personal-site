@@ -1,9 +1,9 @@
 export const navigation = [
-  { to: "/", label: "home", command: "1" },
-  { to: "/projects/", label: "work", command: "2" },
-  { to: "/blog/", label: "notes", command: "3" },
-  { to: "/about/", label: "about", command: "4" },
-  { to: "/games/", label: "games", command: "5" },
+  { to: "/", label: "Home", command: "01" },
+  { to: "/projects/", label: "Work", command: "02" },
+  { to: "/blog/", label: "Writing", command: "03" },
+  { to: "/about/", label: "About", command: "04" },
+  { to: "/games/", label: "Vyron", command: "05" },
 ] as const;
 
 export function getRoutePath(pathname: string) {

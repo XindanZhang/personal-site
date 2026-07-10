@@ -27,37 +27,26 @@ export function BlogArchive({ routeLabel, description, posts, categories, tags, 
 
   return (
     <div className="writing-page">
-      <section className="page-heading writing-heading">
-        <p className="command-line"><span>xindan@toronto:~$</span> cd {routeLabel}</p>
-        <div className="heading-grid">
-          <div><p className="eyebrow">WRITING / INDEX</p><h1>Field notes</h1></div>
-          <p>{description}</p>
-        </div>
+      <section className="page-intro writing-intro">
+        <p className="section-kicker">Writing · {posts.length.toString().padStart(2, "0")} {posts.length === 1 ? "note" : "notes"}</p>
+        <div className="page-intro-grid"><h1>Writing.</h1><p>{description}</p></div>
       </section>
 
-      <aside className="filter-console" aria-label="Writing filters">
-        <div className="filter-console-title"><span>FILTER.TABLE</span><span>{posts.length.toString().padStart(2, "0")} ROWS</span></div>
-        <div className="filter-group">
-          <span className="filter-label">streams</span>
-          <div className="filter-list">
-            <Link className={!activeCategorySlug && !activeTagSlug ? "is-active" : ""} to="/blog/" aria-current={!activeCategorySlug && !activeTagSlug ? "page" : undefined}>all <b>{getTotalCount(categories)}</b></Link>
-            {categories.map((category) => (
-              <Link key={category.slug} className={activeCategorySlug === category.slug ? "is-active" : ""} to="/blog/category/$category/" params={{ category: category.slug }} aria-current={activeCategorySlug === category.slug ? "page" : undefined}>
-                {category.label} <b>{category.count}</b>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <details className="tag-filter">
-          <summary>tags.list <span>[{tags.length}]</span></summary>
-          <div className="filter-list tags">
+      <div className="writing-controls" aria-label="Writing filters">
+        <nav className="category-tabs" aria-label="Categories">
+          <Link className={!activeCategorySlug && !activeTagSlug ? "is-active" : ""} to="/blog/" aria-current={!activeCategorySlug && !activeTagSlug ? "page" : undefined}>All <b>{getTotalCount(categories)}</b></Link>
+          {categories.map((category) => <Link key={category.slug} className={activeCategorySlug === category.slug ? "is-active" : ""} to="/blog/category/$category/" params={{ category: category.slug }} aria-current={activeCategorySlug === category.slug ? "page" : undefined}>{category.label} <b>{category.count}</b></Link>)}
+        </nav>
+        <details className="tag-menu">
+          <summary>Tags <span>{tags.length}</span></summary>
+          <div className="tag-menu-list">
             {tags.map((tag) => (
               <Link key={tag.slug} className={activeTagSlug === tag.slug ? "is-active" : ""} to="/blog/tag/$tag/" params={{ tag: tag.slug }} aria-current={activeTagSlug === tag.slug ? "page" : undefined}>#{tag.label} <b>{tag.count}</b></Link>
             ))}
           </div>
         </details>
-        <Link className="filter-console-link" to="/bookmarks/">cat ~/.bookmarks</Link>
-      </aside>
+        <Link className="bookmark-control" to="/bookmarks/">Bookmarks</Link>
+      </div>
 
       <BlogSearch posts={searchablePosts} />
     </div>
