@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-DnoxuJhR.js";var t=e();function n({as:e=`div`,children:n,className:r=``,delay:i=0,"aria-labelledby":a}){return(0,t.jsx)(e,{className:`reveal ${r}`.trim(),"aria-labelledby":a,style:{"--reveal-delay":`${i}ms`},children:n})}export{n as t};

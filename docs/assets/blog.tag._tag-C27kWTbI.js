@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-DnoxuJhR.js";import{t}from"./blog-archive-g02tfkoH.js";import{c as n,o as r,r as i,u as a}from"./index-VSlxg-Ro.js";var o=e();function s(){let e=i.useLoaderData();return(0,o.jsx)(t,{activeTagSlug:e.slug,categories:r(),description:`Showing tag:#${e.label}`,routeLabel:`~/writing/tag/${e.slug}`,posts:a(e.slug),tags:n()})}export{s as component};
