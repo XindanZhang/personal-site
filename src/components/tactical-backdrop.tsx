@@ -41,8 +41,12 @@ export function TacticalBackdrop() {
         backgroundUrl,
         operatorUrl,
         reducedMotion,
-        onReady: () => container.classList.add("is-ready"),
-        onFallback: () => container.classList.remove("is-ready"),
+        onReady: () => {
+          if (!cancelled) container.classList.add("is-ready");
+        },
+        onFallback: () => {
+          if (!cancelled) container.classList.remove("is-ready");
+        },
       }))
       .then((controller) => {
         if (cancelled) {

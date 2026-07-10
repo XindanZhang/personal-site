@@ -30,6 +30,16 @@ function readExport(outDir, ...segments) {
   return readFileSync(resolve(outDir, ...segments), "utf8");
 }
 
+test("the Vyron scene waits for shaders and survives WebGL recovery", () => {
+  const source = readFileSync(resolve(rootDir, "src", "lib", "game-scene.ts"), "utf8");
+  const compileCalls = source.match(/await renderer\.compileAsync\(scene, camera\)/g) ?? [];
+
+  assert.equal(compileCalls.length, 2, "initial render and context restore must both await shaders");
+  assert.match(source, /webglcontextlost/);
+  assert.match(source, /webglcontextrestored/);
+  assert.doesNotMatch(source, /preserveDrawingBuffer|forceContextLoss|THREE\.Clock/);
+});
+
 test("TanStack Start prerenders the terminal portfolio and every route", () => {
   const outDir = buildSite();
 

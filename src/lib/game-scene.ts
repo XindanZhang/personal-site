@@ -27,7 +27,6 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: false,
-    preserveDrawingBuffer: true,
     powerPreference: "high-performance",
   });
   renderer.setClearColor(0x020503, 1);
@@ -209,10 +208,11 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
 
   const pointerTarget = new THREE.Vector2();
   const pointerCurrent = new THREE.Vector2();
-  const clock = new THREE.Clock(false);
   const lookAtTarget = new THREE.Vector3(0, -0.2, 0);
   const operatorBase = new THREE.Vector3();
   let pulseAge = -1;
+  let elapsed = 0;
+  let lastFrameTime = 0;
 
   function visibleSizeAt(z: number) {
     const distance = Math.abs(camera.position.z - z);
@@ -277,10 +277,11 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
     if (progress >= 1) pulseAge = -1;
   }
 
-  function renderFrame() {
+  function renderFrame(timestamp: number) {
     if (!running || disposed) return;
-    const delta = Math.min(clock.getDelta(), 0.05);
-    const elapsed = clock.elapsedTime;
+    const delta = lastFrameTime === 0 ? 0 : Math.min((timestamp - lastFrameTime) / 1000, 0.05);
+    lastFrameTime = timestamp;
+    elapsed += delta;
     const damping = 1 - Math.exp(-delta * 6.2);
     pointerCurrent.lerp(pointerTarget, damping);
     const idle = Math.sin(elapsed * 0.42) * 0.025;
@@ -310,14 +311,14 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
   function start() {
     if (disposed || running || reducedMotion) return;
     running = true;
-    clock.start();
+    lastFrameTime = 0;
     frame = window.requestAnimationFrame(renderFrame);
   }
 
   function stop() {
     running = false;
     window.cancelAnimationFrame(frame);
-    clock.stop();
+    lastFrameTime = 0;
   }
 
   function setPointer(x: number, y: number) {
@@ -344,9 +345,23 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
     onFallback();
   }
 
+  async function handleContextRestored() {
+    if (disposed) return;
+    try {
+      await renderer.compileAsync(scene, camera);
+      if (disposed) return;
+      resize();
+      onReady();
+      if (!reducedMotion) start();
+    } catch {
+      onFallback();
+    }
+  }
+
   renderer.domElement.addEventListener("webglcontextlost", handleContextLost);
+  renderer.domElement.addEventListener("webglcontextrestored", handleContextRestored);
+  await renderer.compileAsync(scene, camera);
   resize();
-  renderer.render(scene, camera);
   onReady();
   if (!reducedMotion) start();
 
@@ -361,6 +376,7 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
       disposed = true;
       stop();
       renderer.domElement.removeEventListener("webglcontextlost", handleContextLost);
+      renderer.domElement.removeEventListener("webglcontextrestored", handleContextRestored);
       scene.traverse((object) => {
         if (!(object instanceof THREE.Mesh || object instanceof THREE.Points || object instanceof THREE.Line || object instanceof THREE.LineSegments)) return;
         object.geometry?.dispose();
@@ -370,7 +386,6 @@ export async function createGameScene(options: GameSceneOptions): Promise<GameSc
       backgroundTexture.dispose();
       operatorTexture.dispose();
       renderer.dispose();
-      renderer.forceContextLoss();
       renderer.domElement.remove();
     },
   };
