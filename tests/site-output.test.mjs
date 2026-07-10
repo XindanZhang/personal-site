@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -39,8 +39,12 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
       "404.html",
       "index.html",
       "figures/nextmini-topology.svg",
+      "fonts/paper-mono.woff2",
+      "fonts/PAPER-MONO-LICENSE.txt",
+      "images/game-zone-operator.webp",
       "about/index.html",
       "projects/index.html",
+      "games/index.html",
       "bookmarks/index.html",
       "blog/index.html",
       "blog/series/nextmini/index.html",
@@ -54,22 +58,29 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     }
 
     assert.equal(existsSync(resolve(outDir, "network-field.webp")), false, "removed generated background was exported");
+    assert.equal(existsSync(resolve(outDir, "images", "game-zone-operator.png")), false, "unoptimized game background was exported");
+    assert.ok(statSync(resolve(outDir, "images", "game-zone-operator.webp")).size < 150_000, "game background is too large for mobile");
     assert.equal(existsSync(resolve(outDir, "_next")), false, "Next.js assets remain in export");
 
     const homeHtml = readExport(outDir, "index.html");
     const notFoundHtml = readExport(outDir, "404.html");
     const projectsHtml = readExport(outDir, "projects", "index.html");
     const aboutHtml = readExport(outDir, "about", "index.html");
+    const gamesHtml = readExport(outDir, "games", "index.html");
     const linksHtml = readExport(outDir, "bookmarks", "index.html");
 
     assert.match(homeHtml, /<h1[^>]*id="home-title"[^>]*>Xindan Zhang/);
     assert.match(homeHtml, /xindan@toronto:~\$/);
-    assert.match(homeHtml, /WHOAMI\.OUT/);
-    assert.match(homeHtml, /NETWORK_SYSTEMS/);
-    assert.match(homeHtml, /aria-current="page"[^>]*class="nav-link is-active/);
-    assert.match(homeHtml, /Open work index/);
-    assert.match(homeHtml, /Current thread/);
-    assert.match(homeHtml, /Recent logs/);
+    assert.match(homeHtml, /profile --brief/);
+    assert.match(homeHtml, /\[ OK \].*profile mounted/);
+    assert.match(homeHtml, /network_systems :: tooling :: field_notes/);
+    assert.match(homeHtml, /OPEN_TO_COLLABORATE/);
+    assert.match(homeHtml, /\[01\].*\.\/work/);
+    assert.match(homeHtml, /tail -n 3 ~\/writing\.log/i);
+    assert.match(homeHtml, /tree ~\/research\/nextmini/i);
+    assert.match(homeHtml, /inspect --practice/i);
+    assert.match(homeHtml, /aria-label="Terminal ready"/);
+    assert.match(homeHtml, /aria-current="page"/);
     assert.match(homeHtml, /id="main-content"/);
     assert.match(homeHtml, /Skip to content/);
     assert.match(homeHtml, /\/personal-site\/assets\//);
@@ -87,6 +98,16 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     assert.match(aboutHtml, /A practical systems stack/);
     assert.match(aboutHtml, /Copy email/);
 
+    assert.match(gamesHtml, /<title>Games \| Xindan Zhang<\/title>/);
+    assert.match(gamesHtml, /<h1[^>]*id="game-zone-title"[^>]*><span>GAME ZONE<\/span>DELTA FORCE<\/h1>/);
+    assert.match(gamesHtml, /game-zone-operator\.webp/);
+    assert.match(gamesHtml, /Warfare/);
+    assert.match(gamesHtml, /Operations/);
+    assert.match(gamesHtml, /Black Hawk Down/);
+    assert.match(gamesHtml, /OPERATOR_ID \/ FAVORITE_FILE/);
+    assert.match(gamesHtml, /XINDAN/);
+    assert.match(gamesHtml, /href="\/personal-site\/games\/"[^>]*aria-current="page"/);
+
     assert.match(linksHtml, /One reference I keep reopening/);
     assert.match(linksHtml, /BOOKMARK\.TABLE/);
     assert.match(linksHtml, /nextmini\.org/);
@@ -101,6 +122,7 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
   try {
     const blogHtml = readExport(outDir, "blog", "index.html");
     const articleHtml = readExport(outDir, "blog", "nextmini", "controller-interface", "index.html");
+    const notFoundHtml = readExport(outDir, "404.html");
     const cssFile = readdirSync(resolve(outDir, "assets")).find((file) => file.endsWith(".css"));
     assert.ok(cssFile, "missing Vite CSS bundle");
     const css = readExport(outDir, "assets", cssFile);
@@ -121,14 +143,21 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
     assert.match(articleHtml, /Copy link/);
     assert.match(articleHtml, /Controller interface/);
 
-    assert.match(css, /IBM Plex Mono/);
-    assert.match(css, /backdrop-filter:blur\(16px\)/);
+    assert.match(css, /@font-face/);
+    assert.match(css, /Paper Mono/);
+    assert.match(css, /\/personal-site\/fonts\/paper-mono\.woff2/);
+    assert.doesNotMatch(css, /IBM Plex/);
+    assert.match(css, /backdrop-filter:blur\(10px\)/);
     assert.match(css, /@media\s*\(prefers-reduced-motion:reduce\)/);
     assert.match(css, /scroll-behavior:auto!important/);
-    assert.match(css, /@keyframes terminal-type/);
-    assert.match(css, /@keyframes signal-travel/);
+    assert.match(css, /@keyframes tactical-rain/);
+    assert.match(css, /@keyframes radar-sweep/);
+    assert.match(css, /@keyframes touch-ping/);
     assert.match(css, /:focus-visible/);
-    assert.match(css, /--phosphor:#72f59d/);
+    assert.match(css, /--phosphor:#73f59f/);
+    assert.match(notFoundHtml, /Paper Mono/);
+    assert.match(notFoundHtml, /\/personal-site\/fonts\/paper-mono\.woff2/);
+    assert.match(notFoundHtml, /xindan@toronto/);
 
     const htmlFiles = [];
     const walk = (directory) => {
@@ -139,12 +168,13 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
       }
     };
     walk(outDir);
-    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 46);
+    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 47);
 
     for (const file of htmlFiles) {
       const html = readFileSync(file, "utf8");
       assert.doesNotMatch(html, /(?:href|src)="\/assets\//, `root asset path leaked in ${file}`);
       assert.doesNotMatch(html, /_next\//, `Next.js asset leaked in ${file}`);
+      assert.doesNotMatch(html, /xindan@portfolio/, `old terminal host leaked in ${file}`);
     }
   } finally {
     rmSync(outDir, { recursive: true, force: true });
