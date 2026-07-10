@@ -41,7 +41,8 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
       "figures/nextmini-topology.svg",
       "fonts/paper-mono.woff2",
       "fonts/PAPER-MONO-LICENSE.txt",
-      "images/game-zone-operator.webp",
+      "images/delta-force-yard-v2.webp",
+      "images/vyron-cutout-v2.webp",
       "about/index.html",
       "projects/index.html",
       "games/index.html",
@@ -58,8 +59,9 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     }
 
     assert.equal(existsSync(resolve(outDir, "network-field.webp")), false, "removed generated background was exported");
-    assert.equal(existsSync(resolve(outDir, "images", "game-zone-operator.png")), false, "unoptimized game background was exported");
-    assert.ok(statSync(resolve(outDir, "images", "game-zone-operator.webp")).size < 150_000, "game background is too large for mobile");
+    assert.equal(existsSync(resolve(outDir, "images", "game-zone-operator.webp")), false, "old operator composite was exported");
+    assert.ok(statSync(resolve(outDir, "images", "delta-force-yard-v2.webp")).size < 150_000, "game background is too large for mobile");
+    assert.ok(statSync(resolve(outDir, "images", "vyron-cutout-v2.webp")).size < 250_000, "Vyron cutout is too large for mobile");
     assert.equal(existsSync(resolve(outDir, "_next")), false, "Next.js assets remain in export");
 
     const homeHtml = readExport(outDir, "index.html");
@@ -98,14 +100,18 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     assert.match(aboutHtml, /A practical systems stack/);
     assert.match(aboutHtml, /Copy email/);
 
-    assert.match(gamesHtml, /<title>Games \| Xindan Zhang<\/title>/);
-    assert.match(gamesHtml, /<h1[^>]*id="game-zone-title"[^>]*><span>GAME ZONE<\/span>DELTA FORCE<\/h1>/);
-    assert.match(gamesHtml, /game-zone-operator\.webp/);
-    assert.match(gamesHtml, /Warfare/);
-    assert.match(gamesHtml, /Operations/);
-    assert.match(gamesHtml, /Black Hawk Down/);
-    assert.match(gamesHtml, /OPERATOR_ID \/ FAVORITE_FILE/);
-    assert.match(gamesHtml, /XINDAN/);
+    assert.match(gamesHtml, /<title>Vyron \| Game Zone<\/title>/);
+    assert.match(gamesHtml, /<h1[^>]*id="game-zone-title"[^>]*><span>OPERATOR 07<\/span>VYRON<\/h1>/);
+    assert.match(gamesHtml, /delta-force-yard-v2\.webp/);
+    assert.match(gamesHtml, /vyron-cutout-v2\.webp/);
+    assert.match(gamesHtml, /game-scene-fallback/);
+    assert.match(gamesHtml, /vyron@gti/);
+    assert.match(gamesHtml, /gti:\/\/operator/);
+    assert.match(gamesHtml, /ASSAULT \/ ACTIVE/);
+    assert.match(gamesHtml, /DASH/);
+    assert.match(gamesHtml, /QLL32/);
+    assert.match(gamesHtml, /MAG/);
+    assert.doesNotMatch(gamesHtml, /XINDAN|xindan@toronto|A personal field terminal|Combined-arms scale|Extract with intent|Campaign pressure/);
     assert.match(gamesHtml, /href="\/personal-site\/games\/"[^>]*aria-current="page"/);
 
     assert.match(linksHtml, /One reference I keep reopening/);
@@ -150,9 +156,9 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
     assert.match(css, /backdrop-filter:blur\(10px\)/);
     assert.match(css, /@media\s*\(prefers-reduced-motion:reduce\)/);
     assert.match(css, /scroll-behavior:auto!important/);
-    assert.match(css, /@keyframes tactical-rain/);
-    assert.match(css, /@keyframes radar-sweep/);
-    assert.match(css, /@keyframes touch-ping/);
+    assert.match(css, /\.game-scene/);
+    assert.match(css, /touch-action:none/);
+    assert.match(css, /\.vyron-kit/);
     assert.match(css, /:focus-visible/);
     assert.match(css, /--phosphor:#73f59f/);
     assert.match(notFoundHtml, /Paper Mono/);
