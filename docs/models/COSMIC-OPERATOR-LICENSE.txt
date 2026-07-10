@@ -1,0 +1,9 @@
+Cosmic operator base model
+
+Asset: Spacesuit from Ultimate Modular Men Pack
+Creator: Quaternius
+Source: https://quaternius.com/packs/ultimatemodularcharacters.html
+License: Creative Commons Zero v1.0 Universal (CC0 1.0)
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+
+The site modifies the model's pose and materials at runtime in Three.js.
