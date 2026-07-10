@@ -15,7 +15,23 @@ export function TacticalBackdrop() {
 
     let cancelled = false;
     let intersecting = true;
+    let revealFrame = 0;
+    let settleFrame = 0;
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const cancelReveal = () => {
+      window.cancelAnimationFrame(revealFrame);
+      window.cancelAnimationFrame(settleFrame);
+    };
+
+    const revealPaintedScene = () => {
+      cancelReveal();
+      revealFrame = window.requestAnimationFrame(() => {
+        settleFrame = window.requestAnimationFrame(() => {
+          if (!cancelled) container.classList.add("is-ready");
+        });
+      });
+    };
 
     const syncPlayback = () => {
       const controller = controllerRef.current;
@@ -40,10 +56,9 @@ export function TacticalBackdrop() {
         container,
         modelUrl,
         reducedMotion: motionQuery.matches,
-        onReady: () => {
-          if (!cancelled) container.classList.add("is-ready");
-        },
+        onReady: revealPaintedScene,
         onFallback: () => {
+          cancelReveal();
           if (!cancelled) container.classList.remove("is-ready");
         },
       }))
@@ -60,6 +75,7 @@ export function TacticalBackdrop() {
 
     return () => {
       cancelled = true;
+      cancelReveal();
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", syncPlayback);
