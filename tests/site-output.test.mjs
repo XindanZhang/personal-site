@@ -37,6 +37,12 @@ test("the Vyron scene waits for shaders and survives WebGL recovery", () => {
   assert.equal(compileCalls.length, 2, "initial render and context restore must both await shaders");
   assert.match(source, /webglcontextlost/);
   assert.match(source, /webglcontextrestored/);
+  assert.match(source, /GLTFLoader/);
+  assert.match(source, /OrbitControls/);
+  assert.match(source, /modelUrl/);
+  assert.match(source, /THREE\.TOUCH\.DOLLY_ROTATE/);
+  assert.match(source, /setReducedMotion/);
+  assert.doesNotMatch(source, /TextureLoader|backgroundUrl|operatorUrl/);
   assert.doesNotMatch(source, /preserveDrawingBuffer|forceContextLoss|THREE\.Clock/);
 });
 
@@ -48,14 +54,14 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
       ".nojekyll",
       "404.html",
       "index.html",
-      "figures/nextmini-topology.svg",
       "fonts/paper-mono.woff2",
       "fonts/PAPER-MONO-LICENSE.txt",
-      "images/delta-force-yard-v2.webp",
-      "images/vyron-cutout-v2.webp",
+      "models/cosmic-operator.glb",
+      "models/COSMIC-OPERATOR-LICENSE.txt",
       "about/index.html",
       "projects/index.html",
       "games/index.html",
+      "interests/index.html",
       "bookmarks/index.html",
       "blog/index.html",
       "blog/series/nextmini/index.html",
@@ -70,25 +76,28 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
 
     assert.equal(existsSync(resolve(outDir, "network-field.webp")), false, "removed generated background was exported");
     assert.equal(existsSync(resolve(outDir, "images", "game-zone-operator.webp")), false, "old operator composite was exported");
-    assert.ok(statSync(resolve(outDir, "images", "delta-force-yard-v2.webp")).size < 150_000, "game background is too large for mobile");
-    assert.ok(statSync(resolve(outDir, "images", "vyron-cutout-v2.webp")).size < 250_000, "Vyron cutout is too large for mobile");
+    assert.equal(existsSync(resolve(outDir, "figures", "nextmini-topology.svg")), false, "removed topology figure was exported");
+    assert.equal(existsSync(resolve(outDir, "images", "delta-force-yard-v2.webp")), false, "old game background was exported");
+    assert.equal(existsSync(resolve(outDir, "images", "vyron-cutout-v2.webp")), false, "old operator cutout was exported");
+    assert.ok(statSync(resolve(outDir, "models", "cosmic-operator.glb")).size < 2_500_000, "3D operator asset is too large");
     assert.equal(existsSync(resolve(outDir, "_next")), false, "Next.js assets remain in export");
 
     const homeHtml = readExport(outDir, "index.html");
     const notFoundHtml = readExport(outDir, "404.html");
     const projectsHtml = readExport(outDir, "projects", "index.html");
     const aboutHtml = readExport(outDir, "about", "index.html");
-    const gamesHtml = readExport(outDir, "games", "index.html");
+    const interestsHtml = readExport(outDir, "interests", "index.html");
+    const legacyGamesHtml = readExport(outDir, "games", "index.html");
     const linksHtml = readExport(outDir, "bookmarks", "index.html");
 
     assert.match(homeHtml, /<h1[^>]*id="home-title"[^>]*><span>Xindan<\/span><span>Zhang\.<\/span><\/h1>/);
     assert.match(homeHtml, /Systems · Networks · Tools/);
-    assert.match(homeHtml, /Systems builder and technical writer in Toronto\./);
-    assert.match(homeHtml, /Available for collaboration/);
+    assert.match(homeHtml, /PhD student in Electrical &amp; Computer Engineering at U of T\./);
+    assert.match(homeHtml, /U of T ECE/);
     assert.match(homeHtml, /View selected work/);
     assert.match(homeHtml, /Built to make behavior visible\./);
-    assert.match(homeHtml, /Interactive study · Three\.js/);
-    assert.match(homeHtml, /\/personal-site\/figures\/nextmini-topology\.svg/);
+    assert.match(homeHtml, /Nextmini Code-Reading Notes/);
+    assert.doesNotMatch(homeHtml, /Vyron|nextmini-topology|Available for collaboration|technical writer/);
     assert.match(homeHtml, /aria-label="Primary navigation"/);
     assert.match(homeHtml, /aria-label="Switch to dark theme"/);
     assert.match(homeHtml, /aria-controls="mobile-navigation"/);
@@ -103,34 +112,32 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.doesNotMatch(notFoundHtml, /<script/);
 
     assert.match(projectsHtml, /Systems made legible\./);
-    assert.match(projectsHtml, /Featured research/);
-    assert.match(projectsHtml, /Nextmini topology/);
-    assert.match(projectsHtml, /\/personal-site\/figures\/nextmini-topology\.svg/);
+    assert.match(projectsHtml, /Featured notes/);
+    assert.match(projectsHtml, /Four-part code-reading series/);
     assert.match(projectsHtml, /More work/);
     assert.match(projectsHtml, /TanStack Start notebook/);
-    assert.match(projectsHtml, /Vyron Interactive Scene/);
-    assert.match(projectsHtml, /Independent researcher and technical writer/);
+    assert.doesNotMatch(projectsHtml, /Vyron|nextmini-topology|Independent researcher|technical writer/);
 
-    assert.match(aboutHtml, /I make technical behavior easier to see and revisit/);
-    assert.match(aboutHtml, /From a trace to a durable note\./);
+    assert.match(aboutHtml, /PhD student in ECE at the University of Toronto\./);
+    assert.match(aboutHtml, /From a trace to a reusable result\./);
     assert.match(aboutHtml, /A practical systems stack/);
     assert.match(aboutHtml, /Have a thoughtful systems problem\?/);
     assert.match(aboutHtml, /Copy email/);
+    assert.doesNotMatch(aboutHtml, />XZ<|Independent researcher|technical writer|Available/);
 
-    assert.match(gamesHtml, /<title>Vyron \| Game Zone<\/title>/);
-    assert.match(gamesHtml, /<h1[^>]*id="game-zone-title"[^>]*><span>OPERATOR 07<\/span>VYRON<\/h1>/);
-    assert.match(gamesHtml, /delta-force-yard-v2\.webp/);
-    assert.match(gamesHtml, /vyron-cutout-v2\.webp/);
-    assert.match(gamesHtml, /game-scene-fallback/);
-    assert.match(gamesHtml, /class="site-header is-game-header"/);
-    assert.match(gamesHtml, /aria-label="Return to portfolio"/);
-    assert.match(gamesHtml, /gti:\/\/operator/);
-    assert.match(gamesHtml, /ASSAULT \/ ACTIVE/);
-    assert.match(gamesHtml, /DASH/);
-    assert.match(gamesHtml, /QLL32/);
-    assert.match(gamesHtml, /MAG/);
-    assert.match(gamesHtml, /rel="canonical" href="https:\/\/xindanzhang\.github\.io\/personal-site\/games\/"/);
-    assert.doesNotMatch(gamesHtml, /xindan@toronto|A personal field terminal|Have a systems problem worth making legible/);
+    assert.match(interestsHtml, /<title>Interests \| Xindan Zhang<\/title>/);
+    assert.match(interestsHtml, /<h1[^>]*id="game-zone-title"[^>]*>VYRON<\/h1>/);
+    assert.match(interestsHtml, /COSMIC GUARDIAN/);
+    assert.match(interestsHtml, /QLL32/);
+    assert.match(interestsHtml, /DYNAMIC AUXILIARY/);
+    assert.match(interestsHtml, /game-scene-fallback/);
+    assert.match(interestsHtml, /class="site-header is-game-header"/);
+    assert.match(interestsHtml, /aria-label="Home"/);
+    assert.match(interestsHtml, /models\/cosmic-operator\.glb/);
+    assert.match(interestsHtml, /rel="canonical" href="https:\/\/xindanzhang\.github\.io\/personal-site\/interests\/"/);
+    assert.doesNotMatch(interestsHtml, /gti:\/\/operator|OPERATOR 07|ASSAULT \/ ACTIVE|DASH|MAG|delta-force-yard|vyron-cutout|Have a systems problem worth making legible/);
+    assert.match(legacyGamesHtml, /http-equiv="refresh" content="0; url=\/personal-site\/interests\/"/);
+    assert.match(legacyGamesHtml, /name="robots" content="noindex"/);
 
     assert.match(linksHtml, /References worth reopening\./);
     assert.match(linksHtml, /aria-label="Bookmarked references"/);
@@ -176,7 +183,7 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /\/personal-site\/fonts\/paper-mono\.woff2/);
     assert.doesNotMatch(css, /IBM Plex/);
     assert.match(css, /--font-sans:Arial/);
-    assert.match(css, /--paper:#f4f6f2/);
+    assert.match(css, /--paper:#f7f7f8/);
     assert.match(css, /--blue:#1646ff/);
     assert.match(css, /\[data-theme=dark\]/);
     assert.match(css, /backdrop-filter:blur\(/);
@@ -190,6 +197,8 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /\.game-scene/);
     assert.match(css, /touch-action:none/);
     assert.match(css, /\.vyron-kit/);
+    assert.match(css, /overflow-y:auto/);
+    assert.doesNotMatch(css, /#b9f34b|#73f59f|#65e99a|#75f59f|#72f59d|#78f5a2|#9dd8cc|#1a5e3a/);
     assert.match(css, /:focus-visible/);
     assert.match(notFoundHtml, /Paper Mono/);
     assert.match(notFoundHtml, /\/personal-site\/fonts\/paper-mono\.woff2/);
@@ -205,7 +214,7 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
       }
     };
     walk(outDir);
-    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 47);
+    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 48);
 
     for (const file of htmlFiles) {
       const html = readFileSync(file, "utf8");
