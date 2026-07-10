@@ -10,6 +10,7 @@ export function SiteHeader() {
   const [theme, setTheme] = useState<Theme>("dark");
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const routePath = getRoutePath(pathname);
+  const isGames = isRouteActive(routePath, "/games/");
   const displayPath = routePath === "/" ? "~/home" : `~${routePath.replace(/\/$/, "")}`;
 
   useEffect(() => {
@@ -26,9 +27,9 @@ export function SiteHeader() {
   return (
     <>
       <header className="site-header">
-        <Link className="terminal-brand" to="/" aria-label="Xindan Zhang, home">
+        <Link className="terminal-brand" to="/" aria-label={isGames ? "Game terminal, home" : "Xindan Zhang, home"}>
           <span aria-hidden="true">&gt;_</span>
-          <strong>xindan@toronto</strong>
+          <strong>{isGames ? "vyron@gti" : "xindan@toronto"}</strong>
         </Link>
         <span className="header-path">{displayPath}</span>
         <span className="header-runtime"><i className="live-dot" aria-hidden="true" /> xterm-256color</span>
@@ -58,8 +59,8 @@ export function SiteHeader() {
         <Link className="tree-file" to="/bookmarks/"><span aria-hidden="true">└─</span>bookmarks.md</Link>
         <dl className="tree-status">
           <div><dt>NODE</dt><dd>TORONTO_CA</dd></div>
-          <div><dt>FOCUS</dt><dd>NETWORKS</dd></div>
-          <div><dt>ACTIVE</dt><dd>NEXTMINI</dd></div>
+          <div><dt>FOCUS</dt><dd>{isGames ? "ASSAULT" : "NETWORKS"}</dd></div>
+          <div><dt>ACTIVE</dt><dd>{isGames ? "VYRON" : "NEXTMINI"}</dd></div>
           <div><dt>STATE</dt><dd><i className="live-dot" aria-hidden="true" /> ONLINE</dd></div>
         </dl>
       </aside>

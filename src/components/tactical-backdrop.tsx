@@ -1,69 +1,120 @@
+import type { PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useRef } from "react";
+import type { GameSceneHandle } from "~/lib/game-scene";
 import { site } from "~/lib/site";
 
+const backgroundUrl = `${site.basePath}/images/delta-force-yard-v2.webp`;
+const operatorUrl = `${site.basePath}/images/vyron-cutout-v2.webp`;
+
 export function TacticalBackdrop() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const pulseTimerRef = useRef<number | undefined>(undefined);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const controllerRef = useRef<GameSceneHandle | null>(null);
+  const pointerActiveRef = useRef(false);
 
-  useEffect(() => () => window.clearTimeout(pulseTimerRef.current), []);
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  function moveScene(clientX: number, clientY: number) {
-    const scene = sceneRef.current;
-    if (!scene) return;
+    let cancelled = false;
+    let intersecting = true;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const bounds = scene.getBoundingClientRect();
-    const x = Math.max(-1, Math.min(1, ((clientX - bounds.left) / bounds.width - 0.5) * 2));
-    const y = Math.max(-1, Math.min(1, ((clientY - bounds.top) / bounds.height - 0.5) * 2));
-    scene.style.setProperty("--scene-x", `${x * -13}px`);
-    scene.style.setProperty("--scene-y", `${y * -9}px`);
-    scene.style.setProperty("--hud-x", `${x * 8}px`);
-    scene.style.setProperty("--hud-y", `${y * 6}px`);
+    const syncPlayback = () => {
+      const controller = controllerRef.current;
+      if (!controller) return;
+      if (!document.hidden && intersecting) controller.start();
+      else controller.stop();
+    };
+
+    const resizeObserver = new ResizeObserver(() => controllerRef.current?.resize());
+    resizeObserver.observe(container);
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      intersecting = entry?.isIntersecting ?? true;
+      syncPlayback();
+    }, { threshold: 0.05 });
+    intersectionObserver.observe(container);
+    document.addEventListener("visibilitychange", syncPlayback);
+
+    import("~/lib/game-scene")
+      .then(({ createGameScene }) => createGameScene({
+        container,
+        backgroundUrl,
+        operatorUrl,
+        reducedMotion,
+        onReady: () => container.classList.add("is-ready"),
+        onFallback: () => container.classList.remove("is-ready"),
+      }))
+      .then((controller) => {
+        if (cancelled) {
+          controller.dispose();
+          return;
+        }
+        controllerRef.current = controller;
+        controller.resize();
+        syncPlayback();
+      })
+      .catch(() => container.classList.remove("is-ready"));
+
+    return () => {
+      cancelled = true;
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      controllerRef.current?.dispose();
+      controllerRef.current = null;
+    };
+  }, []);
+
+  function getPointer(event: ReactPointerEvent<HTMLDivElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    return {
+      x: ((event.clientX - bounds.left) / bounds.width) * 2 - 1,
+      y: -(((event.clientY - bounds.top) / bounds.height) * 2 - 1),
+    };
   }
 
-  function pulseScene(clientX: number, clientY: number) {
-    const scene = sceneRef.current;
-    if (!scene) return;
-
-    const bounds = scene.getBoundingClientRect();
-    scene.style.setProperty("--pulse-x", `${clientX - bounds.left}px`);
-    scene.style.setProperty("--pulse-y", `${clientY - bounds.top}px`);
-    scene.classList.remove("is-pulsing");
-    void scene.offsetWidth;
-    scene.classList.add("is-pulsing");
-    window.clearTimeout(pulseTimerRef.current);
-    pulseTimerRef.current = window.setTimeout(() => scene.classList.remove("is-pulsing"), 760);
+  function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
+    pointerActiveRef.current = true;
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Synthetic pointer events do not always have an active browser pointer.
+    }
+    const point = getPointer(event);
+    controllerRef.current?.setPointer(point.x, point.y);
+    controllerRef.current?.pulse(point.x, point.y);
   }
 
-  function resetScene() {
-    const scene = sceneRef.current;
-    if (!scene) return;
-    scene.style.setProperty("--scene-x", "0px");
-    scene.style.setProperty("--scene-y", "0px");
-    scene.style.setProperty("--hud-x", "0px");
-    scene.style.setProperty("--hud-y", "0px");
+  function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" && !pointerActiveRef.current) return;
+    const point = getPointer(event);
+    controllerRef.current?.setPointer(point.x, point.y);
+  }
+
+  function handlePointerEnd(event: ReactPointerEvent<HTMLDivElement>) {
+    pointerActiveRef.current = false;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    if (event.pointerType !== "mouse") controllerRef.current?.setPointer(0, 0);
   }
 
   return (
     <div
-      ref={sceneRef}
-      className="tactical-backdrop"
+      ref={containerRef}
+      className="game-scene"
       aria-hidden="true"
-      onPointerDown={(event) => {
-        moveScene(event.clientX, event.clientY);
-        pulseScene(event.clientX, event.clientY);
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerEnd}
+      onPointerCancel={handlePointerEnd}
+      onPointerLeave={() => {
+        pointerActiveRef.current = false;
+        controllerRef.current?.setPointer(0, 0);
       }}
-      onPointerMove={(event) => moveScene(event.clientX, event.clientY)}
-      onPointerLeave={resetScene}
     >
-      <div className="operator-image">
-        <img src={`${site.basePath}/images/game-zone-operator.webp`} alt="" width={1774} height={887} decoding="async" fetchPriority="high" />
+      <div className="game-scene-fallback">
+        <img className="game-scene-yard" src={backgroundUrl} alt="" width={1774} height={887} fetchPriority="high" />
+        <img className="game-scene-operator" src={operatorUrl} alt="" width={887} height={1774} decoding="async" />
       </div>
-      <div className="tactical-grid" />
-      <div className="weather-field" />
-      <div className="radar-dial"><i /><i /><i /></div>
-      <div className="target-reticle"><i /><i /></div>
-      <div className="range-lines"><i /><i /><i /><i /></div>
-      <div className="touch-pulse" />
     </div>
   );
 }

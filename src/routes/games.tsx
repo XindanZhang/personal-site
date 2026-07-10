@@ -1,124 +1,43 @@
-import { Activity, ArrowUpRight, Crosshair, Radio, Shield } from "lucide-react";
+import { ChevronsRight, Crosshair, Magnet, Radio } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { TacticalBackdrop } from "~/components/tactical-backdrop";
-
-const modes = [
-  {
-    id: "warfare",
-    label: "Warfare",
-    code: "WF",
-    icon: Activity,
-    title: "Combined-arms scale",
-    body: "Large maps, vehicles, and land-sea-air battles turn every push into a moving systems problem.",
-    status: "FRONTLINE / ACTIVE",
-  },
-  {
-    id: "operations",
-    label: "Operations",
-    code: "OP",
-    icon: Crosshair,
-    title: "Extract with intent",
-    body: "A tactical extraction loop built around preparation, resource decisions, and making it back out.",
-    status: "EXTRACTION / READY",
-  },
-  {
-    id: "black-hawk-down",
-    label: "Black Hawk Down",
-    code: "BHD",
-    icon: Shield,
-    title: "Campaign pressure",
-    body: "A focused campaign mode that trades the open map for close coordination and sustained pressure.",
-    status: "CAMPAIGN / LINKED",
-  },
-] as const;
-
-type ModeId = (typeof modes)[number]["id"];
 
 export const Route = createFileRoute("/games")({
   head: () => ({
     meta: [
-      { title: "Games | Xindan Zhang" },
-      { name: "description", content: "Xindan Zhang's immersive fan terminal for Delta Force." },
+      { title: "Vyron | Game Zone" },
+      { name: "description", content: "An interactive Three.js operator scene for Vyron." },
     ],
     links: [
       { rel: "canonical", href: "https://xindanzhang.github.io/personal-site/games/" },
-      { rel: "preload", href: "/personal-site/images/game-zone-operator.webp", as: "image", type: "image/webp" },
+      { rel: "preload", href: "/personal-site/images/delta-force-yard-v2.webp", as: "image", type: "image/webp" },
     ],
   }),
   component: GamesPage,
 });
 
 function GamesPage() {
-  const [activeModeId, setActiveModeId] = useState<ModeId>("warfare");
-  const activeMode = modes.find((mode) => mode.id === activeModeId) ?? modes[0];
-  const ActiveIcon = activeMode.icon;
-
   return (
     <section className="game-zone" aria-labelledby="game-zone-title">
       <TacticalBackdrop />
 
       <header className="game-topline">
-        <p><span>xindan@toronto:~/games$</span> launch delta_force --profile XINDAN</p>
-        <div><i className="live-dot" /> SIGNAL_LOCKED <Radio aria-hidden="true" size={13} /></div>
+        <p><span>gti://operator</span> deploy --unit vyron</p>
+        <div><i className="live-dot" aria-hidden="true" /> LINKED <Radio aria-hidden="true" size={13} /></div>
       </header>
 
-      <div className="game-content">
-        <p className="game-kicker">FAVORITE_GAME / TACTICAL_FILE_05</p>
-        <h1 id="game-zone-title"><span>GAME ZONE</span>DELTA FORCE</h1>
-        <p className="game-deck">A personal field terminal for the game I keep coming back to: scale, pressure, clean information, and one more deployment.</p>
-
-        <div className="mode-switcher" role="tablist" aria-label="Delta Force modes">
-          {modes.map((mode, index) => {
-            const Icon = mode.icon;
-            const active = mode.id === activeModeId;
-            return (
-              <button
-                key={mode.id}
-                id={`mode-tab-${mode.id}`}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                aria-controls="mode-readout"
-                tabIndex={active ? 0 : -1}
-                className={active ? "is-active" : ""}
-                onClick={() => setActiveModeId(mode.id)}
-                onKeyDown={(event) => {
-                  const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
-                  if (!keys.includes(event.key)) return;
-                  event.preventDefault();
-                  const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? modes.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + modes.length) % modes.length;
-                  const nextMode = modes[nextIndex];
-                  setActiveModeId(nextMode.id);
-                  window.requestAnimationFrame(() => document.getElementById(`mode-tab-${nextMode.id}`)?.focus());
-                }}
-              >
-                <Icon aria-hidden="true" size={13} />
-                <span>{mode.code}</span>
-                {mode.label}
-              </button>
-            );
-          })}
+      <div className="game-content game-content-minimal">
+        <p className="game-kicker">ASSAULT / ACTIVE</p>
+        <h1 id="game-zone-title"><span>OPERATOR 07</span>VYRON</h1>
+        <div className="vyron-kit" aria-label="Vyron equipment">
+          <span><ChevronsRight aria-hidden="true" size={14} /> DASH</span>
+          <span><Crosshair aria-hidden="true" size={14} /> QLL32</span>
+          <span><Magnet aria-hidden="true" size={14} /> MAG</span>
         </div>
-
-        <div id="mode-readout" className="mode-readout" role="tabpanel" aria-labelledby={`mode-tab-${activeModeId}`}>
-          <div className="mode-icon"><ActiveIcon aria-hidden="true" size={20} /></div>
-          <div><span>{activeMode.status}</span><h2>{activeMode.title}</h2><p>{activeMode.body}</p></div>
-        </div>
-
-        <a className="game-launch-link" href="https://www.playdeltaforce.com/" target="_blank" rel="noopener noreferrer">
-          OPEN OFFICIAL SITE <ArrowUpRight aria-hidden="true" size={15} />
-        </a>
       </div>
 
-      <aside className="operator-dossier" aria-label="Operator callsign">
-        <span>OPERATOR_ID / FAVORITE_FILE</span>
-        <strong>XINDAN</strong>
-        <small>TORONTO_CA // DF-05</small>
-      </aside>
-
       <footer className="game-telemetry" aria-label="Scene telemetry">
-        <span>LAT 43.6532 N</span><i /><span>LON 79.3832 W</span><i /><span>PARALLAX ACTIVE</span><i /><span>UNOFFICIAL FAN TERMINAL</span>
+        <span>DYNAMIC AUXILIARY // ONLINE</span><i /><span>3D SCENE // ACTIVE</span>
       </footer>
     </section>
   );
