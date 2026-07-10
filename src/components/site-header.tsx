@@ -43,7 +43,7 @@ export function SiteHeader() {
       </header>
 
       <aside className="site-tree">
-        <div className="tree-heading"><span>~/</span><span>4 dirs</span></div>
+        <div className="tree-heading"><span>~/</span><span>5 dirs</span></div>
         <nav aria-label="Primary navigation">
           {navigation.map((item, index) => {
             const active = isRouteActive(routePath, item.to);

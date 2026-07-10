@@ -3,6 +3,7 @@ export const navigation = [
   { to: "/projects/", label: "work", command: "2" },
   { to: "/blog/", label: "notes", command: "3" },
   { to: "/about/", label: "about", command: "4" },
+  { to: "/games/", label: "games", command: "5" },
 ] as const;
 
 export function getRoutePath(pathname: string) {

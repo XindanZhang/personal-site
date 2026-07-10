@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as GamesRouteImport } from './routes/games'
 import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
@@ -23,6 +24,11 @@ import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookmarksRoute = BookmarksRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/bookmarks': typeof BookmarksRoute
+  '/games': typeof GamesRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog/': typeof BlogIndexRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/bookmarks': typeof BookmarksRoute
+  '/games': typeof GamesRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog': typeof BlogIndexRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/bookmarks': typeof BookmarksRoute
+  '/games': typeof GamesRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog/': typeof BlogIndexRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/bookmarks'
+    | '/games'
     | '/projects'
     | '/blog/$'
     | '/blog/'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/bookmarks'
+    | '/games'
     | '/projects'
     | '/blog/$'
     | '/blog'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/bookmarks'
+    | '/games'
     | '/projects'
     | '/blog/$'
     | '/blog/'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   BookmarksRoute: typeof BookmarksRoute
+  GamesRoute: typeof GamesRoute
   ProjectsRoute: typeof ProjectsRoute
   BlogSplatRoute: typeof BlogSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bookmarks': {
@@ -240,6 +260,7 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   AboutRoute: AboutRoute,
   BookmarksRoute: BookmarksRoute,
+  GamesRoute: GamesRoute,
   ProjectsRoute: ProjectsRoute,
   BlogSplatRoute: BlogSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
