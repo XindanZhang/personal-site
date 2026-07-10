@@ -170,7 +170,6 @@ ol {
 .site-main {
   min-height: calc(100vh - var(--header-height));
   padding-top: var(--header-height);
-  overflow: clip;
 }
 
 .site-main:has(.game-zone) {
@@ -512,6 +511,7 @@ ol {
 .writing-search,
 .series-index,
 .article-header,
+.article-outline-mobile,
 .article-grid {
   width: min(calc(100% - (var(--gutter) * 2)), var(--page-width));
   margin-right: auto;
@@ -910,7 +910,7 @@ ol {
   border-top: 1px solid var(--line);
   grid-template-columns: 56px 190px minmax(0, 1fr) 32px;
   gap: 24px;
-  transition: background-color 180ms ease, padding 200ms var(--ease-out);
+  transition: background-color 180ms ease;
 }
 
 .writing-preview-row:first-child {
@@ -1116,7 +1116,7 @@ ol {
   border-top: 1px solid var(--line);
   grid-template-columns: 58px minmax(0, 1fr) auto;
   gap: 28px;
-  transition: background-color 180ms ease, padding 200ms var(--ease-out);
+  transition: background-color 180ms ease;
 }
 
 .project-row:first-child {
@@ -1550,7 +1550,7 @@ ol {
   padding: 30px 0;
   grid-template-columns: 58px minmax(0, 1fr) 32px;
   gap: 28px;
-  transition: background-color 180ms ease, padding 200ms var(--ease-out);
+  transition: background-color 180ms ease;
 }
 
 .post-row-main h2 {
@@ -1679,6 +1679,10 @@ ol {
   grid-template-columns: minmax(0, 820px);
 }
 
+.article-outline-mobile {
+  display: none;
+}
+
 .article-main {
   min-width: 0;
 }
@@ -1770,6 +1774,8 @@ ol {
   background: var(--surface-soft);
   font-family: var(--font-mono);
   font-size: 0.86em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .article-prose pre {
@@ -1786,6 +1792,8 @@ ol {
   padding: 0;
   background: transparent;
   color: inherit;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .article-prose table {
@@ -1913,7 +1921,7 @@ ol {
   border-bottom: 1px solid var(--line);
   grid-template-columns: 56px minmax(240px, 0.7fr) minmax(300px, 1fr) 30px;
   gap: 28px;
-  transition: background-color 180ms ease, padding 200ms var(--ease-out);
+  transition: background-color 180ms ease;
 }
 
 .bookmark-row:first-child {
@@ -2318,8 +2326,6 @@ ol {
   .project-row:hover,
   .post-row-link:hover,
   .bookmark-row:hover {
-    padding-right: 14px;
-    padding-left: 14px;
     background: var(--surface-soft);
   }
 
@@ -2451,7 +2457,52 @@ ol {
   }
 
   .article-outline {
-    position: static;
+    display: none;
+  }
+
+  .article-outline-mobile {
+    display: block;
+    margin-top: 32px;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .article-outline-mobile .outline-header {
+    list-style: none;
+  }
+
+  .article-outline-mobile .outline-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .article-outline-mobile .outline-header > span:last-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .article-outline-mobile .outline-header svg {
+    transition: transform 180ms var(--ease-out);
+  }
+
+  .article-outline-mobile[open] .outline-header svg {
+    transform: rotate(180deg);
+  }
+
+  .article-outline-mobile nav {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0 16px;
+  }
+
+  .article-outline-mobile nav a {
+    padding: 7px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .article-outline-mobile nav a.is-sub {
+    padding-left: 14px;
   }
 
   .footer-callout,
@@ -2748,6 +2799,8 @@ ol {
   .writing-controls {
     width: 100%;
     padding: 0 var(--gutter);
+    background: var(--paper);
+    backdrop-filter: none;
   }
 
   .bookmark-control {
@@ -2760,6 +2813,7 @@ ol {
     right: var(--gutter);
     left: var(--gutter);
     width: auto;
+    max-height: min(360px, calc(100svh - var(--header-height) - 96px));
   }
 
   .writing-search {
@@ -2945,6 +2999,11 @@ ol {
 }
 
 @media (max-width: 460px) {
+  .category-tabs {
+    padding-right: 24px;
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 24px), transparent 100%);
+  }
+
   .home-hero h1 {
     font-size: 52px;
   }
@@ -3038,9 +3097,8 @@ ol {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 
   .reveal,

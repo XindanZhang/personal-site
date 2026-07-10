@@ -40,7 +40,7 @@ test("the Vyron scene waits for shaders and survives WebGL recovery", () => {
   assert.doesNotMatch(source, /preserveDrawingBuffer|forceContextLoss|THREE\.Clock/);
 });
 
-test("TanStack Start prerenders the terminal portfolio and every route", () => {
+test("TanStack Start prerenders the editorial portfolio and every route", () => {
   const outDir = buildSite();
 
   try {
@@ -81,33 +81,40 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     const gamesHtml = readExport(outDir, "games", "index.html");
     const linksHtml = readExport(outDir, "bookmarks", "index.html");
 
-    assert.match(homeHtml, /<h1[^>]*id="home-title"[^>]*>Xindan Zhang/);
-    assert.match(homeHtml, /xindan@toronto:~\$/);
-    assert.match(homeHtml, /profile --brief/);
-    assert.match(homeHtml, /\[ OK \].*profile mounted/);
-    assert.match(homeHtml, /network_systems :: tooling :: field_notes/);
-    assert.match(homeHtml, /OPEN_TO_COLLABORATE/);
-    assert.match(homeHtml, /\[01\].*\.\/work/);
-    assert.match(homeHtml, /tail -n 3 ~\/writing\.log/i);
-    assert.match(homeHtml, /tree ~\/research\/nextmini/i);
-    assert.match(homeHtml, /inspect --practice/i);
-    assert.match(homeHtml, /aria-label="Terminal ready"/);
+    assert.match(homeHtml, /<h1[^>]*id="home-title"[^>]*><span>Xindan<\/span><span>Zhang\.<\/span><\/h1>/);
+    assert.match(homeHtml, /Systems · Networks · Tools/);
+    assert.match(homeHtml, /Systems builder and technical writer in Toronto\./);
+    assert.match(homeHtml, /Available for collaboration/);
+    assert.match(homeHtml, /View selected work/);
+    assert.match(homeHtml, /Built to make behavior visible\./);
+    assert.match(homeHtml, /Interactive study · Three\.js/);
+    assert.match(homeHtml, /\/personal-site\/figures\/nextmini-topology\.svg/);
+    assert.match(homeHtml, /aria-label="Primary navigation"/);
+    assert.match(homeHtml, /aria-label="Switch to dark theme"/);
+    assert.match(homeHtml, /aria-controls="mobile-navigation"/);
+    assert.match(homeHtml, /aria-label="Footer navigation"/);
     assert.match(homeHtml, /aria-current="page"/);
     assert.match(homeHtml, /id="main-content"/);
     assert.match(homeHtml, /Skip to content/);
     assert.match(homeHtml, /\/personal-site\/assets\//);
-    assert.doesNotMatch(homeHtml, /network-field|abstract optical-glass/i);
-    assert.match(notFoundHtml, /ERR 404 \/ NO ENTRY/);
+    assert.doesNotMatch(homeHtml, /xindan@toronto|profile --brief|Terminal ready/);
+    assert.match(notFoundHtml, /There is nothing here\./);
+    assert.match(notFoundHtml, /href="\/personal-site\/">Return home<\/a>/);
     assert.doesNotMatch(notFoundHtml, /<script/);
 
-    assert.match(projectsHtml, /Small systems, inspected closely/);
-    assert.match(projectsHtml, /NEXTMINI \/ TOPOLOGY\.VIEW/);
+    assert.match(projectsHtml, /Systems made legible\./);
+    assert.match(projectsHtml, /Featured research/);
+    assert.match(projectsHtml, /Nextmini topology/);
     assert.match(projectsHtml, /\/personal-site\/figures\/nextmini-topology\.svg/);
+    assert.match(projectsHtml, /More work/);
     assert.match(projectsHtml, /TanStack Start notebook/);
+    assert.match(projectsHtml, /Vyron Interactive Scene/);
+    assert.match(projectsHtml, /Independent researcher and technical writer/);
 
     assert.match(aboutHtml, /I make technical behavior easier to see and revisit/);
-    assert.match(aboutHtml, /IDENTITY\.REC/);
+    assert.match(aboutHtml, /From a trace to a durable note\./);
     assert.match(aboutHtml, /A practical systems stack/);
+    assert.match(aboutHtml, /Have a thoughtful systems problem\?/);
     assert.match(aboutHtml, /Copy email/);
 
     assert.match(gamesHtml, /<title>Vyron \| Game Zone<\/title>/);
@@ -115,24 +122,25 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     assert.match(gamesHtml, /delta-force-yard-v2\.webp/);
     assert.match(gamesHtml, /vyron-cutout-v2\.webp/);
     assert.match(gamesHtml, /game-scene-fallback/);
-    assert.match(gamesHtml, /vyron@gti/);
+    assert.match(gamesHtml, /class="site-header is-game-header"/);
+    assert.match(gamesHtml, /aria-label="Return to portfolio"/);
     assert.match(gamesHtml, /gti:\/\/operator/);
     assert.match(gamesHtml, /ASSAULT \/ ACTIVE/);
     assert.match(gamesHtml, /DASH/);
     assert.match(gamesHtml, /QLL32/);
     assert.match(gamesHtml, /MAG/);
-    assert.doesNotMatch(gamesHtml, /XINDAN|xindan@toronto|A personal field terminal|Combined-arms scale|Extract with intent|Campaign pressure/);
-    assert.match(gamesHtml, /href="\/personal-site\/games\/"[^>]*aria-current="page"/);
+    assert.match(gamesHtml, /rel="canonical" href="https:\/\/xindanzhang\.github\.io\/personal-site\/games\/"/);
+    assert.doesNotMatch(gamesHtml, /xindan@toronto|A personal field terminal|Have a systems problem worth making legible/);
 
-    assert.match(linksHtml, /One reference I keep reopening/);
-    assert.match(linksHtml, /BOOKMARK\.TABLE/);
+    assert.match(linksHtml, /References worth reopening\./);
+    assert.match(linksHtml, /aria-label="Bookmarked references"/);
     assert.match(linksHtml, /nextmini\.org/);
   } finally {
     rmSync(outDir, { recursive: true, force: true });
   }
 });
 
-test("writing, SEO, assets, and motion accessibility survive static export", () => {
+test("writing, SEO, editorial styles, and accessibility survive static export", () => {
   const outDir = buildSite();
 
   try {
@@ -143,10 +151,12 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
     assert.ok(cssFile, "missing Vite CSS bundle");
     const css = readExport(outDir, "assets", cssFile);
 
-    assert.match(blogHtml, /<h1>Field notes<\/h1>/);
+    assert.match(blogHtml, /<h1>Writing\.<\/h1>/);
     assert.match(blogHtml, /type="search"/);
     assert.match(blogHtml, /Search title, topic, or tag/);
-    assert.match(blogHtml, /tags\.list/);
+    assert.match(blogHtml, /aria-label="Writing filters"/);
+    assert.match(blogHtml, /aria-label="Categories"/);
+    assert.match(blogHtml, /<summary>Tags <span>/);
     assert.match(blogHtml, /Ethernet 1500B and Jumbo 9000/);
 
     assert.match(articleHtml, /<title>Controller interface \| Xindan Zhang<\/title>/);
@@ -155,7 +165,9 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
     assert.match(articleHtml, /article:published_time/);
     assert.match(articleHtml, /rel="canonical" href="https:\/\/xindanzhang\.github\.io\/personal-site\/blog\/nextmini\/controller-interface\/"/);
     assert.match(articleHtml, /class="reading-progress"/);
-    assert.match(articleHtml, /CONTENTS/);
+    assert.match(articleHtml, /class="article-outline-mobile"/);
+    assert.match(articleHtml, /On this page/);
+    assert.match(articleHtml, /aria-label="Table of contents"/);
     assert.match(articleHtml, /Copy link/);
     assert.match(articleHtml, /Controller interface/);
 
@@ -163,17 +175,26 @@ test("writing, SEO, assets, and motion accessibility survive static export", () 
     assert.match(css, /Paper Mono/);
     assert.match(css, /\/personal-site\/fonts\/paper-mono\.woff2/);
     assert.doesNotMatch(css, /IBM Plex/);
-    assert.match(css, /backdrop-filter:blur\(10px\)/);
+    assert.match(css, /--font-sans:Arial/);
+    assert.match(css, /--paper:#f4f6f2/);
+    assert.match(css, /--blue:#1646ff/);
+    assert.match(css, /\[data-theme=dark\]/);
+    assert.match(css, /backdrop-filter:blur\(/);
     assert.match(css, /@media\s*\(prefers-reduced-motion:reduce\)/);
     assert.match(css, /scroll-behavior:auto!important/);
+    assert.match(css, /animation:none!important/);
+    assert.match(css, /overflow-wrap:anywhere/);
+    assert.doesNotMatch(css, /\.site-main\{[^}]*overflow:clip/);
+    assert.match(css, /@media\s*\(prefers-reduced-transparency:reduce\)/);
+    assert.match(css, /animation:content-enter/);
     assert.match(css, /\.game-scene/);
     assert.match(css, /touch-action:none/);
     assert.match(css, /\.vyron-kit/);
     assert.match(css, /:focus-visible/);
-    assert.match(css, /--phosphor:#73f59f/);
     assert.match(notFoundHtml, /Paper Mono/);
     assert.match(notFoundHtml, /\/personal-site\/fonts\/paper-mono\.woff2/);
-    assert.match(notFoundHtml, /xindan@toronto/);
+    assert.match(notFoundHtml, /There is nothing here\./);
+    assert.match(notFoundHtml, /:focus-visible/);
 
     const htmlFiles = [];
     const walk = (directory) => {

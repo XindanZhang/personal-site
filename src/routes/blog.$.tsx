@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, ChevronDown, Clock3 } from "lucide-react";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { CopyLinkButton } from "~/components/copy-link-button";
 import { PostLink } from "~/components/post-link";
@@ -59,6 +59,14 @@ function BlogPostPage() {
             <CopyLinkButton />
           </div>
         </header>
+
+        {post.headings.length > 0 ? (
+          <details className="article-outline-mobile">
+            <summary className="outline-header"><span>On this page</span><span>{post.headings.length.toString().padStart(2, "0")}<ChevronDown aria-hidden="true" size={16} /></span></summary>
+            <nav aria-label="Table of contents">{post.headings.map((heading) => <a key={heading.slug} className={heading.depth > 2 ? "is-sub" : ""} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+            <div className="article-tags">{post.tags.map((tag) => <Link key={tag} to="/blog/tag/$tag/" params={{ tag: tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") }}>#{tag}</Link>)}</div>
+          </details>
+        ) : null}
 
         <div className={`article-grid ${post.headings.length === 0 ? "without-outline" : ""}`}>
           <div className="article-main">
