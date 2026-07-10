@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const rootDir = process.cwd();
@@ -16,3 +16,4 @@ if (sourceDir !== targetDir) {
 }
 
 writeFileSync(resolve(targetDir, ".nojekyll"), "");
+copyFileSync(resolve(rootDir, "scripts/404.html"), resolve(targetDir, "404.html"));

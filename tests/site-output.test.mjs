@@ -57,6 +57,7 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     assert.equal(existsSync(resolve(outDir, "_next")), false, "Next.js assets remain in export");
 
     const homeHtml = readExport(outDir, "index.html");
+    const notFoundHtml = readExport(outDir, "404.html");
     const projectsHtml = readExport(outDir, "projects", "index.html");
     const aboutHtml = readExport(outDir, "about", "index.html");
     const linksHtml = readExport(outDir, "bookmarks", "index.html");
@@ -73,6 +74,8 @@ test("TanStack Start prerenders the terminal portfolio and every route", () => {
     assert.match(homeHtml, /Skip to content/);
     assert.match(homeHtml, /\/personal-site\/assets\//);
     assert.doesNotMatch(homeHtml, /network-field|abstract optical-glass/i);
+    assert.match(notFoundHtml, /ERR 404 \/ NO ENTRY/);
+    assert.doesNotMatch(notFoundHtml, /<script/);
 
     assert.match(projectsHtml, /Small systems, inspected closely/);
     assert.match(projectsHtml, /NEXTMINI \/ TOPOLOGY\.VIEW/);

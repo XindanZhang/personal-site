@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090b0a">
+    <title>Not found | Xindan Zhang</title>
+    <link rel="icon" href="/personal-site/favicon.svg" type="image/svg+xml">
+    <style>
+      :root { color-scheme: dark; --bg: #090b0a; --panel: #121613; --text: #edf3ed; --soft: #bac4bb; --muted: #7f8a82; --line: #2a322c; --green: #72f59d; --cyan: #68dce7; --coral: #ff746b; }
+      * { box-sizing: border-box; }
+      body { min-height: 100vh; margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 ui-monospace, "SFMono-Regular", Consolas, monospace; }
+      body::before { position: fixed; inset: 0; pointer-events: none; content: ""; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(140, 255, 178, 0.018) 4px); }
+      main { display: grid; width: min(calc(100% - 32px), 760px); min-height: 100vh; margin: auto; place-content: center; }
+      .bar { display: flex; justify-content: space-between; margin-bottom: 54px; padding: 9px 11px; border: 1px solid var(--line); background: var(--panel); color: var(--muted); font-size: 10px; }
+      .bar strong { color: var(--green); }
+      .prompt { color: var(--muted); font-size: 12px; }
+      .prompt span { color: var(--green); }
+      .code { margin: 30px 0 8px; color: var(--coral); font-size: 12px; }
+      h1 { max-width: 650px; margin: 0 0 16px; font: 600 46px/1.1 system-ui, sans-serif; letter-spacing: 0; }
+      .message { max-width: 580px; margin-bottom: 28px; color: var(--soft); font-family: system-ui, sans-serif; }
+      a { display: inline-flex; width: fit-content; min-height: 44px; align-items: center; padding: 9px 14px; border: 1px solid var(--green); border-radius: 4px; background: var(--green); color: #071109; font-size: 12px; font-weight: 700; text-decoration: none; }
+      a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+      @media (max-width: 560px) { .bar { margin-bottom: 38px; } h1 { font-size: 34px; } }
+      @media (prefers-color-scheme: light) { :root { color-scheme: light; --bg: #edf1ec; --panel: #fff; --text: #172019; --soft: #3f4b42; --muted: #68736b; --line: #cbd4cc; --green: #087a3e; --cyan: #006d83; --coral: #ba322b; } a { color: #fff; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="bar"><strong>XZ/PORTFOLIO</strong><span>ERR / 404</span></div>
+      <p class="prompt"><span>xindan@portfolio:~$</span> resolve --path current</p>
+      <p class="code">ERR 404 / NO ENTRY</p>
+      <h1>This path is not in the index.</h1>
+      <p class="message">The page may have moved, or the command was typed from an old note.</p>
+      <a href="/personal-site/">Return to ~/home</a>
+    </main>
+  </body>
+</html>
