@@ -2999,6 +2999,16 @@ ol {
 }
 
 @media (max-width: 460px) {
+  .site-header {
+    background: var(--paper);
+    backdrop-filter: none;
+  }
+
+  .site-header.is-game-header {
+    background: #020503;
+    backdrop-filter: none;
+  }
+
   .category-tabs {
     padding-right: 24px;
     mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 24px), transparent 100%);
