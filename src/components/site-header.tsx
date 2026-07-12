@@ -38,21 +38,19 @@ export function SiteHeader() {
     <>
       <header className={`mainframe-nav fixed inset-x-0 top-0 z-10 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-5 ${isHome ? "is-home" : ""}`}>
         <Link className="mainframe-logo flex items-center gap-3 text-black" to="/" aria-label="Xindan Zhang home">
-          <span className="mainframe-logo-text text-[21px] tracking-tight sm:text-[26px]">Xindan Zhang.</span>
-          <span className="select-none text-[25px] tracking-[-0.02em] sm:text-[30px]" aria-hidden="true">✳︎</span>
+          <span className="mainframe-logo-text text-[20px] tracking-tight sm:text-[22px]">Xindan Zhang.</span>
+          <span className="select-none text-[22px] tracking-[-0.02em] sm:text-[24px]" aria-hidden="true">✳︎</span>
         </Link>
 
-        <nav className="hidden items-center text-[21px] text-black sm:text-[23px] md:flex" aria-label="Primary navigation">
-          {personalLinks.map((item, index) => (
-            <span key={item.to}>
-              <Link className="transition-opacity hover:opacity-60" to={item.to}>{item.label}</Link>
-              {index < personalLinks.length - 1 ? ", " : null}
-            </span>
-          ))}
+        <nav className="mainframe-desktop-nav hidden items-center text-[15px] text-black md:flex" aria-label="Primary navigation">
+          {personalLinks.map((item) => {
+            const active = isRouteActive(routePath, item.to);
+            return <Link key={item.to} className={`mainframe-nav-link ${active ? "is-active" : ""}`} to={item.to} aria-current={active ? "page" : undefined}>{item.label}</Link>;
+          })}
         </nav>
 
-        <a className="hidden text-[21px] text-black underline underline-offset-2 transition-opacity hover:opacity-60 sm:text-[23px] md:block" href={site.email}>
-          Get in touch
+        <a className="mainframe-contact-link hidden text-[14px] text-black md:inline-flex" href={site.email}>
+          Email me
         </a>
 
         <button
@@ -69,18 +67,17 @@ export function SiteHeader() {
         </button>
       </header>
 
-      <div
-        id="mobile-navigation"
-        className={`fixed inset-0 z-[9] flex flex-col justify-center gap-8 bg-white/95 px-8 backdrop-blur-sm transition-opacity duration-300 md:hidden ${menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
-        aria-hidden={!menuOpen}
-      >
-        <nav className="flex flex-col items-start gap-8 text-[32px] font-medium text-black" aria-label="Mobile navigation">
-          {personalLinks.map((item) => (
-            <Link key={item.to} to={item.to} tabIndex={menuOpen ? 0 : -1}>{item.label}</Link>
-          ))}
-          <a className="underline underline-offset-4" href={site.email} tabIndex={menuOpen ? 0 : -1}>Get in touch</a>
-        </nav>
-      </div>
+      {menuOpen ? (
+        <div
+          id="mobile-navigation"
+          className="mainframe-mobile-overlay fixed inset-0 z-[9] flex flex-col justify-center gap-8 px-8 md:hidden"
+        >
+          <nav className="flex flex-col items-start gap-8 text-[32px] font-medium text-black" aria-label="Mobile navigation">
+            {personalLinks.map((item) => <Link key={item.to} to={item.to}>{item.label}</Link>)}
+            <a className="underline underline-offset-4" href={site.email}>Get in touch</a>
+          </nav>
+        </div>
+      ) : null}
     </>
   );
 }

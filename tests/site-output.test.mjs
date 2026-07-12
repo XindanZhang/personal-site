@@ -35,10 +35,12 @@ test("the personal hero keeps mouse-driven video seeking bounded and queued", ()
 
   assert.match(source, /const SENSITIVITY = 0\.8/);
   assert.match(source, /window\.addEventListener\("mousemove"/);
+  assert.match(source, /addEventListener\("touchmove"/);
   assert.match(source, /delta \/ window\.innerWidth/);
   assert.match(source, /queuedSeekRef/);
-  assert.match(source, /hero-video-fallback/);
-  assert.match(source, /video\.load\(\)/);
+  assert.match(source, /computer-poster/);
+  assert.match(source, /vintage-computer-only\.mp4/);
+  assert.match(source, /videoRef\.current\?\.load\(\)/);
   assert.match(source, /onSeeked=\{handleSeeked\}/);
   assert.match(source, /prefers-reduced-motion: reduce/);
   assert.match(source, /muted/);
@@ -57,6 +59,8 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
       "index.html",
       "fonts/paper-mono.woff2",
       "fonts/PAPER-MONO-LICENSE.txt",
+      "assets/vintage-computer-only.mp4",
+      "assets/vintage-computer-only-poster.webp",
       "about/index.html",
       "projects/index.html",
       "bookmarks/index.html",
@@ -88,12 +92,13 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
 
     assert.match(homeHtml, /<title>Xindan Zhang — Systems, networks, and field notes<\/title>/);
     assert.match(homeHtml, /Xindan Zhang\./);
-    assert.match(homeHtml, /Hey there, I&#x27;m Xindan,/);
-    assert.match(homeHtml, /I build systems and write things down\./);
-    assert.match(homeHtml, /View selected work/);
-    assert.match(homeHtml, /class="hero-email-row"/);
+    assert.match(homeHtml, /Tracing systems\./);
+    assert.match(homeHtml, /Keeping the useful parts\./);
+    assert.match(homeHtml, /Selected work/);
     assert.match(homeHtml, /xindan\.zhang@mail\.utoronto\.ca/);
-    assert.match(homeHtml, /hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08\.mp4/);
+    assert.match(homeHtml, /vintage-computer-only\.mp4/);
+    assert.match(homeHtml, /vintage-computer-only-poster\.webp/);
+    assert.doesNotMatch(homeHtml, /hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08\.mp4/);
     assert.match(homeHtml, /class="typewriter-cursor/);
     assert.doesNotMatch(homeHtml, /Start a conversation|Have a systems problem worth making legible/);
     assert.doesNotMatch(homeHtml, /Mainframe®|Pitch us an idea|hello@mainframe\.co/);
@@ -171,8 +176,8 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.doesNotMatch(css, /IBM Plex/);
     assert.match(css, /--font-heading:[^;]*HelveticaNowDisplay-Medium/);
     assert.match(css, /--font-body:[^;]*HelveticaNowDisplayW01-Rg/);
-    assert.match(css, /--paper:#f7f7f8/);
-    assert.match(css, /--blue:#1646ff/);
+    assert.match(css, /--paper:#efede8/);
+    assert.match(css, /--blue:#b6644d/);
     assert.match(css, /\[data-theme=dark\]/);
     assert.match(css, /backdrop-filter:blur\(/);
     assert.match(css, /@media\s*\(prefers-reduced-motion:reduce\)/);
@@ -184,8 +189,8 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /animation:content-enter/);
     assert.match(css, /\.typewriter-cursor/);
     assert.match(css, /@keyframes blink/);
-    assert.match(css, /\.mainframe-content-card/);
-    assert.match(css, /\.hero-scrub-hint/);
+    assert.match(css, /\.personal-hero-grid/);
+    assert.match(css, /\.computer-stage/);
     assert.doesNotMatch(css, /\.game-scene|\.vyron-kit|\.game-zone/);
     assert.match(css, /overflow-y:auto/);
     assert.doesNotMatch(css, /#b9f34b|#73f59f|#65e99a|#75f59f|#72f59d|#78f5a2|#9dd8cc|#1a5e3a/);
