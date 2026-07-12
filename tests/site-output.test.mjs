@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -30,20 +30,19 @@ function readExport(outDir, ...segments) {
   return readFileSync(resolve(outDir, ...segments), "utf8");
 }
 
-test("the Vyron scene waits for shaders and survives WebGL recovery", () => {
-  const source = readFileSync(resolve(rootDir, "src", "lib", "game-scene.ts"), "utf8");
-  const compileCalls = source.match(/await renderer\.compileAsync\(scene, camera\)/g) ?? [];
+test("the Mainframe hero keeps mouse-driven video seeking bounded and queued", () => {
+  const source = readFileSync(resolve(rootDir, "src", "routes", "index.tsx"), "utf8");
 
-  assert.equal(compileCalls.length, 2, "initial render and context restore must both await shaders");
-  assert.match(source, /webglcontextlost/);
-  assert.match(source, /webglcontextrestored/);
-  assert.match(source, /GLTFLoader/);
-  assert.match(source, /OrbitControls/);
-  assert.match(source, /modelUrl/);
-  assert.match(source, /THREE\.TOUCH\.DOLLY_ROTATE/);
-  assert.match(source, /setReducedMotion/);
-  assert.doesNotMatch(source, /TextureLoader|backgroundUrl|operatorUrl/);
-  assert.doesNotMatch(source, /preserveDrawingBuffer|forceContextLoss|THREE\.Clock/);
+  assert.match(source, /const SENSITIVITY = 0\.8/);
+  assert.match(source, /window\.addEventListener\("mousemove"/);
+  assert.match(source, /delta \/ window\.innerWidth/);
+  assert.match(source, /queuedSeekRef/);
+  assert.match(source, /onSeeked=\{handleSeeked\}/);
+  assert.match(source, /prefers-reduced-motion: reduce/);
+  assert.match(source, /muted/);
+  assert.match(source, /playsInline/);
+  assert.match(source, /preload="auto"/);
+  assert.doesNotMatch(source, /autoPlay/);
 });
 
 test("TanStack Start prerenders the editorial portfolio and every route", () => {
@@ -56,12 +55,8 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
       "index.html",
       "fonts/paper-mono.woff2",
       "fonts/PAPER-MONO-LICENSE.txt",
-      "models/cosmic-operator.glb",
-      "models/COSMIC-OPERATOR-LICENSE.txt",
       "about/index.html",
       "projects/index.html",
-      "games/index.html",
-      "interests/index.html",
       "bookmarks/index.html",
       "blog/index.html",
       "blog/series/nextmini/index.html",
@@ -79,30 +74,32 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.equal(existsSync(resolve(outDir, "figures", "nextmini-topology.svg")), false, "removed topology figure was exported");
     assert.equal(existsSync(resolve(outDir, "images", "delta-force-yard-v2.webp")), false, "old game background was exported");
     assert.equal(existsSync(resolve(outDir, "images", "vyron-cutout-v2.webp")), false, "old operator cutout was exported");
-    assert.ok(statSync(resolve(outDir, "models", "cosmic-operator.glb")).size < 2_500_000, "3D operator asset is too large");
     assert.equal(existsSync(resolve(outDir, "_next")), false, "Next.js assets remain in export");
+    assert.equal(existsSync(resolve(outDir, "games", "index.html")), false, "removed games route was exported");
+    assert.equal(existsSync(resolve(outDir, "interests", "index.html")), false, "removed interests route was exported");
 
     const homeHtml = readExport(outDir, "index.html");
     const notFoundHtml = readExport(outDir, "404.html");
     const projectsHtml = readExport(outDir, "projects", "index.html");
     const aboutHtml = readExport(outDir, "about", "index.html");
-    const interestsHtml = readExport(outDir, "interests", "index.html");
-    const legacyGamesHtml = readExport(outDir, "games", "index.html");
     const linksHtml = readExport(outDir, "bookmarks", "index.html");
 
-    assert.match(homeHtml, /<h1[^>]*id="home-title"[^>]*><span>Xindan<\/span><span>Zhang\.<\/span><\/h1>/);
-    assert.match(homeHtml, /Systems · Networks · Tools/);
-    assert.match(homeHtml, /PhD student in Electrical &amp; Computer Engineering at U of T\./);
-    assert.match(homeHtml, /U of T ECE/);
-    assert.match(homeHtml, /View selected work/);
-    assert.match(homeHtml, /Built to make behavior visible\./);
-    assert.match(homeHtml, /Nextmini Code-Reading Notes/);
-    assert.doesNotMatch(homeHtml, /Vyron|nextmini-topology|Available for collaboration|technical writer/);
+    assert.match(homeHtml, /<title>Mainframe® — Creative agency<\/title>/);
+    assert.match(homeHtml, /Mainframe®/);
+    assert.match(homeHtml, /Hey there, meet A\.R\.I\.A,/);
+    assert.match(homeHtml, /Mainframe&#x27;s Adaptive Response Interface Agent/);
+    assert.match(homeHtml, /Pitch us an idea/);
+    assert.match(homeHtml, /Reach us: /);
+    assert.match(homeHtml, /hello@mainframe\.co/);
+    assert.match(homeHtml, /hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08\.mp4/);
+    assert.doesNotMatch(homeHtml, /Vyron|Systems · Networks · Tools|Built to make behavior visible\./);
     assert.match(homeHtml, /aria-label="Primary navigation"/);
-    assert.match(homeHtml, /aria-label="Switch to dark theme"/);
+    assert.match(homeHtml, />Labs<\/a>/);
+    assert.match(homeHtml, />Studio<\/a>/);
+    assert.match(homeHtml, />Openings<\/a>/);
+    assert.match(homeHtml, />Shop<\/a>/);
     assert.match(homeHtml, /aria-controls="mobile-navigation"/);
-    assert.match(homeHtml, /aria-label="Footer navigation"/);
-    assert.match(homeHtml, /aria-current="page"/);
+    assert.doesNotMatch(homeHtml, /aria-label="Footer navigation"/);
     assert.match(homeHtml, /id="main-content"/);
     assert.match(homeHtml, /Skip to content/);
     assert.match(homeHtml, /\/personal-site\/assets\//);
@@ -124,20 +121,6 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.match(aboutHtml, /Have a thoughtful systems problem\?/);
     assert.match(aboutHtml, /Copy email/);
     assert.doesNotMatch(aboutHtml, />XZ<|Independent researcher|technical writer|Available/);
-
-    assert.match(interestsHtml, /<title>Interests \| Xindan Zhang<\/title>/);
-    assert.match(interestsHtml, /<h1[^>]*id="game-zone-title"[^>]*>VYRON<\/h1>/);
-    assert.match(interestsHtml, /COSMIC GUARDIAN/);
-    assert.match(interestsHtml, /QLL32/);
-    assert.match(interestsHtml, /DYNAMIC AUXILIARY/);
-    assert.match(interestsHtml, /game-scene-fallback/);
-    assert.match(interestsHtml, /class="site-header is-game-header"/);
-    assert.match(interestsHtml, /aria-label="Home"/);
-    assert.match(interestsHtml, /models\/cosmic-operator\.glb/);
-    assert.match(interestsHtml, /rel="canonical" href="https:\/\/xindanzhang\.github\.io\/personal-site\/interests\/"/);
-    assert.doesNotMatch(interestsHtml, /gti:\/\/operator|OPERATOR 07|ASSAULT \/ ACTIVE|DASH|MAG|delta-force-yard|vyron-cutout|Have a systems problem worth making legible/);
-    assert.match(legacyGamesHtml, /http-equiv="refresh" content="0; url=\/personal-site\/interests\/"/);
-    assert.match(legacyGamesHtml, /name="robots" content="noindex"/);
 
     assert.match(linksHtml, /References worth reopening\./);
     assert.match(linksHtml, /aria-label="Bookmarked references"/);
@@ -182,7 +165,8 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /Paper Mono/);
     assert.match(css, /\/personal-site\/fonts\/paper-mono\.woff2/);
     assert.doesNotMatch(css, /IBM Plex/);
-    assert.match(css, /--font-sans:Arial/);
+    assert.match(css, /--font-heading:[^;]*HelveticaNowDisplay-Medium/);
+    assert.match(css, /--font-body:[^;]*HelveticaNowDisplayW01-Rg/);
     assert.match(css, /--paper:#f7f7f8/);
     assert.match(css, /--blue:#1646ff/);
     assert.match(css, /\[data-theme=dark\]/);
@@ -194,9 +178,9 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.doesNotMatch(css, /\.site-main\{[^}]*overflow:clip/);
     assert.match(css, /@media\s*\(prefers-reduced-transparency:reduce\)/);
     assert.match(css, /animation:content-enter/);
-    assert.match(css, /\.game-scene/);
-    assert.match(css, /touch-action:none/);
-    assert.match(css, /\.vyron-kit/);
+    assert.match(css, /\.typewriter-cursor/);
+    assert.match(css, /@keyframes blink/);
+    assert.doesNotMatch(css, /\.game-scene|\.vyron-kit|\.game-zone/);
     assert.match(css, /overflow-y:auto/);
     assert.doesNotMatch(css, /#b9f34b|#73f59f|#65e99a|#75f59f|#72f59d|#78f5a2|#9dd8cc|#1a5e3a/);
     assert.match(css, /:focus-visible/);
@@ -214,7 +198,7 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
       }
     };
     walk(outDir);
-    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 48);
+    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 46);
 
     for (const file of htmlFiles) {
       const html = readFileSync(file, "utf8");

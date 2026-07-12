@@ -6,7 +6,7 @@ import { site } from "~/lib/site";
 export function SiteFooter() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const routePath = getRoutePath(pathname);
-  if (isRouteActive(routePath, "/interests/")) return null;
+  if (isRouteActive(routePath, "/")) return null;
   const showCallout = !isRouteActive(routePath, "/about/");
 
   return (

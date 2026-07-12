@@ -1,21 +1,19 @@
-import { ArrowUpRight, Github, House, Menu, Moon, Sun, X } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { getRoutePath, isRouteActive, navigation } from "~/lib/navigation";
-import { site } from "~/lib/site";
+import { getRoutePath, isRouteActive } from "~/lib/navigation";
 
-type Theme = "dark" | "light";
+const mainframeLinks = [
+  { label: "Labs", to: "/projects/" },
+  { label: "Studio", to: "/blog/" },
+  { label: "Openings", to: "/about/" },
+  { label: "Shop", to: "/bookmarks/" },
+] as const;
 
 export function SiteHeader() {
-  const [theme, setTheme] = useState<Theme>("light");
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const routePath = getRoutePath(pathname);
-  const isInterests = isRouteActive(routePath, "/interests/");
-
-  useEffect(() => {
-    setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
-  }, []);
+  const isHome = isRouteActive(routePath, "/");
 
   useEffect(() => {
     setMenuOpen(false);
@@ -26,49 +24,62 @@ export function SiteHeader() {
     return () => document.body.classList.remove("nav-open");
   }, [menuOpen]);
 
-  function toggleTheme() {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("theme", nextTheme);
-  }
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
 
   return (
     <>
-      <header className={`site-header ${isInterests ? "is-game-header" : ""}`}>
-        <div className="header-inner">
-          <Link className="site-brand" to="/" aria-label="Home" title="Home"><span className="brand-mark" aria-hidden="true"><House size={17} /></span></Link>
+      <header className={`mainframe-nav fixed inset-x-0 top-0 z-10 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-5 ${isHome ? "is-home" : ""}`}>
+        <Link className="mainframe-logo flex items-center gap-3 text-black" to="/" aria-label="Mainframe home">
+          <span className="mainframe-logo-text text-[21px] tracking-tight sm:text-[26px]">Mainframe®</span>
+          <span className="select-none text-[25px] tracking-[-0.02em] sm:text-[30px]" aria-hidden="true">✳︎</span>
+        </Link>
 
-          {isInterests ? (
-            <span className="interest-context">Interests / Delta Force</span>
-          ) : (
-            <nav className="desktop-nav" aria-label="Primary navigation">
-              {navigation.map((item) => {
-                const active = isRouteActive(routePath, item.to);
-                return <Link key={item.to} className={active ? "is-active" : ""} to={item.to} aria-current={active ? "page" : undefined}>{item.label}</Link>;
-              })}
-            </nav>
-          )}
+        <nav className="hidden items-center text-[23px] text-black md:flex" aria-label="Primary navigation">
+          {mainframeLinks.map((item, index) => (
+            <span key={item.to}>
+              <Link className="transition-opacity hover:opacity-60" to={item.to}>{item.label}</Link>
+              {index < mainframeLinks.length - 1 ? ", " : null}
+            </span>
+          ))}
+        </nav>
 
-          <div className="header-tools">
-            {!isInterests ? <a className="icon-button github-button" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile" title="GitHub"><Github aria-hidden="true" size={18} /></a> : null}
-            {!isInterests ? <button className="icon-button" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} title={`Use ${theme === "dark" ? "light" : "dark"} theme`}>{theme === "dark" ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}</button> : null}
-            {!isInterests ? <button className="icon-button menu-button" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? "Close navigation" : "Open navigation"}>{menuOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}</button> : null}
-          </div>
-        </div>
+        <a className="hidden text-[23px] text-black underline underline-offset-2 transition-opacity hover:opacity-60 md:block" href="mailto:hello@mainframe.co">
+          Get in touch
+        </a>
+
+        <button
+          className="mainframe-menu relative z-20 flex flex-col gap-[5px] p-2 md:hidden"
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+        >
+          <span className={`mainframe-menu-bar h-[2px] w-6 bg-black ${menuOpen ? "is-top-open" : ""}`} />
+          <span className={`h-[2px] w-6 bg-black transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`mainframe-menu-bar h-[2px] w-6 bg-black ${menuOpen ? "is-bottom-open" : ""}`} />
+        </button>
       </header>
 
-      {menuOpen && !isInterests ? (
-        <div id="mobile-navigation" className="mobile-nav-panel">
-          <nav aria-label="Mobile navigation">
-            {navigation.map((item) => {
-              const active = isRouteActive(routePath, item.to);
-              return <Link key={item.to} className={active ? "is-active" : ""} to={item.to} aria-current={active ? "page" : undefined}><span>{item.command}</span>{item.label}<ArrowUpRight aria-hidden="true" size={22} /></Link>;
-            })}
-          </nav>
-          <div className="mobile-nav-meta"><a href={site.email}>xindan.zhang@mail.utoronto.ca</a><span>Toronto, Canada</span></div>
-        </div>
-      ) : null}
+      <div
+        id="mobile-navigation"
+        className={`fixed inset-0 z-[9] flex flex-col justify-center gap-8 bg-white/95 px-8 backdrop-blur-sm transition-opacity duration-300 md:hidden ${menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+        aria-hidden={!menuOpen}
+      >
+        <nav className="flex flex-col items-start gap-8 text-[32px] font-medium text-black" aria-label="Mobile navigation">
+          {mainframeLinks.map((item) => (
+            <Link key={item.to} to={item.to} tabIndex={menuOpen ? 0 : -1}>{item.label}</Link>
+          ))}
+          <a className="underline underline-offset-4" href="mailto:hello@mainframe.co" tabIndex={menuOpen ? 0 : -1}>Get in touch</a>
+        </nav>
+      </div>
     </>
   );
 }

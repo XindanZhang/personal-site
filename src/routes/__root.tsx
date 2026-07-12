@@ -11,16 +11,6 @@ import { SiteHeader } from "~/components/site-header";
 import { site } from "~/lib/site";
 import "../styles/site.css";
 
-const themeScript = `
-(() => {
-  try {
-    const stored = window.localStorage.getItem("theme");
-    document.documentElement.dataset.theme = stored === "light" || stored === "dark" ? stored : "light";
-  } catch {
-    document.documentElement.dataset.theme = "light";
-  }
-})();`;
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -28,7 +18,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: site.name },
       { name: "description", content: site.description },
-      { name: "theme-color", content: "#f7f7f8" },
+      { name: "theme-color", content: "#ffffff" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: site.name },
       { property: "og:description", content: site.description },
@@ -37,6 +27,8 @@ export const Route = createRootRoute({
       { rel: "icon", href: `${site.basePath}/favicon.ico` },
       { rel: "icon", href: `${site.basePath}/favicon.svg`, type: "image/svg+xml" },
       { rel: "preload", href: `${site.basePath}/fonts/paper-mono.woff2`, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium" },
+      { rel: "stylesheet", href: "https://db.onlinewebfonts.com/c/1aa3377e489837a26d019bba501e779d?family=HelveticaNowDisplayW01-Rg" },
       { rel: "canonical", href: "https://xindanzhang.github.io/personal-site/" },
     ],
   }),
@@ -65,7 +57,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />
       </head>
       <body>
