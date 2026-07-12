@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { getRoutePath, isRouteActive, navigation } from "~/lib/navigation";
 import { site } from "~/lib/site";
@@ -7,12 +6,10 @@ export function SiteFooter() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const routePath = getRoutePath(pathname);
   if (isRouteActive(routePath, "/")) return null;
-  const showCallout = !isRouteActive(routePath, "/about/");
 
   return (
     <footer className="site-footer">
       <div className="footer-inner">
-        {showCallout ? <div className="footer-callout"><p>Have a systems problem worth making legible?</p><a href={site.email}>Start a conversation <ArrowUpRight aria-hidden="true" size={18} /></a></div> : null}
         <div className="footer-bottom">
           <span className="footer-brand">© 2026</span>
           <nav aria-label="Footer navigation">{navigation.slice(1).map((item) => <Link key={item.to} to={item.to}>{item.label}</Link>)}</nav>

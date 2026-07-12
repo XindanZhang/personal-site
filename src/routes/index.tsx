@@ -54,6 +54,7 @@ function HomePage() {
   const queuedSeekRef = useRef(false);
   const [actionsVisible, setActionsVisible] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const { displayed, done } = useTypewriter(site.home.heroTitle);
 
   const seekToTarget = useCallback(() => {
@@ -68,6 +69,14 @@ function HomePage() {
     if (Math.abs(video.currentTime - nextTime) < 0.001) return;
     queuedSeekRef.current = false;
     video.currentTime = nextTime;
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // Mobile Safari can defer a non-autoplay video's first frame even with preload="auto".
+    // Explicitly ask it to load so the fallback only lasts until the real first frame is decoded.
+    video.load();
   }, []);
 
   useEffect(() => {
@@ -129,22 +138,30 @@ function HomePage() {
   };
 
   return (
-    <section className="mainframe-home relative z-[1] h-screen overflow-hidden text-black" aria-labelledby="home-title">
+    <section className="mainframe-home relative z-[1] min-h-[100dvh] overflow-hidden text-black" aria-labelledby="home-title">
       <h1 id="home-title" className="sr-only">Xindan Zhang — systems, networks, and field notes</h1>
+      <div className={`hero-video-fallback ${videoReady ? "is-hidden" : ""}`} aria-hidden="true">
+        <div className="cute-computer-fallback">
+          <div className="cute-computer-screen"><span /><span /><span /></div>
+          <div className="cute-computer-base" />
+        </div>
+      </div>
       <video
         ref={videoRef}
-        className="fixed inset-0 z-0 h-full w-full object-cover object-[70%_center]"
+        className={`mainframe-video fixed inset-0 z-0 h-full w-full object-cover object-[70%_center] ${videoReady ? "is-ready" : ""}`}
         muted
         playsInline
         preload="auto"
         onLoadedMetadata={(event) => { targetTimeRef.current = event.currentTarget.currentTime; }}
+        onLoadedData={() => setVideoReady(true)}
+        onCanPlay={() => setVideoReady(true)}
         onSeeked={handleSeeked}
         aria-hidden="true"
       >
         <source src={VIDEO_URL} type="video/mp4" />
       </video>
 
-      <div className="relative z-[1] flex h-screen flex-col justify-end overflow-hidden px-5 pb-10 sm:px-8 sm:pb-12 md:justify-center md:px-10 md:pb-0">
+      <div className="relative z-[1] flex min-h-[100dvh] flex-col justify-end overflow-hidden px-5 pb-10 sm:px-8 sm:pb-12 md:justify-center md:px-10 md:pb-0">
         <div className="mainframe-content-card relative z-10 max-w-xl">
           <div className="hero-status-line" aria-hidden="true">
             <span><i className="status-dot" /> field notes / 2026</span>
@@ -165,16 +182,14 @@ function HomePage() {
             <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/blog/">Read the notes</a>
             <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/about/">About me</a>
             <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/bookmarks/">Open bookmarks</a>
-            <button
-              className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-black bg-transparent px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:gap-3 sm:px-5 sm:text-[15px]"
-              type="button"
-              onClick={copyEmail}
-              title={copied ? "Email copied" : "Copy email address"}
-            >
-              <span>Email: <span className="underline underline-offset-1">{EMAIL}</span></span>
+          </div>
+          <div className="hero-email-row">
+            <span className="hero-email-label">mail</span>
+            <a className="hero-email-address" href={site.email}>{EMAIL}</a>
+            <button className="hero-copy-button" type="button" onClick={copyEmail} title={copied ? "Email copied" : "Copy email address"} aria-label={copied ? "Email copied" : "Copy email address"}>
               <CopyIcon />
-              <span className="sr-only" aria-live="polite">{copied ? "Email copied" : ""}</span>
             </button>
+            <span className="sr-only" aria-live="polite">{copied ? "Email copied" : ""}</span>
           </div>
         </div>
 

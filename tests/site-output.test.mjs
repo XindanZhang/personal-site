@@ -37,6 +37,8 @@ test("the personal hero keeps mouse-driven video seeking bounded and queued", ()
   assert.match(source, /window\.addEventListener\("mousemove"/);
   assert.match(source, /delta \/ window\.innerWidth/);
   assert.match(source, /queuedSeekRef/);
+  assert.match(source, /hero-video-fallback/);
+  assert.match(source, /video\.load\(\)/);
   assert.match(source, /onSeeked=\{handleSeeked\}/);
   assert.match(source, /prefers-reduced-motion: reduce/);
   assert.match(source, /muted/);
@@ -89,10 +91,11 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.match(homeHtml, /Hey there, I&#x27;m Xindan,/);
     assert.match(homeHtml, /I build systems and write things down\./);
     assert.match(homeHtml, /View selected work/);
-    assert.match(homeHtml, /Email: /);
+    assert.match(homeHtml, /class="hero-email-row"/);
     assert.match(homeHtml, /xindan\.zhang@mail\.utoronto\.ca/);
     assert.match(homeHtml, /hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08\.mp4/);
     assert.match(homeHtml, /class="typewriter-cursor/);
+    assert.doesNotMatch(homeHtml, /Start a conversation|Have a systems problem worth making legible/);
     assert.doesNotMatch(homeHtml, /Mainframe®|Pitch us an idea|hello@mainframe\.co/);
     assert.match(homeHtml, /aria-label="Primary navigation"/);
     assert.match(homeHtml, />Work<\/a>/);
