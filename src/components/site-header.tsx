@@ -1,12 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { getRoutePath, isRouteActive } from "~/lib/navigation";
+import { site } from "~/lib/site";
 
-const mainframeLinks = [
-  { label: "Labs", to: "/projects/" },
-  { label: "Studio", to: "/blog/" },
-  { label: "Openings", to: "/about/" },
-  { label: "Shop", to: "/bookmarks/" },
+const personalLinks = [
+  { label: "Work", to: "/projects/" },
+  { label: "Writing", to: "/blog/" },
+  { label: "About", to: "/about/" },
+  { label: "Links", to: "/bookmarks/" },
 ] as const;
 
 export function SiteHeader() {
@@ -36,21 +37,21 @@ export function SiteHeader() {
   return (
     <>
       <header className={`mainframe-nav fixed inset-x-0 top-0 z-10 flex items-center justify-between px-5 py-4 sm:px-8 sm:py-5 ${isHome ? "is-home" : ""}`}>
-        <Link className="mainframe-logo flex items-center gap-3 text-black" to="/" aria-label="Mainframe home">
-          <span className="mainframe-logo-text text-[21px] tracking-tight sm:text-[26px]">Mainframe®</span>
+        <Link className="mainframe-logo flex items-center gap-3 text-black" to="/" aria-label="Xindan Zhang home">
+          <span className="mainframe-logo-text text-[21px] tracking-tight sm:text-[26px]">Xindan Zhang.</span>
           <span className="select-none text-[25px] tracking-[-0.02em] sm:text-[30px]" aria-hidden="true">✳︎</span>
         </Link>
 
-        <nav className="hidden items-center text-[23px] text-black md:flex" aria-label="Primary navigation">
-          {mainframeLinks.map((item, index) => (
+        <nav className="hidden items-center text-[21px] text-black sm:text-[23px] md:flex" aria-label="Primary navigation">
+          {personalLinks.map((item, index) => (
             <span key={item.to}>
               <Link className="transition-opacity hover:opacity-60" to={item.to}>{item.label}</Link>
-              {index < mainframeLinks.length - 1 ? ", " : null}
+              {index < personalLinks.length - 1 ? ", " : null}
             </span>
           ))}
         </nav>
 
-        <a className="hidden text-[23px] text-black underline underline-offset-2 transition-opacity hover:opacity-60 md:block" href="mailto:hello@mainframe.co">
+        <a className="hidden text-[21px] text-black underline underline-offset-2 transition-opacity hover:opacity-60 sm:text-[23px] md:block" href={site.email}>
           Get in touch
         </a>
 
@@ -74,10 +75,10 @@ export function SiteHeader() {
         aria-hidden={!menuOpen}
       >
         <nav className="flex flex-col items-start gap-8 text-[32px] font-medium text-black" aria-label="Mobile navigation">
-          {mainframeLinks.map((item) => (
+          {personalLinks.map((item) => (
             <Link key={item.to} to={item.to} tabIndex={menuOpen ? 0 : -1}>{item.label}</Link>
           ))}
-          <a className="underline underline-offset-4" href="mailto:hello@mainframe.co" tabIndex={menuOpen ? 0 : -1}>Get in touch</a>
+          <a className="underline underline-offset-4" href={site.email} tabIndex={menuOpen ? 0 : -1}>Get in touch</a>
         </nav>
       </div>
     </>

@@ -30,7 +30,7 @@ function readExport(outDir, ...segments) {
   return readFileSync(resolve(outDir, ...segments), "utf8");
 }
 
-test("the Mainframe hero keeps mouse-driven video seeking bounded and queued", () => {
+test("the personal hero keeps mouse-driven video seeking bounded and queued", () => {
   const source = readFileSync(resolve(rootDir, "src", "routes", "index.tsx"), "utf8");
 
   assert.match(source, /const SENSITIVITY = 0\.8/);
@@ -84,20 +84,21 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     const aboutHtml = readExport(outDir, "about", "index.html");
     const linksHtml = readExport(outDir, "bookmarks", "index.html");
 
-    assert.match(homeHtml, /<title>Mainframe® — Creative agency<\/title>/);
-    assert.match(homeHtml, /Mainframe®/);
-    assert.match(homeHtml, /Hey there, meet A\.R\.I\.A,/);
-    assert.match(homeHtml, /Mainframe&#x27;s Adaptive Response Interface Agent/);
-    assert.match(homeHtml, /Pitch us an idea/);
-    assert.match(homeHtml, /Reach us: /);
-    assert.match(homeHtml, /hello@mainframe\.co/);
+    assert.match(homeHtml, /<title>Xindan Zhang — Systems, networks, and field notes<\/title>/);
+    assert.match(homeHtml, /Xindan Zhang\./);
+    assert.match(homeHtml, /Hey there, I&#x27;m Xindan,/);
+    assert.match(homeHtml, /I build systems and write things down\./);
+    assert.match(homeHtml, /View selected work/);
+    assert.match(homeHtml, /Email: /);
+    assert.match(homeHtml, /xindan\.zhang@mail\.utoronto\.ca/);
     assert.match(homeHtml, /hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08\.mp4/);
-    assert.doesNotMatch(homeHtml, /Vyron|Systems · Networks · Tools|Built to make behavior visible\./);
+    assert.match(homeHtml, /class="typewriter-cursor/);
+    assert.doesNotMatch(homeHtml, /Mainframe®|Pitch us an idea|hello@mainframe\.co/);
     assert.match(homeHtml, /aria-label="Primary navigation"/);
-    assert.match(homeHtml, />Labs<\/a>/);
-    assert.match(homeHtml, />Studio<\/a>/);
-    assert.match(homeHtml, />Openings<\/a>/);
-    assert.match(homeHtml, />Shop<\/a>/);
+    assert.match(homeHtml, />Work<\/a>/);
+    assert.match(homeHtml, />Writing<\/a>/);
+    assert.match(homeHtml, />About<\/a>/);
+    assert.match(homeHtml, />Links<\/a>/);
     assert.match(homeHtml, /aria-controls="mobile-navigation"/);
     assert.doesNotMatch(homeHtml, /aria-label="Footer navigation"/);
     assert.match(homeHtml, /id="main-content"/);
@@ -180,6 +181,8 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /animation:content-enter/);
     assert.match(css, /\.typewriter-cursor/);
     assert.match(css, /@keyframes blink/);
+    assert.match(css, /\.mainframe-content-card/);
+    assert.match(css, /\.hero-scrub-hint/);
     assert.doesNotMatch(css, /\.game-scene|\.vyron-kit|\.game-zone/);
     assert.match(css, /overflow-y:auto/);
     assert.doesNotMatch(css, /#b9f34b|#73f59f|#65e99a|#75f59f|#72f59d|#78f5a2|#9dd8cc|#1a5e3a/);

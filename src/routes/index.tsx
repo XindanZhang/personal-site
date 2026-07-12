@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { site } from "~/lib/site";
 
 const VIDEO_URL = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4";
-const EMAIL = "hello@mainframe.co";
+const EMAIL = "xindan.zhang@mail.utoronto.ca";
 const SENSITIVITY = 0.8;
-const TYPEWRITER_COPY = "Glad you stopped in. Good taste tends to find us. Now, what are we building?";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mainframe® — Creative agency" },
-      { name: "description", content: "Mainframe is an independent creative studio building ideas with taste, clarity, and motion." },
+      { title: "Xindan Zhang — Systems, networks, and field notes" },
+      { name: "description", content: site.description },
+      { property: "og:title", content: "Xindan Zhang — Systems, networks, and field notes" },
+      { property: "og:description", content: site.description },
     ],
   }),
   component: HomePage,
@@ -52,7 +54,7 @@ function HomePage() {
   const queuedSeekRef = useRef(false);
   const [actionsVisible, setActionsVisible] = useState(false);
   const [copied, setCopied] = useState(false);
-  const { displayed, done } = useTypewriter(TYPEWRITER_COPY);
+  const { displayed, done } = useTypewriter(site.home.heroTitle);
 
   const seekToTarget = useCallback(() => {
     const video = videoRef.current;
@@ -127,8 +129,8 @@ function HomePage() {
   };
 
   return (
-    <section className="mainframe-home relative z-[1] h-screen overflow-hidden text-black" aria-labelledby="mainframe-title">
-      <h1 id="mainframe-title" className="sr-only">Mainframe creative agency</h1>
+    <section className="mainframe-home relative z-[1] h-screen overflow-hidden text-black" aria-labelledby="home-title">
+      <h1 id="home-title" className="sr-only">Xindan Zhang — systems, networks, and field notes</h1>
       <video
         ref={videoRef}
         className="fixed inset-0 z-0 h-full w-full object-cover object-[70%_center]"
@@ -142,10 +144,15 @@ function HomePage() {
         <source src={VIDEO_URL} type="video/mp4" />
       </video>
 
-      <div className="relative z-[1] flex h-screen flex-col justify-end overflow-hidden px-5 pb-12 sm:px-8 md:justify-center md:px-10 md:pb-0">
-        <div className="relative z-10 max-w-xl">
+      <div className="relative z-[1] flex h-screen flex-col justify-end overflow-hidden px-5 pb-10 sm:px-8 sm:pb-12 md:justify-center md:px-10 md:pb-0">
+        <div className="mainframe-content-card relative z-10 max-w-xl">
+          <div className="hero-status-line" aria-hidden="true">
+            <span><i className="status-dot" /> field notes / 2026</span>
+            <span>U of T ECE</span>
+          </div>
+
           <p className="pointer-events-none mb-5 select-none whitespace-pre-line text-[clamp(18px,4vw,26px)] font-normal leading-[1.3] text-black blur-[4px] sm:mb-6">
-            {"Hey there, meet A.R.I.A,\nMainframe's Adaptive Response Interface Agent"}
+            {"Hey there, I'm Xindan,\nI build systems and write things down."}
           </p>
 
           <p className="mb-5 min-h-[54px] text-[clamp(18px,4vw,26px)] font-normal leading-[1.35] text-black sm:mb-6">
@@ -153,24 +160,27 @@ function HomePage() {
             {!done ? <span className="typewriter-cursor ml-[2px] inline-block h-[1.1em] w-[2px] align-middle bg-black" aria-hidden="true" /> : null}
           </p>
 
-          <div
-            className={`mainframe-actions flex flex-wrap gap-y-1 ${actionsVisible ? "is-visible" : "pointer-events-none"}`}
-          >
-            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href={`mailto:${EMAIL}?subject=An idea for Mainframe`}>Pitch us an idea</a>
-            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/about/">Come work here</a>
-            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href={`mailto:${EMAIL}?subject=Hello Mainframe`}>Send a brief hello</a>
-            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/projects/">See how we operate</a>
+          <div className={`mainframe-actions flex flex-wrap gap-y-1 ${actionsVisible ? "is-visible" : "pointer-events-none"}`}>
+            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/projects/">View selected work</a>
+            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/blog/">Read the notes</a>
+            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/about/">About me</a>
+            <a className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]" href="/personal-site/bookmarks/">Open bookmarks</a>
             <button
-              className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white bg-transparent px-4 py-[0.3em] text-[13px] text-white transition-colors duration-200 hover:bg-white hover:text-black sm:gap-3 sm:px-5 sm:text-[15px]"
+              className="mainframe-pill mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-black bg-transparent px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:gap-3 sm:px-5 sm:text-[15px]"
               type="button"
               onClick={copyEmail}
               title={copied ? "Email copied" : "Copy email address"}
             >
-              <span>Reach us: <span className="underline underline-offset-1">{EMAIL}</span></span>
+              <span>Email: <span className="underline underline-offset-1">{EMAIL}</span></span>
               <CopyIcon />
               <span className="sr-only" aria-live="polite">{copied ? "Email copied" : ""}</span>
             </button>
           </div>
+        </div>
+
+        <div className="hero-scrub-hint" aria-hidden="true">
+          <span className="hero-scrub-line" />
+          <span>Move sideways to explore</span>
         </div>
       </div>
     </section>

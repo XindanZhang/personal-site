@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-DnoxuJhR.js";import{t}from"./blog-archive-y08c0c8o.js";import{c as n,d as r,o as i,s as a}from"./index-DA4LwY_t.js";var o=e();function s(){return(0,o.jsx)(t,{routeLabel:`~/writing`,categories:i(),description:r.blog.description,posts:a(),tags:n()})}export{s as component};
