@@ -4,8 +4,8 @@ import { getRoutePath, isRouteActive } from "~/lib/navigation";
 import { site } from "~/lib/site";
 
 const personalLinks = [
-  { label: "Work", to: "/projects/" },
-  { label: "Writing", to: "/blog/" },
+  { label: "Projects", to: "/projects/" },
+  { label: "Blogs", to: "/blog/" },
   { label: "About", to: "/about/" },
 ] as const;
 

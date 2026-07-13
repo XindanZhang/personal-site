@@ -9,9 +9,9 @@ const SENSITIVITY = 0.8;
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Xindan Zhang — Systems, networks, and field notes" },
+      { title: "Xindan Zhang — Networked systems research" },
       { name: "description", content: site.description },
-      { property: "og:title", content: "Xindan Zhang — Systems, networks, and field notes" },
+      { property: "og:title", content: "Xindan Zhang — Networked systems research" },
       { property: "og:description", content: site.description },
     ],
   }),
@@ -148,17 +148,17 @@ function HomePage() {
     <section className="personal-hero" aria-labelledby="home-title">
       <div className="personal-hero-grid">
         <div className="personal-hero-copy">
-          <p className="personal-hero-kicker"><span className="status-dot" /> U of T ECE · field notes</p>
-          <h1 id="home-title">Tracing systems.<br />Keeping the useful parts.</h1>
+          <p className="personal-hero-kicker"><span className="status-dot" /> U of T ECE · networked systems</p>
+          <h1 id="home-title">Studying systems.<br />Explaining how they behave.</h1>
           <p className="personal-hero-typewriter">
             {displayed}
             {!done ? <span className="typewriter-cursor" aria-hidden="true" /> : null}
           </p>
 
           <div className="personal-hero-actions">
-            <Link className="personal-action is-primary" to="/projects/">Selected work</Link>
-            <Link className="personal-action" to="/blog/">Read writing</Link>
-            <Link className="personal-text-link" to="/about/">About me</Link>
+            <Link className="personal-action is-primary" to="/projects/">Projects</Link>
+            <Link className="personal-action" to="/blog/">Blogs</Link>
+            <Link className="personal-text-link" to="/about/">About</Link>
           </div>
         </div>
 

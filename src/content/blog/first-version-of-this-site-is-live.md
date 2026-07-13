@@ -17,8 +17,8 @@ I wanted a place that feels closer to how I actually work: terminal windows, sho
 
 Right now the site has three simple parts:
 
-- `writing` for notes, writeups, and small technical logs
-- `work` for the code and experiments behind the site
+- `blogs` for articles, technical explanations, and shorter field reports
+- `projects` for research and the systems built around it
 - `about` for the short README version of who I am and what I work on
 
 The stack is also different now. The site is built with `TanStack Start`, `React`, `Tailwind CSS`, markdown content, and a static export flow that still fits GitHub Pages.

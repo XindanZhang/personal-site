@@ -40,22 +40,22 @@ export function BlogSearch({ posts, categories }: { posts: SearchablePost[]; cat
   return (
     <div className="writing-search">
       <div className="writing-toolbox">
-        <div className="topic-filter" aria-label="Filter writing by recurring topic">
+        <div className="topic-filter" aria-label="Filter blogs by topic">
           <button className={activeCategory === "all" ? "is-active" : ""} type="button" aria-pressed={activeCategory === "all"} onClick={() => setActiveCategory("all")}>All <span>{posts.length}</span></button>
           {categories.map((category) => <button key={category.slug} className={activeCategory === category.slug ? "is-active" : ""} type="button" aria-pressed={activeCategory === category.slug} onClick={() => setActiveCategory(category.slug)}>{category.label} <span>{category.count}</span></button>)}
         </div>
         <div className="search-field">
-          <label htmlFor="writing-search"><Search aria-hidden="true" size={18} /><span className="sr-only">Search writing</span></label>
-          <input id="writing-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search title, topic, or tag" />
+          <label htmlFor="writing-search"><Search aria-hidden="true" size={18} /><span className="sr-only">Search blogs</span></label>
+          <input id="writing-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by title, topic, or tag" />
           {query ? <button type="button" onClick={() => setQuery("")} aria-label="Clear search" title="Clear search"><X aria-hidden="true" size={17} /></button> : null}
           <output aria-live="polite">{visiblePosts.length} of {posts.length}</output>
         </div>
       </div>
 
-      <div className="writing-stream" aria-label="Writing archive">
+      <div className="writing-stream" aria-label="Blog archive">
         {yearGroups.map(([year, yearPosts]) => (
           <section className="writing-year-group" key={year} aria-labelledby={`writing-year-${year}`}>
-            <header className="writing-year-marker"><h2 id={`writing-year-${year}`}>{year}</h2><p>{yearPosts.length} {yearPosts.length === 1 ? "note" : "notes"}</p></header>
+            <header className="writing-year-marker"><h2 id={`writing-year-${year}`}>{year}</h2><p>{yearPosts.length} {yearPosts.length === 1 ? "post" : "posts"}</p></header>
             <div className="writing-year-posts">
               {yearPosts.map((post) => (
                 <article key={post.slug} className="writing-entry">
@@ -71,7 +71,7 @@ export function BlogSearch({ posts, categories }: { posts: SearchablePost[]; cat
         ))}
       </div>
 
-      {visiblePosts.length === 0 ? <div className="empty-state"><strong>No matching notes.</strong><p>Try a broader system, protocol, or tool name.</p></div> : null}
+      {visiblePosts.length === 0 ? <div className="empty-state"><strong>No matching posts.</strong><p>Try a broader protocol, system, or tool.</p></div> : null}
     </div>
   );
 }

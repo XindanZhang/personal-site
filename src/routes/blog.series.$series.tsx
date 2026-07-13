@@ -23,10 +23,10 @@ function SeriesPage() {
   return (
     <>
       <section className="page-intro series-intro">
-        <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> All writing</Link>
+        <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> All blogs</Link>
         <div className="page-intro-grid">
           <div><p className="section-kicker">Series · {series.posts.length.toString().padStart(2, "0")} parts</p><h1>{series.name}</h1></div>
-          <div><p>One research thread, ordered so the overview, experiments, and implementation details stay readable together.</p>{series.posts[0]?.sourceUrl ? <a className="text-link" href={series.posts[0].sourceUrl} target="_blank" rel="noopener noreferrer">Project source <ArrowUpRight aria-hidden="true" size={14} /></a> : null}</div>
+          <div><p>Four articles follow one line of inquiry from architecture and interfaces to observed runtime behavior.</p>{series.posts[0]?.sourceUrl ? <a className="text-link" href={series.posts[0].sourceUrl} target="_blank" rel="noopener noreferrer">Project source <ArrowUpRight aria-hidden="true" size={14} /></a> : null}</div>
         </div>
       </section>
       <section className="series-index" aria-label={`${series.name} articles`}><SeriesPath posts={series.posts} /></section>

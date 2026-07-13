@@ -89,11 +89,11 @@ test("TanStack Start prerenders the editorial portfolio and purposeful routes", 
     const projectsHtml = readExport(outDir, "projects", "index.html");
     const aboutHtml = readExport(outDir, "about", "index.html");
 
-    assert.match(homeHtml, /<title>Xindan Zhang — Systems, networks, and field notes<\/title>/);
+    assert.match(homeHtml, /<title>Xindan Zhang — Networked systems research<\/title>/);
     assert.match(homeHtml, /Xindan Zhang\./);
-    assert.match(homeHtml, /Tracing systems\./);
-    assert.match(homeHtml, /Keeping the useful parts\./);
-    assert.match(homeHtml, /Selected work/);
+    assert.match(homeHtml, /Studying systems\./);
+    assert.match(homeHtml, /Explaining how they behave\./);
+    assert.match(homeHtml, />Projects<\/a>/);
     assert.match(homeHtml, /xindan\.zhang@mail\.utoronto\.ca/);
     assert.match(homeHtml, /vintage-computer-only\.mp4/);
     assert.match(homeHtml, /vintage-computer-only-poster\.webp/);
@@ -103,8 +103,8 @@ test("TanStack Start prerenders the editorial portfolio and purposeful routes", 
     assert.doesNotMatch(homeHtml, /Start a conversation|Have a systems problem worth making legible/);
     assert.doesNotMatch(homeHtml, /Mainframe®|Pitch us an idea|hello@mainframe\.co/);
     assert.match(homeHtml, /aria-label="Primary navigation"/);
-    assert.match(homeHtml, />Work<\/a>/);
-    assert.match(homeHtml, />Writing<\/a>/);
+    assert.match(homeHtml, />Projects<\/a>/);
+    assert.match(homeHtml, />Blogs<\/a>/);
     assert.match(homeHtml, />About<\/a>/);
     assert.doesNotMatch(homeHtml, />Links<\/a>/);
     assert.match(homeHtml, /aria-controls="mobile-navigation"/);
@@ -117,18 +117,21 @@ test("TanStack Start prerenders the editorial portfolio and purposeful routes", 
     assert.match(notFoundHtml, /href="\/personal-site\/">Return home<\/a>/);
     assert.doesNotMatch(notFoundHtml, /<script/);
 
-    assert.match(projectsHtml, /Systems made legible\./);
-    assert.match(projectsHtml, /Featured research notes/);
-    assert.match(projectsHtml, /Controller paths/);
-    assert.match(projectsHtml, /Built alongside/);
-    assert.match(projectsHtml, /TanStack Start notebook/);
+    assert.match(projectsHtml, /<h1>Projects\.<\/h1>/);
+    assert.match(projectsHtml, /Research series/);
+    assert.match(projectsHtml, /Controller interfaces/);
+    assert.match(projectsHtml, /Publishing system/);
+    assert.match(projectsHtml, /statically rendered personal site/);
+    assert.equal((projectsHtml.match(/project-card/g) ?? []).length, 2);
+    assert.doesNotMatch(projectsHtml, /notebook|Selected work|Built alongside/);
     assert.doesNotMatch(projectsHtml, /More work|Project index|project-facts/);
     assert.doesNotMatch(projectsHtml, /Vyron|nextmini-topology|Independent researcher|technical writer/);
 
-    assert.match(aboutHtml, /PhD student in ECE at the University of Toronto\./);
-    assert.match(aboutHtml, /From a trace to a reusable result\./);
-    assert.match(aboutHtml, /A practical systems stack/);
-    assert.match(aboutHtml, /Have a thoughtful systems problem\?/);
+    assert.match(aboutHtml, /PhD student in Electrical and Computer Engineering at the University of Toronto\./);
+    assert.match(aboutHtml, /Evidence first\. Explanation second\./);
+    assert.match(aboutHtml, /Tools for systems research/);
+    assert.match(aboutHtml, /Open to questions, collaborations, and research conversations\./);
+    assert.doesNotMatch(aboutHtml, /notebook/);
     assert.match(aboutHtml, /Copy email/);
     assert.match(aboutHtml, /about-principles/);
     assert.match(aboutHtml, /capability-map/);
@@ -151,10 +154,10 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.ok(cssFile, "missing Vite CSS bundle");
     const css = readExport(outDir, "assets", cssFile);
 
-    assert.match(blogHtml, /<h1>Writing\.<\/h1>/);
+    assert.match(blogHtml, /<h1>Blogs\.<\/h1>/);
     assert.match(blogHtml, /type="search"/);
-    assert.match(blogHtml, /Search title, topic, or tag/);
-    assert.match(blogHtml, /aria-label="Filter writing by recurring topic"/);
+    assert.match(blogHtml, /Search by title, topic, or tag/);
+    assert.match(blogHtml, /aria-label="Filter blogs by topic"/);
     assert.match(blogHtml, /Nextmini series/);
     assert.match(blogHtml, /class="writing-year-group"/);
     assert.match(blogHtml, /<h2 id="writing-year-2026">2026<\/h2>/);

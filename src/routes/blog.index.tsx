@@ -6,7 +6,7 @@ import { site } from "~/lib/site";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Writing | Xindan Zhang" },
+      { title: "Blogs | Xindan Zhang" },
       { name: "description", content: site.blog.description },
     ],
     links: [{ rel: "canonical", href: "https://xindanzhang.github.io/personal-site/blog/" }],

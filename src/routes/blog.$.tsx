@@ -45,7 +45,7 @@ function BlogPostPage() {
       <ReadingProgress />
       <article className="article-page">
         <header className="article-header">
-          <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> All writing</Link>
+          <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> All blogs</Link>
           <div className="article-taxonomy">
             <span>{post.categoryLabel}</span>
             {post.series && post.seriesSlug ? <Link to="/blog/series/$series/" params={{ series: post.seriesSlug }}>{post.series}</Link> : null}
