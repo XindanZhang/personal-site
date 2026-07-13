@@ -98,6 +98,7 @@ test("TanStack Start prerenders the editorial portfolio and purposeful routes", 
     assert.match(homeHtml, /vintage-computer-only\.mp4/);
     assert.match(homeHtml, /vintage-computer-only-poster\.webp/);
     assert.doesNotMatch(homeHtml, /hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08\.mp4/);
+    assert.doesNotMatch(homeHtml, /db\.onlinewebfonts\.com|HelveticaNowDisplay/);
     assert.match(homeHtml, /class="typewriter-cursor/);
     assert.doesNotMatch(homeHtml, /Start a conversation|Have a systems problem worth making legible/);
     assert.doesNotMatch(homeHtml, /Mainframe®|Pitch us an idea|hello@mainframe\.co/);
@@ -177,8 +178,8 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /Paper Mono/);
     assert.match(css, /\/personal-site\/fonts\/paper-mono\.woff2/);
     assert.doesNotMatch(css, /IBM Plex/);
-    assert.match(css, /--font-heading:[^;]*HelveticaNowDisplay-Medium/);
-    assert.match(css, /--font-body:[^;]*HelveticaNowDisplayW01-Rg/);
+    assert.match(css, /--font-heading:[^;]*-apple-system/);
+    assert.match(css, /--font-body:[^;]*-apple-system/);
     assert.match(css, /--paper:#efede8/);
     assert.match(css, /--blue:#b6644d/);
     assert.match(css, /\[data-theme=dark\]/);
