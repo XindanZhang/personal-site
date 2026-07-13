@@ -15,14 +15,13 @@ I wanted a place that feels closer to how I actually work: terminal windows, sho
 
 ## What is here now
 
-Right now the site has four simple parts:
+Right now the site has three simple parts:
 
-- `blog` for notes, writeups, and small technical logs
-- `projects` for the code and experiments behind the site
-- `bookmarks` for the few links I still come back to
+- `writing` for notes, writeups, and small technical logs
+- `work` for the code and experiments behind the site
 - `about` for the short README version of who I am and what I work on
 
-The stack is also different now. The site is built with `Next.js`, `Tailwind CSS`, markdown content, and a static export flow that still fits GitHub Pages.
+The stack is also different now. The site is built with `TanStack Start`, `React`, `Tailwind CSS`, markdown content, and a static export flow that still fits GitHub Pages.
 
 ## What I wanted from the design
 

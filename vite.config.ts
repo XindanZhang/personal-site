@@ -6,13 +6,7 @@ import { defineConfig } from "vite";
 
 interface GeneratedPost {
   slug: string;
-  categorySlug: string;
-  tags: string[];
   seriesSlug?: string;
-}
-
-function slugify(value: string) {
-  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 function getPrerenderPages() {
@@ -23,8 +17,6 @@ function getPrerenderPages() {
 
   for (const post of generated.posts) {
     paths.add(`/blog/${post.slug}`);
-    paths.add(`/blog/category/${post.categorySlug}`);
-    post.tags.forEach((tag) => paths.add(`/blog/tag/${slugify(tag)}`));
     if (post.seriesSlug) paths.add(`/blog/series/${post.seriesSlug}`);
   }
 

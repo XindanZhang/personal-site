@@ -47,7 +47,7 @@ function BlogPostPage() {
         <header className="article-header">
           <Link className="back-link" to="/blog/"><ArrowLeft aria-hidden="true" size={15} /> All writing</Link>
           <div className="article-taxonomy">
-            <Link to="/blog/category/$category/" params={{ category: post.categorySlug }}>{post.categoryLabel}</Link>
+            <span>{post.categoryLabel}</span>
             {post.series && post.seriesSlug ? <Link to="/blog/series/$series/" params={{ series: post.seriesSlug }}>{post.series}</Link> : null}
           </div>
           <h1>{post.title}</h1>
@@ -64,7 +64,7 @@ function BlogPostPage() {
           <details className="article-outline-mobile">
             <summary className="outline-header"><span>On this page</span><span>{post.headings.length.toString().padStart(2, "0")}<ChevronDown aria-hidden="true" size={16} /></span></summary>
             <nav aria-label="Table of contents">{post.headings.map((heading) => <a key={heading.slug} className={heading.depth > 2 ? "is-sub" : ""} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
-            <div className="article-tags">{post.tags.map((tag) => <Link key={tag} to="/blog/tag/$tag/" params={{ tag: tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") }}>#{tag}</Link>)}</div>
+            <div className="article-tags">{post.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div>
           </details>
         ) : null}
 
@@ -81,7 +81,7 @@ function BlogPostPage() {
             <aside className="article-outline">
               <div className="outline-header"><span>On this page</span><span>{post.headings.length.toString().padStart(2, "0")}</span></div>
               <nav aria-label="Table of contents">{post.headings.map((heading) => <a key={heading.slug} className={heading.depth > 2 ? "is-sub" : ""} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
-              <div className="article-tags">{post.tags.map((tag) => <Link key={tag} to="/blog/tag/$tag/" params={{ tag: tag.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") }}>#{tag}</Link>)}</div>
+              <div className="article-tags">{post.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div>
             </aside>
           ) : null}
         </div>

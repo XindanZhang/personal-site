@@ -40,14 +40,6 @@ export interface BlogTaxonomyEntry {
 
 const posts = blogData.posts as BlogPost[];
 
-export function slugify(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 export function getAllPosts() {
   return posts;
 }
@@ -107,32 +99,6 @@ export function getAllCategories() {
   }
 
   return [...categoryMap.values()].sort((left, right) => left.label.localeCompare(right.label));
-}
-
-export function getPostsByCategory(categorySlug: string) {
-  return posts.filter((post) => post.categorySlug === categorySlug);
-}
-
-export function getAllTags() {
-  const tagMap = new Map<string, BlogTaxonomyEntry>();
-
-  for (const post of posts) {
-    for (const tag of post.tags) {
-      const slug = slugify(tag);
-      const existing = tagMap.get(slug);
-      if (existing) {
-        existing.count += 1;
-      } else {
-        tagMap.set(slug, { label: tag, slug, count: 1 });
-      }
-    }
-  }
-
-  return [...tagMap.values()].sort((left, right) => left.label.localeCompare(right.label));
-}
-
-export function getPostsByTag(tagSlug: string) {
-  return posts.filter((post) => post.tags.some((tag) => slugify(tag) === tagSlug));
 }
 
 export function formatMediumDate(date: string | Date) {

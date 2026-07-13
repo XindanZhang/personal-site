@@ -13,7 +13,7 @@ export function SiteFooter() {
         <div className="footer-bottom">
           <span className="footer-brand">© 2026</span>
           <nav aria-label="Footer navigation">{navigation.slice(1).map((item) => <Link key={item.to} to={item.to}>{item.label}</Link>)}</nav>
-          <div className="footer-links"><Link to="/bookmarks/">Bookmarks</Link><a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a><a href={site.source} target="_blank" rel="noopener noreferrer">Source</a></div>
+          <div className="footer-links"><a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a><a href={site.source} target="_blank" rel="noopener noreferrer">Source</a></div>
           <p>Toronto, Canada</p>
         </div>
       </div>

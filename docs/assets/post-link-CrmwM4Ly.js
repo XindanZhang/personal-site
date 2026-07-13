@@ -1,0 +1,1 @@
+import{s as e,t}from"./link-IxVZ_i1W.js";var n=e();function r({slug:e,className:r,children:i}){return(0,n.jsx)(t,{className:r,to:`/blog/$/`,params:{_splat:e},children:i})}export{r as t};

@@ -29,22 +29,19 @@ function AboutPage() {
         <div className="page-intro-grid"><h1>PhD student in ECE at the University of Toronto.</h1><p>{site.about.intro}</p></div>
       </section>
 
-      <Reveal as="section" className="about-overview is-plain" aria-labelledby="profile-title">
-        <div className="about-copy">
-          <p className="section-kicker">Working practice</p><h2 id="profile-title">From a trace to a reusable result.</h2>
-          <p>{site.about.body}</p>
-          <div className="principle-list">{principles.map((principle, index) => <section key={principle.label}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{principle.label}</h3><p>{principle.value}</p></div></section>)}</div>
-        </div>
+      <Reveal as="section" className="about-practice" aria-labelledby="profile-title">
+        <header className="about-practice-header"><div><p className="section-kicker">Working practice</p><h2 id="profile-title">From a trace to a reusable result.</h2></div><p>{site.about.body}</p></header>
+        <div className="about-principles">{principles.map((principle) => <article key={principle.label}><span>{principle.label}</span><p>{principle.value}</p></article>)}</div>
       </Reveal>
 
-      <Reveal as="section" className="toolkit-section" delay={60} aria-labelledby="toolkit-title">
+      <Reveal as="section" className="about-capabilities" delay={60} aria-labelledby="toolkit-title">
         <header className="section-intro"><div><p className="section-kicker">Capabilities</p><h2 id="toolkit-title">A practical systems stack.</h2></div><p>Tools change. The workflow stays grounded in inspection, small experiments, and reproducible notes.</p></header>
-        <div className="toolkit-grid">{site.skillGroups.map((group, index) => <section key={group.title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{group.title}</h3><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></section>)}</div>
+        <div className="capability-map">{site.skillGroups.map((group) => <article key={group.title}><h3>{group.title}</h3><p>{group.items.join(" · ")}</p></article>)}</div>
       </Reveal>
 
-      <Reveal as="section" className="timeline-section" delay={90} aria-labelledby="timeline-title">
+      <Reveal as="section" className="about-timeline" delay={90} aria-labelledby="timeline-title">
         <header className="section-intro"><div><p className="section-kicker">Timeline</p><h2 id="timeline-title">The notebook so far.</h2></div><Link className="text-link" to="/blog/">Open archive <ArrowRight aria-hidden="true" size={14} /></Link></header>
-        <div className="timeline-list">{site.timeline.map((entry) => <div key={entry.year}><time>{entry.year}</time><p>{entry.detail}</p></div>)}</div>
+        <div className="about-milestones">{site.timeline.map((entry) => <article key={entry.year}><time>{entry.year}</time><p>{entry.detail}</p></article>)}</div>
       </Reveal>
 
       <Reveal as="section" className="contact-section" delay={110} aria-labelledby="contact-title">

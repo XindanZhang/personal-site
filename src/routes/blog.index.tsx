@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BlogArchive } from "~/components/blog-archive";
-import { getAllCategories, getAllPosts, getAllTags } from "~/lib/blog";
+import { getAllCategories, getAllPosts } from "~/lib/blog";
 import { site } from "~/lib/site";
 
 export const Route = createFileRoute("/blog/")({
@@ -15,5 +15,5 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogPage() {
-  return <BlogArchive routeLabel="~/writing" categories={getAllCategories()} description={site.blog.description} posts={getAllPosts()} tags={getAllTags()} />;
+  return <BlogArchive categories={getAllCategories()} description={site.blog.description} posts={getAllPosts()} />;
 }

@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { PostTable } from "~/components/post-table";
+import { SeriesPath } from "~/components/series-path";
 import { getSeriesBySlug } from "~/lib/blog";
 
 export const Route = createFileRoute("/blog/series/$series")({
@@ -29,7 +29,7 @@ function SeriesPage() {
           <div><p>One research thread, ordered so the overview, experiments, and implementation details stay readable together.</p>{series.posts[0]?.sourceUrl ? <a className="text-link" href={series.posts[0].sourceUrl} target="_blank" rel="noopener noreferrer">Project source <ArrowUpRight aria-hidden="true" size={14} /></a> : null}</div>
         </div>
       </section>
-      <section className="series-index" aria-label={`${series.name} articles`}><PostTable posts={series.posts} /></section>
+      <section className="series-index" aria-label={`${series.name} articles`}><SeriesPath posts={series.posts} /></section>
     </>
   );
 }

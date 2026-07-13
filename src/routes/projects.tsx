@@ -1,6 +1,5 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ProjectLedger } from "~/components/project-ledger";
 import { Reveal } from "~/components/reveal";
 import { site } from "~/lib/site";
 
@@ -23,27 +22,29 @@ function ProjectsPage() {
         <div className="page-intro-grid"><h1>Systems made legible.</h1><p>Networking notes and publishing tools built around one principle: observe behavior before polishing the interface.</p></div>
       </section>
 
-      <Reveal as="section" className="featured-project is-text-only" aria-labelledby="featured-title">
-        <div className="featured-project-copy">
-          <div className="project-label"><span>01</span><span>Featured notes</span><span>2025–26</span></div>
-          <h2 id="featured-title">{featuredProject.name}</h2>
-          <p>{featuredProject.description}</p>
-          <dl className="project-facts">
-            <div><dt>Format</dt><dd>Four-part code-reading series</dd></div>
-            <div><dt>Focus</dt><dd>Controller paths, processor behavior, and lossless runtime</dd></div>
-            <div><dt>Output</dt><dd>Four linked technical notes organized as a repeatable reading path</dd></div>
-          </dl>
-          <div className="project-actions">
-            <Link className="action-link is-primary" to="/blog/series/$series/" params={{ series: "nextmini" }}>{featuredProject.hrefLabel} <ArrowRight aria-hidden="true" size={17} /></Link>
-            <a className="text-link" href="https://nextmini.org/" target="_blank" rel="noopener noreferrer">Reference: Nextmini.org <ArrowUpRight aria-hidden="true" size={14} /></a>
+      <section className="work-composition" aria-label="Selected projects">
+        <Reveal as="article" className="work-feature">
+          <header className="work-feature-top"><span>Featured research notes</span><time>2025—26</time></header>
+          <div className="work-feature-layout">
+            <div className="work-feature-title"><span className="work-project-number">01 / Research thread</span><h2>{featuredProject.name}</h2></div>
+            <div className="work-feature-body">
+              <p>{featuredProject.description}</p>
+              <p className="work-scope">Controller paths <i aria-hidden="true" /> Processor behavior <i aria-hidden="true" /> Lossless runtime</p>
+              <div className="project-actions">
+                <Link className="action-link is-primary" to="/blog/series/$series/" params={{ series: "nextmini" }}>{featuredProject.hrefLabel} <ArrowRight aria-hidden="true" size={17} /></Link>
+                <a className="text-link" href="https://nextmini.org/" target="_blank" rel="noopener noreferrer">Nextmini.org <ArrowUpRight aria-hidden="true" size={14} /></a>
+              </div>
+            </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <Reveal as="section" className="work-index" delay={70} aria-labelledby="work-index-title">
-        <header className="section-intro"><div><p className="section-kicker">Project index</p><h2 id="work-index-title">More work</h2></div><p>The publishing system behind this portfolio and technical notebook.</p></header>
-        <ProjectLedger projects={otherProjects} />
-      </Reveal>
+        {otherProjects.map((project) => (
+          <Reveal as="article" className="work-companion" delay={70} key={project.name}>
+            <div className="work-companion-title"><p className="section-kicker">Built alongside · {project.status}</p><h2>{project.name}</h2></div>
+            <div className="work-companion-body"><p>{project.description}</p><p className="work-tag-line">{project.tags.join(" · ")}</p>{project.external ? <a className="text-link" href={project.href} target="_blank" rel="noopener noreferrer">{project.hrefLabel} <ArrowUpRight aria-hidden="true" size={15} /></a> : <Link className="text-link" to={project.href}>{project.hrefLabel} <ArrowRight aria-hidden="true" size={15} /></Link>}</div>
+          </Reveal>
+        ))}
+      </section>
     </>
   );
 }

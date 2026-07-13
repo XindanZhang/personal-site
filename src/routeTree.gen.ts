@@ -10,24 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSplatRouteImport } from './routes/blog.$'
-import { Route as BlogTagTagRouteImport } from './routes/blog.tag.$tag'
 import { Route as BlogSeriesSeriesRouteImport } from './routes/blog.series.$series'
-import { Route as BlogCategoryCategoryRouteImport } from './routes/blog.category.$category'
 
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookmarksRoute = BookmarksRouteImport.update({
-  id: '/bookmarks',
-  path: '/bookmarks',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -55,19 +47,9 @@ const BlogSplatRoute = BlogSplatRouteImport.update({
   path: '/blog/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogTagTagRoute = BlogTagTagRouteImport.update({
-  id: '/blog/tag/$tag',
-  path: '/blog/tag/$tag',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BlogSeriesSeriesRoute = BlogSeriesSeriesRouteImport.update({
   id: '/blog/series/$series',
   path: '/blog/series/$series',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogCategoryCategoryRoute = BlogCategoryCategoryRouteImport.update({
-  id: '/blog/category/$category',
-  path: '/blog/category/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -75,38 +57,29 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
-  '/bookmarks': typeof BookmarksRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog/': typeof BlogIndexRoute
-  '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/blog/series/$series': typeof BlogSeriesSeriesRoute
-  '/blog/tag/$tag': typeof BlogTagTagRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
-  '/bookmarks': typeof BookmarksRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog': typeof BlogIndexRoute
-  '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/blog/series/$series': typeof BlogSeriesSeriesRoute
-  '/blog/tag/$tag': typeof BlogTagTagRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
-  '/bookmarks': typeof BookmarksRoute
   '/projects': typeof ProjectsRoute
   '/blog/$': typeof BlogSplatRoute
   '/blog/': typeof BlogIndexRoute
-  '/blog/category/$category': typeof BlogCategoryCategoryRoute
   '/blog/series/$series': typeof BlogSeriesSeriesRoute
-  '/blog/tag/$tag': typeof BlogTagTagRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -114,50 +87,38 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
-    | '/bookmarks'
     | '/projects'
     | '/blog/$'
     | '/blog/'
-    | '/blog/category/$category'
     | '/blog/series/$series'
-    | '/blog/tag/$tag'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/404'
     | '/about'
-    | '/bookmarks'
     | '/projects'
     | '/blog/$'
     | '/blog'
-    | '/blog/category/$category'
     | '/blog/series/$series'
-    | '/blog/tag/$tag'
   id:
     | '__root__'
     | '/'
     | '/404'
     | '/about'
-    | '/bookmarks'
     | '/projects'
     | '/blog/$'
     | '/blog/'
-    | '/blog/category/$category'
     | '/blog/series/$series'
-    | '/blog/tag/$tag'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
-  BookmarksRoute: typeof BookmarksRoute
   ProjectsRoute: typeof ProjectsRoute
   BlogSplatRoute: typeof BlogSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
-  BlogCategoryCategoryRoute: typeof BlogCategoryCategoryRoute
   BlogSeriesSeriesRoute: typeof BlogSeriesSeriesRoute
-  BlogTagTagRoute: typeof BlogTagTagRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -167,13 +128,6 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bookmarks': {
-      id: '/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/bookmarks'
-      preLoaderRoute: typeof BookmarksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -211,25 +165,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/tag/$tag': {
-      id: '/blog/tag/$tag'
-      path: '/blog/tag/$tag'
-      fullPath: '/blog/tag/$tag'
-      preLoaderRoute: typeof BlogTagTagRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/blog/series/$series': {
       id: '/blog/series/$series'
       path: '/blog/series/$series'
       fullPath: '/blog/series/$series'
       preLoaderRoute: typeof BlogSeriesSeriesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/category/$category': {
-      id: '/blog/category/$category'
-      path: '/blog/category/$category'
-      fullPath: '/blog/category/$category'
-      preLoaderRoute: typeof BlogCategoryCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -239,13 +179,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
   AboutRoute: AboutRoute,
-  BookmarksRoute: BookmarksRoute,
   ProjectsRoute: ProjectsRoute,
   BlogSplatRoute: BlogSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
-  BlogCategoryCategoryRoute: BlogCategoryCategoryRoute,
   BlogSeriesSeriesRoute: BlogSeriesSeriesRoute,
-  BlogTagTagRoute: BlogTagTagRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -10,12 +10,6 @@ export interface ProjectLink {
   external?: boolean;
 }
 
-export interface BookmarkLink {
-  name: string;
-  note: string;
-  href: string;
-}
-
 export interface TimelineEntry {
   year: string;
   detail: string;
@@ -48,7 +42,6 @@ export const site = {
   blog: {
     description: "Notes on systems, networking, debugging, and the terminal workflows behind them.",
   },
-  bookmarksIntro: "A short list of bookmarks I still reopen.",
   about: {
     intro:
       "This site is where I keep notes on networking, systems, and reproducible workflows.",
@@ -74,13 +67,6 @@ export const site = {
       external: true,
     },
   ] satisfies ProjectLink[],
-  bookmarks: [
-    {
-      name: "Nextmini",
-      note: "Network emulation and experimentation testbed.",
-      href: "https://nextmini.org/",
-    },
-  ] satisfies BookmarkLink[],
   skillGroups: [
     {
       title: "Languages",

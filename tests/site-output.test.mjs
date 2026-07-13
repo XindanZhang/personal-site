@@ -49,7 +49,7 @@ test("the personal hero keeps mouse-driven video seeking bounded and queued", ()
   assert.doesNotMatch(source, /autoPlay/);
 });
 
-test("TanStack Start prerenders the editorial portfolio and every route", () => {
+test("TanStack Start prerenders the editorial portfolio and purposeful routes", () => {
   const outDir = buildSite();
 
   try {
@@ -63,12 +63,9 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
       "assets/vintage-computer-only-poster.webp",
       "about/index.html",
       "projects/index.html",
-      "bookmarks/index.html",
       "blog/index.html",
       "blog/series/nextmini/index.html",
       "blog/nextmini/controller-interface/index.html",
-      "blog/category/nextmini-series/index.html",
-      "blog/tag/nextmini/index.html",
     ];
 
     for (const file of requiredFiles) {
@@ -83,12 +80,14 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.equal(existsSync(resolve(outDir, "_next")), false, "Next.js assets remain in export");
     assert.equal(existsSync(resolve(outDir, "games", "index.html")), false, "removed games route was exported");
     assert.equal(existsSync(resolve(outDir, "interests", "index.html")), false, "removed interests route was exported");
+    assert.equal(existsSync(resolve(outDir, "bookmarks", "index.html")), false, "thin bookmarks route was exported");
+    assert.equal(existsSync(resolve(outDir, "blog", "category", "nextmini-series", "index.html")), false, "thin category route was exported");
+    assert.equal(existsSync(resolve(outDir, "blog", "tag", "nextmini", "index.html")), false, "thin tag route was exported");
 
     const homeHtml = readExport(outDir, "index.html");
     const notFoundHtml = readExport(outDir, "404.html");
     const projectsHtml = readExport(outDir, "projects", "index.html");
     const aboutHtml = readExport(outDir, "about", "index.html");
-    const linksHtml = readExport(outDir, "bookmarks", "index.html");
 
     assert.match(homeHtml, /<title>Xindan Zhang — Systems, networks, and field notes<\/title>/);
     assert.match(homeHtml, /Xindan Zhang\./);
@@ -106,7 +105,7 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.match(homeHtml, />Work<\/a>/);
     assert.match(homeHtml, />Writing<\/a>/);
     assert.match(homeHtml, />About<\/a>/);
-    assert.match(homeHtml, />Links<\/a>/);
+    assert.doesNotMatch(homeHtml, />Links<\/a>/);
     assert.match(homeHtml, /aria-controls="mobile-navigation"/);
     assert.doesNotMatch(homeHtml, /aria-label="Footer navigation"/);
     assert.match(homeHtml, /id="main-content"/);
@@ -118,10 +117,11 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.doesNotMatch(notFoundHtml, /<script/);
 
     assert.match(projectsHtml, /Systems made legible\./);
-    assert.match(projectsHtml, /Featured notes/);
-    assert.match(projectsHtml, /Four-part code-reading series/);
-    assert.match(projectsHtml, /More work/);
+    assert.match(projectsHtml, /Featured research notes/);
+    assert.match(projectsHtml, /Controller paths/);
+    assert.match(projectsHtml, /Built alongside/);
     assert.match(projectsHtml, /TanStack Start notebook/);
+    assert.doesNotMatch(projectsHtml, /More work|Project index|project-facts/);
     assert.doesNotMatch(projectsHtml, /Vyron|nextmini-topology|Independent researcher|technical writer/);
 
     assert.match(aboutHtml, /PhD student in ECE at the University of Toronto\./);
@@ -129,11 +129,11 @@ test("TanStack Start prerenders the editorial portfolio and every route", () => 
     assert.match(aboutHtml, /A practical systems stack/);
     assert.match(aboutHtml, /Have a thoughtful systems problem\?/);
     assert.match(aboutHtml, /Copy email/);
+    assert.match(aboutHtml, /about-principles/);
+    assert.match(aboutHtml, /capability-map/);
+    assert.match(aboutHtml, /about-milestones/);
+    assert.doesNotMatch(aboutHtml, /principle-list|toolkit-grid|timeline-list/);
     assert.doesNotMatch(aboutHtml, />XZ<|Independent researcher|technical writer|Available/);
-
-    assert.match(linksHtml, /References worth reopening\./);
-    assert.match(linksHtml, /aria-label="Bookmarked references"/);
-    assert.match(linksHtml, /nextmini\.org/);
   } finally {
     rmSync(outDir, { recursive: true, force: true });
   }
@@ -153,10 +153,13 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(blogHtml, /<h1>Writing\.<\/h1>/);
     assert.match(blogHtml, /type="search"/);
     assert.match(blogHtml, /Search title, topic, or tag/);
-    assert.match(blogHtml, /aria-label="Writing filters"/);
-    assert.match(blogHtml, /aria-label="Categories"/);
-    assert.match(blogHtml, /<summary>Tags <span>/);
+    assert.match(blogHtml, /aria-label="Filter writing by recurring topic"/);
+    assert.match(blogHtml, /Nextmini series/);
+    assert.match(blogHtml, /class="writing-year-group"/);
+    assert.match(blogHtml, /<h2 id="writing-year-2026">2026<\/h2>/);
     assert.match(blogHtml, /Ethernet 1500B and Jumbo 9000/);
+    assert.doesNotMatch(blogHtml, /\/blog\/(?:category|tag)\//);
+    assert.doesNotMatch(blogHtml, /\/bookmarks\//);
 
     assert.match(articleHtml, /<title>Controller interface \| Xindan Zhang<\/title>/);
     assert.match(articleHtml, /name="description" content=/);
@@ -191,6 +194,10 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
     assert.match(css, /@keyframes blink/);
     assert.match(css, /\.personal-hero-grid/);
     assert.match(css, /\.computer-stage/);
+    assert.match(css, /\.work-composition/);
+    assert.match(css, /\.writing-year-group/);
+    assert.match(css, /\.about-principles/);
+    assert.match(css, /\.series-path/);
     assert.doesNotMatch(css, /\.game-scene|\.vyron-kit|\.game-zone/);
     assert.match(css, /overflow-y:auto/);
     assert.doesNotMatch(css, /#b9f34b|#73f59f|#65e99a|#75f59f|#72f59d|#78f5a2|#9dd8cc|#1a5e3a/);
@@ -209,7 +216,7 @@ test("writing, SEO, editorial styles, and accessibility survive static export", 
       }
     };
     walk(outDir);
-    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 46);
+    assert.equal(htmlFiles.filter((file) => file.endsWith("index.html")).length, 15);
 
     for (const file of htmlFiles) {
       const html = readFileSync(file, "utf8");

@@ -7,7 +7,6 @@ const personalLinks = [
   { label: "Work", to: "/projects/" },
   { label: "Writing", to: "/blog/" },
   { label: "About", to: "/about/" },
-  { label: "Links", to: "/bookmarks/" },
 ] as const;
 
 export function SiteHeader() {
